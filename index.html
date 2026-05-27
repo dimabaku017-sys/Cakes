@@ -430,21 +430,34 @@ body.dark .exit-btn:hover {
 
 /* Адаптивность - ДЛЯ ТЕЛЕФОНОВ 1 ТОВАР, ДЛЯ ПЛАНШЕТОВ 2-3, ДЛЯ КОМПЬЮТЕРОВ 4 */
 @media (max-width: 1200px) { 
-    .products-grid { grid-template-columns: repeat(3, 1fr); } 
+    .products-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }  
 }
 @media (max-width: 900px) { 
-    .products-grid { grid-template-columns: repeat(2, 1fr); } 
+    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } 
     .main-container { flex-direction: column; } 
     .sidebar { width: 100%; position: static; } 
 }
 @media (max-width: 600px) { 
-    .products-grid { grid-template-columns: 1fr; } 
+    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } 
     .product-card { max-width: 100%; }
-    .product-image, .product-gallery .product-image { height: 200px; }
+    .product-image, .product-gallery .product-image { height: 140px; }
+    .product-title { font-size: 13px; min-height: 38px; padding-right: 28px; }
+    .product-price { font-size: 16px; }
+    .price-per-kg { font-size: 10px; }
+    .add-to-cart-btn { font-size: 11px; padding: 8px 4px; }
+    .favorite-heart { font-size: 22px; top: 6px; right: 6px; }
     .header-buttons { gap: 6px; }
-    .cart-btn, .orders-btn, .login-btn { padding: 8px 12px; font-size: 13px; }
-    .logo { font-size: 20px; }
+    .cart-btn, .orders-btn, .login-btn { padding: 6px 10px; font-size: 11px; }
+    .logo { font-size: 16px; }
     .sidebar { margin-bottom: 20px; }
+}
+@media (max-width: 480px) { 
+    .products-grid { gap: 10px; }
+    .product-image, .product-gallery .product-image { height: 120px; }
+    .product-title { font-size: 12px; }
+    .product-price { font-size: 14px; }
+    .cart-btn, .orders-btn, .login-btn { padding: 5px 8px; font-size: 10px; }
+    .logo { font-size: 14px; }
 }
     </style>
     <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_api_ключ&lang=ru_RU" type="text/javascript"></script>
@@ -2870,4 +2883,4 @@ body.dark .exit-btn:hover {
         document.getElementById('filter-designs').addEventListener('change', filterProducts);
     </script>
 </body>
-</html>
+</html> 
