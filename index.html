@@ -1,0 +1,2873 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title id="siteTitle">Торты на заказ Воронеж</title>
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.png">
+    
+    <style>
+	* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        
+        /* Переменные для тем */
+        :root {
+            --bg-color: #fef5f5;
+            --header-bg: linear-gradient(135deg, #84B067, #FFDE59);
+            --card-bg: white;
+            --text-color: #333;
+            --sidebar-bg: white;
+            --review-bg: #f9f9f9;
+            --border-color: #e0e0e0;
+            --input-bg: white;
+            --modal-bg: white;
+            --filter-hover: #fef5f5;
+            --price-color: #e94560;
+            --heart-color: #333;
+        }
+        
+        body.dark {
+            --bg-color: #1a1a2e;
+            --header-bg: linear-gradient(135deg, #16213e, #0f3460);
+            --card-bg: #16213e;
+            --text-color: #eee;
+            --sidebar-bg: #16213e;
+            --review-bg: #1a1a2e;
+            --border-color: #2a3a5e;
+            --input-bg: #0f3460;
+            --modal-bg: #16213e;
+            --filter-hover: #0f3460;
+            --price-color: #ff6b6b;
+            --heart-color: #ddd;
+        }
+        
+        body { background: var(--bg-color); min-height: 100vh; transition: all 0.3s ease; }
+        
+        /* Тогглер (ползунок) */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid #e94560;
+        }
+        
+        body.dark .theme-toggle {
+            background: #16213e;
+            border-color: #ff6b6b;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .theme-toggle .sun-icon,
+        .theme-toggle .moon-icon {
+            font-size: 28px;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle .sun-icon {
+            display: block;
+            color: #ffd700;
+        }
+        
+        .theme-toggle .moon-icon {
+            display: none;
+            color: #c0c0c0;
+        }
+        
+        body.dark .theme-toggle .sun-icon {
+            display: none;
+        }
+        
+        body.dark .theme-toggle .moon-icon {
+            display: block;
+        }
+        
+        /* CSS переменные для тем */
+:root {
+    --bg-color: #fef5f5;
+    --header-bg: linear-gradient(135deg, #84B067, #FFDE59);
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --sidebar-bg: #ffffff;
+    --review-bg: #f9f9f9;
+    --border-color: #e0e0e0;
+    --input-bg: #ffffff;
+    --modal-bg: #ffffff;
+    --filter-hover: #fef5f5;
+    --price-color: #e94560;
+    --heart-color: #333333;
+    --btn-bg: #84B067;
+    --btn-hover: #6e9a55;
+    --cart-bg: #ffffff;
+    --cart-text: #e94560;
+}
+
+body.dark {
+    --bg-color: #1a1a2e;
+    --header-bg: linear-gradient(135deg, #16213e, #0f3460);
+    --card-bg: #16213e;
+    --text-color: #eeeeee;
+    --sidebar-bg: #16213e;
+    --review-bg: #1a1a2e;
+    --border-color: #2a3a5e;
+    --input-bg: #0f3460;
+    --modal-bg: #16213e;
+    --filter-hover: #0f3460;
+    --price-color: #ff6b6b;
+    --heart-color: #dddddd;
+    --btn-bg: #0f3460;
+    --btn-hover: #1a4a7a;
+    --cart-bg: #0f3460;
+    --cart-text: #eeeeee;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+body { background: var(--bg-color); min-height: 100vh; transition: background 0.3s ease, color 0.3s ease; }
+
+/* Шапка */
+.header { background: var(--header-bg); color: white; padding: 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.header-top { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; flex-wrap: wrap; gap: 15px; }
+.logo { font-size: 28px; font-weight: bold; cursor: pointer; color: white; }
+.header-right { display: flex; align-items: center; gap: 15px; }
+.header-buttons { display: flex; gap: 12px; align-items: center; position: relative; }
+
+/* Кнопки шапки */
+.cart-btn, .orders-btn, .login-btn, .favorites-header-btn { 
+    background: var(--cart-bg); 
+    color: var(--cart-text); 
+    border: none; 
+    padding: 12px 20px; 
+    border-radius: 25px; 
+    cursor: pointer; 
+    font-size: 16px; 
+    font-weight: bold; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    transition: all 0.2s; 
+    position: relative; 
+}
+.cart-btn:hover, .orders-btn:hover, .login-btn:hover, .favorites-header-btn:hover { transform: scale(1.02); background: var(--filter-hover); }
+
+.cart-count { background: #e94560; color: white; border-radius: 50%; min-width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; position: absolute; top: -8px; right: -8px; padding: 0 5px; }
+.cart-count.show { display: inline-flex; }
+
+.lang-switcher { background: var(--cart-bg); border-radius: 50%; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-size: 18px; font-weight: bold; color: var(--cart-text); }
+.lang-switcher:hover { transform: scale(1.05); background: var(--filter-hover); }
+
+.search-container { max-width: 1400px; margin: 20px auto 0; padding: 0 20px; }
+.search-box { width: 100%; padding: 15px 20px; border: none; border-radius: 25px; font-size: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); background: var(--input-bg); color: var(--text-color); }
+
+.main-container { display: flex; max-width: 1400px; margin: 0 auto; padding: 20px; gap: 30px; }
+
+/* Боковая панель */
+.sidebar { width: 280px; background: var(--sidebar-bg); border-radius: 15px; padding: 20px; height: fit-content; position: sticky; top: 180px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-right: 0; }
+.sidebar h3 { color: #e94560; margin-bottom: 15px; font-size: 18px; }
+
+.filter-item { display: flex; align-items: center; margin: 10px 0; cursor: pointer; padding: 8px; border-radius: 5px; color: var(--text-color); }
+.filter-item:hover { background: var(--filter-hover); }
+.filter-item input { width: 18px; height: 18px; margin-right: 10px; cursor: pointer; }
+
+.sort-price { display: flex; align-items: center; margin: 15px 0 10px; padding: 10px; background: var(--filter-hover); border-radius: 8px; cursor: pointer; color: var(--text-color); }
+.sort-arrow { margin-left: auto; font-size: 20px; color: #e94560; }
+
+.info-buttons { display: flex; flex-direction: column; gap: 10px; margin: 15px 0; }
+.info-btn { background: var(--btn-bg); color: white; border: none; padding: 12px; border-radius: 25px; cursor: pointer; font-size: 14px; font-weight: bold; transition: transform 0.2s; width: 100%; text-align: center; }
+.info-btn:hover { transform: scale(1.02); background: var(--btn-hover); }
+
+/* Отзывы */
+.reviews-section { background: var(--review-bg); border-radius: 10px; padding: 15px; margin-top: 20px; max-height: 450px; overflow-y: auto; }
+.reviews-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid var(--border-color); flex-wrap: wrap; gap: 10px; }
+.avg-rating { background: #e94560; color: white; padding: 5px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+.review-card { background: var(--card-bg); border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); color: var(--text-color); }
+.review-stars { color: #FFD700; font-size: 20px; margin-bottom: 8px; }
+.review-text { color: var(--text-color); line-height: 1.5; margin-bottom: 8px; font-size: 14px; }
+.review-author { font-weight: bold; color: #e94560; margin-bottom: 5px; font-size: 14px; }
+
+/* Товары */
+.products-section { flex: 1; }
+.products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.product-card { background: var(--card-bg); border-radius: 15px; padding: 16px 12px 12px 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer; display: flex; flex-direction: column; height: 100%; position: relative; color: var(--text-color); }
+.product-card:hover { transform: translateY(-5px); }
+
+.cake-icon { font-size: 70px; text-align: center; margin-bottom: 8px; min-height: 85px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.product-image { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; cursor: pointer; transition: transform 0.2s; }
+.product-image:hover { transform: scale(1.02); opacity: 0.9; }
+
+/* Стили для галереи */
+.product-gallery {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.product-gallery .product-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    margin-bottom: 0;
+}
+
+.gallery-prev, .gallery-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+    z-index: 5;
+}
+
+.gallery-prev { left: 5px; }
+.gallery-next { right: 5px; }
+
+.gallery-prev:hover, .gallery-next:hover {
+    background: rgba(0,0,0,0.8);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.gallery-dots {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.gallery-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+}
+
+.gallery-dot.active {
+    background: #e94560;
+}
+
+.product-title { font-size: 17px; font-weight: bold; color: var(--text-color); margin-bottom: 6px; text-align: left; line-height: 1.3; padding-right: 40px; min-height: 44px; }
+.product-category { color: #888; font-size: 13px; margin-bottom: 6px; text-align: left; }
+.product-price { color: var(--price-color); font-size: 22px; font-weight: bold; margin-bottom: 2px; text-align: left; }
+.price-per-kg { font-size: 12px; color: #666; text-align: left; margin-bottom: 10px; }
+body.dark .price-per-kg { color: #aaa; }
+
+.add-to-cart-btn { background: var(--btn-bg); color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: bold; margin-top: 6px; transition: all 0.3s; }
+.add-to-cart-btn.added { background: #4caf50; }
+.add-to-cart-btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+.favorite-heart { position: absolute; top: 12px; right: 12px; font-size: 28px; cursor: pointer; background: none; border: none; transition: transform 0.2s; z-index: 10; }
+.favorite-heart:hover { transform: scale(1.1); }
+.favorite-heart .heart-outline { color: var(--heart-color); display: inline; }
+.favorite-heart .heart-filled { color: #ff6b9d; display: none; }
+.favorite-heart.active .heart-outline { display: none; }
+.favorite-heart.active .heart-filled { display: inline; }
+
+.product-rating { margin-top: 8px; background: rgba(233, 69, 96, 0.1); border-radius: 20px; padding: 4px 8px; font-size: 12px; font-weight: bold; color: var(--price-color); cursor: pointer; display: inline-flex; align-items: center; gap: 4px; width: fit-content; }
+.product-rating span { color: #FFD700; font-size: 14px; }
+.product-rating:hover { background: rgba(233, 69, 96, 0.2); }
+
+/* Модальные окна */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+.modal.show { display: flex; }
+.modal-content { background: var(--modal-bg); border-radius: 15px; padding: 30px; max-width: 700px; width: 90%; max-height: 85vh; overflow-y: auto; position: relative; color: var(--text-color); }
+.modal-title { font-size: 28px; font-weight: bold; margin-bottom: 20px; color: var(--text-color); display: flex; align-items: center; gap: 12px; }
+.close-cross { position: absolute; top: 15px; right: 20px; font-size: 32px; cursor: pointer; color: #999; transition: color 0.2s; background: none; border: none; }
+.close-cross:hover { color: #e94560; }
+
+.welcome-modal .modal-content { max-width: 550px; text-align: center; }
+.contact-modal .modal-content { max-width: 500px; text-align: center; }
+.contact-link { display: inline-block; background: #e94560; color: white; padding: 12px 24px; border-radius: 30px; text-decoration: none; margin: 15px 0; font-weight: bold; transition: background 0.3s; }
+.contact-link:hover { background: #d63651; }
+
+/* Опции выбора */
+.weight-option, .quantity-option, .size-option, .filling-option { display: flex; align-items: center; margin: 15px 0; padding: 15px; border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; color: var(--text-color); }
+.weight-option.selected, .quantity-option.selected, .size-option.selected, .filling-option.selected { border-color: #e94560; background: var(--filter-hover); }
+.option-price { color: var(--price-color); font-weight: bold; margin-left: 10px; }
+
+.modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
+.modal-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
+.confirm-btn { background: #e94560; color: white; }
+.cancel-btn { background: #ddd; color: #333; }
+body.dark .cancel-btn { background: #2a3a5e; color: #eee; }
+
+/* Формы отзывов */
+.review-form textarea, .review-form input { width: 100%; padding: 12px; border: 2px solid var(--border-color); border-radius: 8px; margin-bottom: 15px; font-size: 14px; background: var(--input-bg); color: var(--text-color); }
+.star-rating { display: flex; gap: 5px; margin-bottom: 20px; justify-content: center; }
+.star-rating label { cursor: pointer; font-size: 36px; color: #ddd; }
+.star-rating input[type="radio"] { display: none; }
+.star-rating input[type="radio"]:checked ~ label { color: #FFD700; }
+
+/* Корзина */
+.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 10px; color: var(--text-color); }
+.cart-item-info { flex: 2; }
+.cart-item-controls { display: flex; align-items: center; gap: 12px; }
+.qty-btn { background: #e94560; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 18px; font-weight: bold; transition: background 0.2s; }
+.qty-btn:hover { background: #d63651; }
+.cart-item-qty { font-size: 16px; font-weight: bold; min-width: 30px; text-align: center; }
+.cart-item-price { color: var(--price-color); font-weight: bold; font-size: 18px; min-width: 100px; text-align: right; }
+.cart-total { font-size: 22px; font-weight: bold; margin: 20px 0; color: var(--price-color); text-align: right; }
+
+.order-form input { width: 100%; padding: 12px; border: 2px solid var(--border-color); border-radius: 8px; margin-bottom: 15px; background: var(--input-bg); color: var(--text-color); }
+.order-btn { background: #e94560; color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; transition: all 0.2s; }
+.order-btn:active { transform: scale(0.98); }
+
+.order-history-item { background: var(--card-bg); padding: 15px; border-radius: 10px; margin-bottom: 10px; position: relative; color: var(--text-color); }
+.chat-icon-btn { background: #e94560; color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 20px; cursor: pointer; margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; }
+
+.chat-messages { max-height: 300px; overflow-y: auto; margin-bottom: 15px; padding: 10px; background: var(--review-bg); border-radius: 10px; }
+.chat-message { background: var(--card-bg); padding: 8px 12px; margin-bottom: 8px; border-radius: 10px; color: var(--text-color); }
+
+/* Профиль */
+.profile-field { margin-bottom: 15px; }
+.profile-field label { display: block; font-weight: bold; margin-bottom: 5px; color: var(--price-color); font-size: 16px; }
+.profile-field p { background: var(--review-bg); padding: 12px; border-radius: 8px; font-size: 16px; color: var(--text-color); }
+
+.edit-icon-circle { background: #e94560; color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 18px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+.edit-icon-circle:hover { transform: scale(1.05); background: #d63651; }
+.logout-btn-red { background: #dc3545; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 15px; font-size: 16px; }
+
+.delete-item-btn { background: none; border: none; font-size: 20px; cursor: pointer; opacity: 0.6; transition: opacity 0.3s; color: var(--price-color); }
+.delete-item-btn:hover { opacity: 1; }
+
+.favorites-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border-color); color: var(--text-color); }
+.favorites-item-info { flex: 1; }
+.favorites-item-title { font-weight: bold; margin-bottom: 5px; }
+.favorites-item-price { color: var(--price-color); font-weight: bold; }
+
+.lang-option { display: flex; align-items: center; gap: 12px; padding: 12px; margin: 8px 0; border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; color: var(--text-color); }
+.lang-option:hover { border-color: #e94560; background: var(--filter-hover); }
+.lang-option span { font-size: 28px; }
+.lang-option label { font-size: 18px; font-weight: bold; cursor: pointer; flex: 1; }
+
+#editProfileModal .modal-content { max-width: 550px; }
+#editProfileModal input { padding: 14px; font-size: 16px; margin-bottom: 18px; background: var(--input-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 8px; }
+
+/* Полноэкранное фото */
+.fullscreen-image-modal { background: rgba(0,0,0,0.95); }
+.fullscreen-image-modal .modal-content { background: transparent; padding: 0; max-width: 95vw; max-height: 95vh; display: flex; justify-content: center; align-items: center; box-shadow: none; }
+.fullscreen-image-modal img { max-width: 95vw; max-height: 95vh; object-fit: contain; border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+.fullscreen-close { position: fixed; top: 20px; right: 30px; background: rgba(255,255,255,0.9); border: none; font-size: 32px; cursor: pointer; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; z-index: 1001; color: #333; }
+.fullscreen-close:hover { background: #e94560; color: white; transform: scale(1.1); }
+
+/* Детали товара */
+.product-detail-modal .modal-content { max-width: 600px; }
+.product-detail-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; cursor: pointer; }
+.product-detail-title { font-size: 24px; font-weight: bold; color: var(--text-color); margin-bottom: 10px; }
+.product-detail-category { color: #888; margin-bottom: 10px; }
+.product-detail-price { color: var(--price-color); font-size: 28px; font-weight: bold; margin-bottom: 15px; }
+.product-detail-description { background: var(--review-bg); padding: 15px; border-radius: 10px; line-height: 1.6; margin-bottom: 15px; color: var(--text-color); }
+.product-detail-description h4 { color: var(--price-color); margin-bottom: 10px; }
+.product-detail-composition { background: var(--review-bg); padding: 15px; border-radius: 10px; margin-bottom: 15px; color: var(--text-color); }
+.product-detail-flavors { background: var(--review-bg); padding: 15px; border-radius: 10px; color: var(--text-color); }
+
+/* Условия заказа и доставка */
+.terms-content, .delivery-content { line-height: 1.6; color: var(--text-color); }
+.terms-content h4, .delivery-content h4 { color: var(--price-color); margin: 15px 0 10px 0; }
+.terms-content p, .delivery-content p { margin-bottom: 10px; }
+.delivery-section { margin-bottom: 20px; padding: 10px; background: var(--review-bg); border-radius: 10px; }
+
+.button-group { display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap; }
+.small-btn { background: #e94560; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-size: 14px; font-weight: bold; transition: transform 0.2s; }
+.small-btn:hover { transform: scale(1.02); background: #d63651; }
+body.dark .small-btn { background: #0f3460; }
+body.dark .small-btn:hover { background: #1a4a7a; }
+
+/* Кнопка выхода из разделов */
+.exit-btn {
+    background: #e94560;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+.exit-btn:hover {
+    transform: scale(1.02);
+    background: #d63651;
+}
+
+body.dark .exit-btn {
+    background: #0f3460;
+}
+
+body.dark .exit-btn:hover {
+    background: #1a4a7a;
+}
+
+#map { width: 100%; height: 400px; border-radius: 15px; overflow: hidden; margin-bottom: 20px; background: #f0f0f0; }
+
+/* Адаптивность - ДЛЯ ТЕЛЕФОНОВ 1 ТОВАР, ДЛЯ ПЛАНШЕТОВ 2-3, ДЛЯ КОМПЬЮТЕРОВ 4 */
+@media (max-width: 1200px) { 
+    .products-grid { grid-template-columns: repeat(3, 1fr); } 
+}
+@media (max-width: 900px) { 
+    .products-grid { grid-template-columns: repeat(2, 1fr); } 
+    .main-container { flex-direction: column; } 
+    .sidebar { width: 100%; position: static; } 
+}
+@media (max-width: 600px) { 
+    .products-grid { grid-template-columns: 1fr; } 
+    .product-card { max-width: 100%; }
+    .product-image, .product-gallery .product-image { height: 200px; }
+    .header-buttons { gap: 6px; }
+    .cart-btn, .orders-btn, .login-btn { padding: 8px 12px; font-size: 13px; }
+    .logo { font-size: 20px; }
+    .sidebar { margin-bottom: 20px; }
+}
+    </style>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_api_ключ&lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+	<!-- Ползунок переключения темы -->
+    <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+        <div class="sun-icon">☀️</div>
+        <div class="moon-icon">🌙</div>
+    </div>
+
+    <div class="header">
+        <div class="header-top">
+            <div class="logo" id="siteLogo">🎂 Торты на заказ Воронеж</div>
+            <div class="header-right">
+                <div class="header-buttons">
+                    <button class="orders-btn" id="ordersBtn" onclick="openOrdersHistory()">📋 Мои заказы</button>
+                    <button class="cart-btn" onclick="openCart()">🛒 <span id="cartBtnText">Корзина</span> <span class="cart-count" id="cartCount">0</span></button>
+                    <button class="login-btn" id="loginBtn" onclick="openProfileOrLogin()">👤 Войти</button>
+                </div>
+                <div class="lang-switcher" id="langSwitcher" onclick="openLanguageModal()">RU</div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-box" id="searchBox" placeholder="🔍 Поиск вкуса...">
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <h3 id="sortTitle">📋 Сортировка</h3>
+            <div class="filter-item"><input type="checkbox" id="filter-desserts" onchange="filterProducts()"><label id="filterDessertsLabel">🍮 Десерты</label></div>
+            <div class="filter-item"><input type="checkbox" id="filter-bento" onchange="filterProducts()"><label id="filterBentoLabel">🍰 Бенто</label></div>
+            <div class="filter-item"><input type="checkbox" id="filter-cakes" onchange="filterProducts()"><label id="filterCakesLabel">🎂 Торты</label></div>
+            <div class="filter-item"><input type="checkbox" id="filter-designs" onchange="filterProducts()"><label id="filterDesignsLabel">🎨 Дизайны</label></div>
+            <div class="sort-price" onclick="togglePriceSort()"><span id="sortPriceLabel">💰 Сортировать по цене</span><span class="sort-arrow" id="sortArrow">▴</span></div>
+            
+            <div class="info-buttons">
+                <button class="info-btn" id="termsBtn" onclick="openTermsModal()">📋 Условия заказа</button>
+            </div>
+            
+            <div class="reviews-section">
+                <div class="reviews-header">
+                    <h3 id="reviewsTitle">⭐ Отзывы</h3>
+                    <div id="avgRatingDisplay" class="avg-rating">⭐ 0.0</div>
+                </div>
+                <div id="reviewsContainer"></div>
+            </div>
+        </div>
+        
+        <div class="products-section">
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+    </div>
+    
+    <!-- Модальные окна -->
+    <div class="modal" id="weightModal"><div class="modal-content"><div class="modal-title" id="weightModalTitle">Выберите вес торта</div><div id="weightOptions"></div><div class="modal-buttons"><button class="modal-btn confirm-btn" id="addBtnText" onclick="confirmAddToCart()">Добавить</button><button class="modal-btn cancel-btn" id="cancelBtnText" onclick="closeWeightModal()">Отмена</button></div></div></div>
+    <div class="modal" id="quantityModal"><div class="modal-content"><div class="modal-title" id="quantityModalTitle">Выберите количество</div><div id="quantityOptions"></div><div class="modal-buttons"><button class="modal-btn confirm-btn" id="addBtnText2" onclick="confirmAddQuantity()">Добавить</button><button class="modal-btn cancel-btn" id="cancelBtnText2" onclick="closeQuantityModal()">Отмена</button></div></div></div>
+    <div class="modal" id="bentoModal"><div class="modal-content"><div class="modal-title" id="bentoModalTitle">Выберите размер бенто</div><div id="bentoOptions"></div><div class="modal-buttons"><button class="modal-btn confirm-btn" id="addBtnText3" onclick="confirmAddBento()">Добавить</button><button class="modal-btn cancel-btn" id="cancelBtnText3" onclick="closeBentoModal()">Отмена</button></div></div></div>
+    <div class="modal" id="cartModal"><div class="modal-content"><div class="modal-title" id="cartTitle">🛒 Корзина</div><div id="cartItems"></div><div class="cart-total" id="cartTotal"></div><div class="order-form"><label id="orderDateLabel">📅 Дата заказа (мин. +3 дня):</label><input type="date" id="orderDate"></div><button class="order-btn" id="orderBtnText" onclick="placeOrder()">🎂 Заказать</button><button class="modal-btn cancel-btn" id="continueBtnText" onclick="closeCart()">Продолжить</button></div></div>
+    <div class="modal" id="loginModal"><div class="modal-content"><div class="modal-title" id="regTitle">Регистрация</div><input type="text" id="regSurname" placeholder="Фамилия"><input type="text" id="regName" placeholder="Имя"><input type="email" id="regEmail" placeholder="Email (обязательно с @)"><input type="tel" id="regPhone" placeholder="Телефон +7XXXXXXXXXX"><div id="loginError" style="color:red; margin-bottom:10px;"></div><button class="order-btn" id="registerBtnText" onclick="registerUser()">Зарегистрироваться</button><button class="modal-btn cancel-btn" id="cancelRegBtn" onclick="closeLoginModal()">Отмена</button></div></div>
+    <div class="modal" id="profileModal"><div class="modal-content"><div class="modal-title"><span id="profileTitle">👤 Профиль</span><button class="edit-icon-circle" onclick="openEditProfile()">✍</button></div><div id="profileInfo"></div><button class="favorites-header-btn" id="favoritesProfileBtn" onclick="openFavoritesModal()" style="background:#ff6b9d; color:white; margin-top:15px;">❤️ Избранное</button><button class="logout-btn-red" id="logoutBtnText" onclick="logout()">🚪 Выйти</button><button class="modal-btn cancel-btn" id="closeProfileBtn" onclick="closeProfileModal()" style="margin-top:10px;">Закрыть</button></div></div>
+    <div class="modal" id="favoritesModal"><div class="modal-content"><div class="modal-title" id="favoritesModalTitle">❤️ Избранные товары</div><div id="favoritesList"></div><button class="modal-btn cancel-btn" id="closeFavoritesBtn" onclick="closeFavoritesModal()">Закрыть</button></div></div>
+    <div class="modal" id="editProfileModal"><div class="modal-content"><div class="modal-title" id="editProfileTitle">✍ Редактировать профиль</div><input type="text" id="editSurname" placeholder="Фамилия"><input type="text" id="editName" placeholder="Имя"><input type="email" id="editEmail" placeholder="Email"><input type="tel" id="editPhone" placeholder="Телефон +7XXXXXXXXXX"><div class="modal-buttons"><button class="modal-btn confirm-btn" id="saveBtnText" onclick="saveProfile()">Сохранить</button><button class="modal-btn cancel-btn" id="cancelEditBtn" onclick="closeEditProfileModal()">Отмена</button></div></div></div>
+    <div class="modal" id="productReviewModal"><div class="modal-content"><div class="modal-title" id="productReviewTitle">⭐ Отзывы о товаре</div><div id="productReviewsList"></div><button class="modal-btn cancel-btn" id="closeProductReviewBtn" onclick="closeProductReviewModal()">Закрыть</button></div></div>
+    <div class="modal" id="writeReviewModal"><div class="modal-content"><div class="modal-title" id="writeReviewTitle">Оставить отзыв о товаре</div><div class="review-form"><input type="text" id="reviewName" placeholder="Ваше Имя и Фамилия"><textarea id="reviewText" placeholder="Ваш отзыв..."></textarea><div class="star-rating"><input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label><input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label><input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label><input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label><input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label></div><div class="modal-buttons"><button class="modal-btn confirm-btn" id="submitProductReviewBtn" onclick="submitProductReview()">Отправить отзыв</button><button class="modal-btn cancel-btn" id="closeWriteReviewBtn" onclick="closeWriteReviewModal()">Отмена</button></div></div></div></div>
+    <div class="modal" id="ordersModal"><div class="modal-content"><div class="modal-title" id="ordersTitle">📋 Мои заказы</div><div id="ordersList"></div><button class="modal-btn cancel-btn" id="closeOrdersBtn" onclick="closeOrdersModal()">Закрыть</button></div></div>
+    <div class="modal" id="chatModal"><div class="modal-content"><div class="modal-title" id="chatTitle">💬 Чат с продавцом</div><div id="chatMessages" class="chat-messages"></div><textarea id="chatInput" placeholder="Ваше сообщение..." rows="3" style="width:100%; padding:10px; margin-bottom:10px;"></textarea><div class="modal-buttons"><button class="modal-btn confirm-btn" id="sendMsgBtn" onclick="sendChatMessage()">Отправить</button><button class="modal-btn cancel-btn" id="closeChatBtn" onclick="closeChatModal()">Закрыть</button></div></div></div>
+    <div class="modal" id="languageModal"><div class="modal-content"><div class="modal-title" id="langSelectTitle">🌐 Выберите язык</div><div id="languageOptions"></div><div class="modal-buttons"><button class="modal-btn cancel-btn" id="closeLangBtn" onclick="closeLanguageModal()">Отмена</button></div></div></div>
+    <div class="modal welcome-modal" id="welcomeModal"><div class="modal-content"><div class="modal-title">🍰 Добро пожаловать!</div><div class="modal-buttons"><button class="modal-btn confirm-btn" onclick="closeWelcomeModal()">Начать покупки</button></div></div></div>
+    <div class="modal contact-modal" id="contactModal"><div class="modal-content"><div class="modal-title">👋 Давайте познакомимся!</div><div id="contactContent"></div><div class="modal-buttons"><button class="modal-btn confirm-btn" id="contactCloseBtn" onclick="closeContactModalAndOpenReview()">Продолжить</button></div></div></div>
+    <div class="modal product-detail-modal" id="productDetailModal"><div class="modal-content"><div class="modal-title">🍰 Подробнее</div><div id="productDetailContent"></div><button class="modal-btn cancel-btn" onclick="closeProductDetailModal()">Закрыть</button></div></div>
+    <div class="modal fullscreen-image-modal" id="fullscreenImageModal"><div class="modal-content"><button class="fullscreen-close" onclick="closeFullscreenImage()">✕</button><img id="fullscreenImage" src="" alt="Увеличенное фото"></div></div>
+    
+    <div class="modal" id="termsModal">
+        <div class="modal-content">
+            <button class="close-cross" onclick="closeTermsModal()">✕</button>
+            <div class="modal-title" id="termsModalTitle">📋 Условия заказа</div>
+            <div class="terms-content" id="termsContent"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" id="closeTermsBtn" onclick="closeTermsModal()">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="deliveryModal">
+        <div class="modal-content">
+            <button class="close-cross" onclick="closeDeliveryModal()">✕</button>
+            <div class="modal-title" id="deliveryModalTitle">🚚 Подробнее о доставке</div>
+            <div class="delivery-content" id="deliveryContent"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" id="closeDeliveryBtn" onclick="closeDeliveryModal()">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="locationModal">
+        <div class="modal-content" style="max-width: 800px;">
+            <button class="close-cross" onclick="closeLocationModal()">✕</button>
+            <div class="modal-title" id="locationModalTitle">📍 Адрес самовывоза</div>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <p id="addressText" style="font-size: 18px; font-weight: bold; color: #e94560;">ул. Генерала Лизюкова, 43, Воронеж</p>
+            </div>
+            <div id="map" style="width: 100%; height: 400px; border-radius: 15px; overflow: hidden; margin-bottom: 20px;"></div>
+            <div style="text-align: center;">
+                <p id="exactAddressText" style="color: #666;">Точный адрес: ул. Генерала Лизюкова, 43, Воронеж</p>
+                <button class="modal-btn confirm-btn" id="closeLocationBtn" onclick="closeLocationModal()" style="margin-top: 10px;">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора количества кейкпопсов -->
+    <div class="modal" id="cakePopQuantityModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите количество кейкпопсов</div>
+            <div id="cakePopQuantityOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="confirmAddCakePopToCart()">Добавить</button>
+                <button class="modal-btn cancel-btn" onclick="closeCakePopQuantityModal()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора количества моти -->
+    <div class="modal" id="mochiQuantityModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите количество моти</div>
+            <div id="mochiQuantityOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="confirmAddMochiToCart()">Добавить</button>
+                <button class="modal-btn cancel-btn" onclick="closeMochiQuantityModal()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора количества капкейков -->
+    <div class="modal" id="cupcakeQuantityModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите количество капкейков</div>
+            <div id="cupcakeQuantityOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="showCupcakeFillingModal()">Далее</button>
+                <button class="modal-btn cancel-btn" onclick="closeCupcakeQuantityModal()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора начинки капкейков -->
+    <div class="modal" id="cupcakeFillingModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите начинку</div>
+            <div id="cupcakeFillingOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="confirmAddCupcakeToCart()">Добавить</button>
+                <button class="modal-btn cancel-btn" onclick="closeCupcakeQuantityModal()">Назад</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора размера бенто -->
+    <div class="modal" id="bentoSizeModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите размер бенто-торта</div>
+            <div id="bentoSizeOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="showBentoFillingModal()">Далее</button>
+                <button class="modal-btn cancel-btn" onclick="closeBentoModals()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора начинки бенто -->
+    <div class="modal" id="bentoFillingModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите начинку для бенто-торта</div>
+            <div id="bentoFillingOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="confirmAddBentoToCart()">Добавить</button>
+                <button class="modal-btn cancel-btn" onclick="closeBentoModals()">Назад</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора количества зефира -->
+    <div class="modal" id="marshmallowQuantityModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите количество зефира</div>
+            <div id="marshmallowQuantityOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="confirmAddMarshmallowToCart()">Добавить</button>
+                <button class="modal-btn cancel-btn" onclick="closeMarshmallowQuantityModal()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора количества трайфлов -->
+    <div class="modal" id="trifleQuantityModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите количество трайфлов</div>
+            <div id="trifleQuantityOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="showTrifleFillingModal()">Далее</button>
+                <button class="modal-btn cancel-btn" onclick="closeTrifleModals()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора начинки трайфлов -->
+    <div class="modal" id="trifleFillingModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите начинку для трайфлов</div>
+            <div id="trifleFillingOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="confirmAddTrifleToCart()">Добавить</button>
+                <button class="modal-btn cancel-btn" onclick="closeTrifleModals()">Назад</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- НОВЫЕ МОДАЛЬНЫЕ ОКНА ДЛЯ БИСКВИТНОГО РУЛЕТА -->
+    <div class="modal" id="spongeRollQuantityModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите количество бисквитных рулетов</div>
+            <div id="spongeRollQuantityOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="showSpongeRollFillingModal()">Далее</button>
+                <button class="modal-btn cancel-btn" onclick="closeSpongeRollModals()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="spongeRollFillingModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите начинку для бисквитного рулета</div>
+            <div id="spongeRollFillingOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="confirmAddSpongeRollToCart()">Добавить</button>
+                <button class="modal-btn cancel-btn" onclick="closeSpongeRollModals()">Назад</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- НОВЫЕ МОДАЛЬНЫЕ ОКНА ДЛЯ МЕРЕНГОВОГО РУЛЕТА -->
+    <div class="modal" id="meringueQuantityModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите количество меренговых рулетов</div>
+            <div id="meringueQuantityOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="showMeringueFillingModal()">Далее</button>
+                <button class="modal-btn cancel-btn" onclick="closeMeringueModals()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="meringueFillingModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите начинку для меренгового рулета</div>
+            <div id="meringueFillingOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="confirmAddMeringueToCart()">Добавить</button>
+                <button class="modal-btn cancel-btn" onclick="closeMeringueModals()">Назад</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+	// Функция переключения темы
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        }
+        
+        // Проверяем сохраненную тему
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark');
+        }
+
+        // Функция отправки уведомления в Telegram
+       async function sendTelegramNotification(orderDetails) {
+    const message = `🛍 НОВЫЙ ЗАКАЗ! 🛍\n\n${orderDetails}\n\n⏰ Время заказа: ${new Date().toLocaleString()}`;
+    
+    try {
+        const response = await fetch('send_telegram.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ message: message })
+        });
+        
+        if (response.ok) {
+            const result = await response.json();
+            if (result.ok) {
+                console.log('✅ Уведомление отправлено в Telegram');
+                return true;
+            } else {
+                console.error('❌ Ошибка Telegram API:', result);
+                return false;
+            }
+        } else {
+            console.error('❌ HTTP ошибка:', response.status);
+            return false;
+        }
+    } catch (error) {
+        console.error('❌ Ошибка при отправке:', error);
+        return false;
+    }
+}
+        
+        // ---------- ДАННЫЕ ДИЗАЙНОВ ----------
+        const designsList = [
+            { id: 101, name: 'Свадебный дизайн', nameEn: 'Wedding Design', nameUk: 'Весільный дизайн', nameBe: 'Вясельны дызайн', image: 'Photo.jpg' },
+	    { id: 102, name: 'Детский дизайн', nameEn: 'Kids Design', nameUk: 'Дитячий дизайн', nameBe: 'Дзіцячы дызайн', image: 'Photo1.jpg' },
+{ id: 103, name: 'Цветочный дизайн', nameEn: 'Floral Design', nameUk: 'Квітковий дизайн', nameBe: 'Кветкавы дызайн', image: 'Photo2.jpg' },
+{ id: 104, name: 'Мужской дизайн', nameEn: 'Men\'s Design', nameUk: 'Чоловічий дизайн', nameBe: 'Мужчынскі дызайн', image: 'Photo3.jpg' },
+{ id: 105, name: 'День рождения', nameEn: 'Birthday Design', nameUk: 'День народження', nameBe: 'Дзень нараджэння', image: 'Photo4.jpg' },
+{ id: 106, name: 'Корпоративный', nameEn: 'Corporate Design', nameUk: 'Корпоративний', nameBe: 'Карпаратыўны', image: 'Photo5.jpg' },
+{ id: 107, name: 'Новогодний дизайн', nameEn: 'New Year Design', nameUk: 'Новорічний дизайн', nameBe: 'Навагодні дызайн', image: 'Photo6.jpg' },
+{ id: 108, name: 'Хэллоуин', nameEn: 'Halloween', nameUk: 'Хеллоуїн', nameBe: 'Хэлоўін', image: 'Photo7.jpg' },
+{ id: 109, name: 'Морская тематика', nameEn: 'Marine Theme', nameUk: 'Морська тематика', nameBe: 'Марская тэматыка', image: 'Photo8.jpg' },
+{ id: 110, name: 'Винтажный', nameEn: 'Vintage', nameUk: 'Вінтажний', nameBe: 'Вінтажны', image: 'Photo9.jpg' },
+{ id: 111, name: 'Минимализм', nameEn: 'Minimalism', nameUk: 'Мінімалізм', nameBe: 'Мінімалізм', image: 'Photo10.jpg' },
+{ id: 112, name: 'Барби-стайл', nameEn: 'Barbie Style', nameUk: 'Барбі-стайл', nameBe: 'Барбі-стайл', image: 'Photo11.jpg' },
+{ id: 113, name: 'Спортивный', nameEn: 'Sports', nameUk: 'Спортивний', nameBe: 'Спартыўны', image: 'Photo12.jpg' },
+{ id: 114, name: 'Космический', nameEn: 'Space', nameUk: 'Космічний', nameBe: 'Касмічны', image: 'Photo13.jpg' },
+{ id: 115, name: 'Золотой шик', nameEn: 'Gold Chic', nameUk: 'Золотий шик', nameBe: 'Залаты шык', image: 'Photo14.jpg' },
+{ id: 116, name: 'Романтический', nameEn: 'Romantic', nameUk: 'Романтичний', nameBe: 'Рамантычны', image: 'Photo15.jpg' },
+{ id: 117, name: 'Классический', nameEn: 'Classic', nameUk: 'Класичний', nameBe: 'Класічны', image: 'Photo16.jpg' },
+{ id: 118, name: 'Прованс', nameEn: 'Provence', nameUk: 'Прованс', nameBe: 'Прованс', image: 'Photo17.jpg' },
+{ id: 119, name: 'Люкс', nameEn: 'Luxury', nameUk: 'Люкс', nameBe: 'Люкс', image: 'Photo18.jpg' },
+{ id: 120, name: 'Аниме', nameEn: 'Anime', nameUk: 'Аніме', nameBe: 'Анімэ', image: 'Photo19.jpg' },
+{ id: 121, name: 'Гламур', nameEn: 'Glamour', nameUk: 'Гламур', nameBe: 'Гламур', image: 'Photo20.jpg' },
+{ id: 122, name: 'Фэнтези', nameEn: 'Fantasy', nameUk: 'Фентезі', nameBe: 'Фэнтэзі', image: 'Photo21.jpg' },
+{ id: 123, name: 'Пин-ап', nameEn: 'Pin-up', nameUk: 'Пін-ап', nameBe: 'Пін-ап', image: 'Photo22.jpg' },
+{ id: 124, name: 'Стимпанк', nameEn: 'Steampunk', nameUk: 'Стімпанк', nameBe: 'Стымпанк', image: 'Photo23.jpg' },
+{ id: 125, name: 'Киберпанк', nameEn: 'Cyberpunk', nameUk: 'Кіберпанк', nameBe: 'Кіберпанк', image: 'Photo24.jpg' },
+{ id: 126, name: 'Богемный', nameEn: 'Bohemian', nameUk: 'Богемний', nameBe: 'Багемны', image: 'Photo25.jpg' },
+{ id: 127, name: 'Эко-стиль', nameEn: 'Eco Style', nameUk: 'Еко-стиль', nameBe: 'Эка-стыль', image: 'Photo26.jpg' },
+{ id: 128, name: 'Скандинавский', nameEn: 'Scandinavian', nameUk: 'Скандинавський', nameBe: 'Скандынаўскі', image: 'Photo27.jpg' },
+{ id: 129, name: 'Лофт', nameEn: 'Loft', nameUk: 'Лофт', nameBe: 'Лофт', image: 'Photo28.jpg' },
+{ id: 130, name: 'Пэчворк', nameEn: 'Patchwork', nameUk: 'Пэчворк', nameBe: 'Пэчворк', image: 'Photo29.jpg' },
+{ id: 131, name: 'Гжель', nameEn: 'Gzhel', nameUk: 'Гжель', nameBe: 'Гжэль', image: 'Photo30.jpg' },
+{ id: 132, name: 'Хохлома', nameEn: 'Khokhloma', nameUk: 'Хохлома', nameBe: 'Хахлома', image: 'Photo31.jpg' },
+{ id: 133, name: 'Акварельный', nameEn: 'Watercolor', nameUk: 'Акварельний', nameBe: 'Акварэльны', image: 'Photo32.jpg' },
+{ id: 134, name: 'Графический', nameEn: 'Graphic', nameUk: 'Графічний', nameBe: 'Графічны', image: 'Photo33.jpg' },
+{ id: 135, name: 'Абстракция', nameEn: 'Abstract', nameUk: 'Абстракція', nameBe: 'Абстракцыя', image: 'Photo34.jpg' },
+{ id: 136, name: 'Геометрия', nameEn: 'Geometry', nameUk: 'Геометрія', nameBe: 'Геаметрыя', image: 'Photo35.jpg' },
+{ id: 137, name: 'Принт', nameEn: 'Print', nameUk: 'Принт', nameBe: 'Прынт', image: 'Photo36.jpg' },
+{ id: 138, name: 'Однотонный', nameEn: 'Solid', nameUk: 'Однотонний', nameBe: 'Аднатонны', image: 'Photo37.jpg' },
+{ id: 139, name: 'Градиент', nameEn: 'Gradient', nameUk: 'Градієнт', nameBe: 'Градыент', image: 'Photo38.jpg' },
+{ id: 140, name: 'Мраморный', nameEn: 'Marble', nameUk: 'Мармуровий', nameBe: 'Мармуровы', image: 'Photo39.jpg' },
+{ id: 141, name: 'Золотой', nameEn: 'Golden', nameUk: 'Золотий', nameBe: 'Залаты', image: 'Photo40.jpg' },
+{ id: 142, name: 'Серебряный', nameEn: 'Silver', nameUk: 'Срібний', nameBe: 'Срэбны', image: 'Photo41.jpg' },
+{ id: 143, name: 'Бронзовый', nameEn: 'Bronze', nameUk: 'Бронзовий', nameBe: 'Бронзавы', image: 'Photo42.jpg' },
+{ id: 144, name: 'Пастельный', nameEn: 'Pastel', nameUk: 'Пастельний', nameBe: 'Пастэльны', image: 'Photo43.jpg' },
+{ id: 145, name: 'Яркий', nameEn: 'Bright', nameUk: 'Яскравий', nameBe: 'Яркі', image: 'Photo44.jpg' },
+{ id: 146, name: 'Монохром', nameEn: 'Monochrome', nameUk: 'Монохром', nameBe: 'Монахром', image: 'Photo45.jpg' },
+{ id: 147, name: 'Неон', nameEn: 'Neon', nameUk: 'Неон', nameBe: 'Неон', image: 'Photo46.jpg' },
+{ id: 148, name: 'Металлик', nameEn: 'Metallic', nameUk: 'Металік', nameBe: 'Металік', image: 'Photo47.jpg' },
+{ id: 149, name: 'Хром', nameEn: 'Chrome', nameUk: 'Хром', nameBe: 'Хром', image: 'Photo48.jpg' },
+{ id: 150, name: 'Голографический', nameEn: 'Holographic', nameUk: 'Голографічний', nameBe: 'Галаграфічны', image: 'Photo49.jpg' },
+{ id: 151, name: 'Перламутр', nameEn: 'Pearlescent', nameUk: 'Перламутр', nameBe: 'Перламутр', image: 'Photo50.jpg' },
+{ id: 152, name: 'Матовый', nameEn: 'Matte', nameUk: 'Матовий', nameBe: 'Матавы', image: 'Photo51.jpg' },
+{ id: 153, name: 'Глянцевый', nameEn: 'Glossy', nameUk: 'Глянцевий', nameBe: 'Глянцавы', image: 'Photo52.jpg' },
+// НОВЫЕ ЭЛЕМЕНТЫ ДО Photo80.jpg
+{ id: 154, name: 'Панк-стиль', nameEn: 'Punk Style', nameUk: 'Панк-стиль', nameBe: 'Панк-стыль', image: 'Photo53.jpg' },
+{ id: 155, name: 'Гранж', nameEn: 'Grunge', nameUk: 'Гранж', nameBe: 'Гранж', image: 'Photo54.jpg' },
+{ id: 156, name: 'Ретро', nameEn: 'Retro', nameUk: 'Ретро', nameBe: 'Рэтра', image: 'Photo55.jpg' },
+{ id: 157, name: 'Ар-деко', nameEn: 'Art Deco', nameUk: 'Ар-деко', nameBe: 'Ар-дэко', image: 'Photo56.jpg' },
+{ id: 158, name: 'Барокко', nameEn: 'Baroque', nameUk: 'Бароко', nameBe: 'Барока', image: 'Photo57.jpg' },
+{ id: 159, name: 'Рококо', nameEn: 'Rococo', nameUk: 'Рококо', nameBe: 'Ракако', image: 'Photo58.jpg' },
+{ id: 160, name: 'Этнический', nameEn: 'Ethnic', nameUk: 'Етнічний', nameBe: 'Этнічны', image: 'Photo59.jpg' },
+{ id: 161, name: 'Африканский', nameEn: 'African', nameUk: 'Африканський', nameBe: 'Афрыканскі', image: 'Photo60.jpg' },
+{ id: 162, name: 'Японский', nameEn: 'Japanese', nameUk: 'Японський', nameBe: 'Японскі', image: 'Photo61.jpg' },
+{ id: 163, name: 'Китайский', nameEn: 'Chinese', nameUk: 'Китайський', nameBe: 'Кітайскі', image: 'Photo62.jpg' },
+{ id: 164, name: 'Индйский', nameEn: 'Indian', nameUk: 'Індійський', nameBe: 'Індыйскі', image: 'Photo63.jpg' },
+{ id: 165, name: 'Средиземноморский', nameEn: 'Mediterranean', nameUk: 'Середземноморський', nameBe: 'Міжземнаморскі', image: 'Photo64.jpg' },
+{ id: 166, name: 'Тропический', nameEn: 'Tropical', nameUk: 'Тропічний', nameBe: 'Трапічны', image: 'Photo65.jpg' },
+{ id: 167, name: 'Зимний', nameEn: 'Winter', nameUk: 'Зимовий', nameBe: 'Зімовы', image: 'Photo66.jpg' },
+{ id: 168, name: 'Летний', nameEn: 'Summer', nameUk: 'Літній', nameBe: 'Летні', image: 'Photo67.jpg' },
+{ id: 169, name: 'Осенний', nameEn: 'Autumn', nameUk: 'Осінній', nameBe: 'Восеньскі', image: 'Photo68.jpg' },
+{ id: 170, name: 'Весенний', nameEn: 'Spring', nameUk: 'Весняний', nameBe: 'Вясновы', image: 'Photo69.jpg' },
+{ id: 171, name: 'Футуризм', nameEn: 'Futurism', nameUk: 'Футуризм', nameBe: 'Футурызм', image: 'Photo70.jpg' },
+{ id: 172, name: 'Дизельпанк', nameEn: 'Dieselpunk', nameUk: 'Дизельпанк', nameBe: 'Дызельпанк', image: 'Photo71.jpg' },
+{ id: 173, name: 'Атомпанк', nameEn: 'Atompunk', nameUk: 'Атомпанк', nameBe: 'Атамппанк', image: 'Photo72.jpg' },
+{ id: 174, name: 'Биопанк', nameEn: 'Biopunk', nameUk: 'Біопанк', nameBe: 'Біопанк', image: 'Photo73.jpg' },
+{ id: 175, name: 'Декор', nameEn: 'Decor', nameUk: 'Декор', nameBe: 'Дэкор', image: 'Photo74.jpg' },
+{ id: 176, name: 'Флористика', nameEn: 'Floristry', nameUk: 'Флористика', nameBe: 'Фларыстыка', image: 'Photo75.jpg' },
+{ id: 177, name: 'Свадебный букет', nameEn: 'Bridal Bouquet', nameUk: 'Весільний букет', nameBe: 'Вясельны букет', image: 'Photo76.jpg' },
+{ id: 178, name: 'Сладости', nameEn: 'Sweet Design', nameUk: 'Солодощі', nameBe: 'Салодкасці', image: 'Photo77.jpg' },
+{ id: 179, name: 'Шебби-шик', nameEn: 'Shabby Chic', nameUk: 'Шебі-шик', nameBe: 'Шэбі-шык', image: 'Photo78.jpg' },
+{ id: 180, name: 'Трансформер', nameEn: 'Transformer', nameUk: 'Трансформер', nameBe: 'Трансформер', image: 'Photo79.jpg' },
+{ id: 181, name: 'Премиум', nameEn: 'Premium', nameUk: 'Преміум', nameBe: 'Прэміум', image: 'Photo80.jpg' }
+];
+
+        // Массив вкусов Кейкпопсов
+        const cakePopVarieties = [
+            { id: 371, name: 'Красный бархат', nameEn: 'Red Velvet', nameUk: 'Червоний оксамит', nameBe: 'Чырвоны аксаміт', price: 100, image: 'Cape Town red.jpg', category: 'cakePop', originalId: 37 },
+            { id: 372, name: 'Ваниль', nameEn: 'Vanilla', nameUk: 'Ваніль', nameBe: 'Ваніль', price: 100, image: 'Cape Town vanilla.jpg', category: 'cakePop', originalId: 37 },
+            { id: 373, name: 'Шоколад', nameEn: 'Chocolate', nameUk: 'Шоколад', nameBe: 'Шакалад', price: 100, image: 'Cape Town chocolate.jpg', category: 'cakePop', originalId: 37 },
+            { id: 374, name: 'Апельсин', nameEn: 'Orange', nameUk: 'Апельсин', nameBe: 'Апельсін', price: 100, image: 'Cape Town orange.jpg', category: 'cakePop', originalId: 37 },
+            { id: 375, name: 'Лимон', nameEn: 'Lemon', nameUk: 'Лимон', nameBe: 'Лімон', price: 100, image: 'Cape Town lemon.jpg', category: 'cakePop', originalId: 37 }
+        ];
+
+        // Массив вкусов Моти
+        const mochiVarieties = [
+            { id: 391, name: 'Ванильно-ягодный', nameEn: 'Vanilla-berry', nameUk: 'Ванільно-ягідний', nameBe: 'Ванільна-ягадны', price: 150, image: 'Vanilla berry mochi.jpg', category: 'mochi', originalId: 39 },
+            { id: 392, name: 'Имбирный латте', nameEn: 'Ginger latte', nameUk: 'Імбирний латте', nameBe: 'Імбірны латэ', price: 150, image: 'Ginger mochi latte.jpg', category: 'mochi', originalId: 39 },
+            { id: 393, name: 'Лайм-лимон', nameEn: 'Lime-lemon', nameUk: 'Лайм-лимон', nameBe: 'Лайм-лімон', price: 150, image: 'Lime lemon mochi.jpg', category: 'mochi', originalId: 39 },
+            { id: 394, name: 'Кофе-банан', nameEn: 'Coffee-banana', nameUk: 'Кава-банан', nameBe: 'Кава-банан', price: 150, image: 'Banana mochi coffee.jpg', category: 'mochi', originalId: 39 },
+            { id: 395, name: 'Фисташка-малина', nameEn: 'Pistachio-raspberry', nameUk: 'Фісташка-малина', nameBe: 'Фісташка-маліна', price: 150, image: 'Pistachio raspberry mochi.jpg', category: 'mochi', originalId: 39 },
+            { id: 396, name: 'Двойная смородина', nameEn: 'Double currant', nameUk: 'Подвійна смородина', nameBe: 'Двайная парэчка', price: 150, image: 'Mochi currant.jpg', category: 'mochi', originalId: 39 }
+        ];
+
+        // Массив вкусов Капкейков
+        const cupcakeVarieties = [
+            { id: 381, name: 'Шоколадные', nameEn: 'Chocolate', nameUk: 'Шоколадні', nameBe: 'Шакаладныя', price: 200, image: 'Chocolate cupcake.jpg', category: 'cupcake', originalId: 38 },
+            { id: 382, name: 'Ванильные', nameEn: 'Vanilla', nameUk: 'Ванільні', nameBe: 'Ванільныя', price: 200, image: 'Vanilla cupcake.jpg', category: 'cupcake', originalId: 38 },
+            { id: 383, name: 'Красный бархат', nameEn: 'Red Velvet', nameUk: 'Червоний оксамит', nameBe: 'Чырвоны аксаміт', price: 200, image: 'Red cupcake.jpg', category: 'cupcake', originalId: 38 }
+        ];
+
+        // Массив начинок для капкейков
+        const cupcakeFillings = [
+            { id: 1, name: 'Карамель', nameEn: 'Caramel', nameUk: 'Карамель', nameBe: 'Карамель' },
+            { id: 2, name: 'Клубничный конфитюр', nameEn: 'Strawberry confiture', nameUk: 'Полуничний конфітюр', nameBe: 'Клубнічны канфіцюр' },
+            { id: 3, name: 'Вишнёвый конфитюр', nameEn: 'Cherry confiture', nameUk: 'Вишневий конфітюр', nameBe: 'Вішнёвы канфіцюр' },
+            { id: 4, name: 'Малиновый конфитюр', nameEn: 'Raspberry confiture', nameUk: 'Малиновий конфітюр', nameBe: 'Малінавы канфіцюр' }
+        ];
+
+        // Массив вкусов Бенто
+        const bentoVarieties = [
+            { id: 401, name: 'Шоколадный', nameEn: 'Chocolate', nameUk: 'Шоколадний', nameBe: 'Шакаладны', price: 0, image: 'Bento chocolate.jpg', category: 'bento', originalId: 40 },
+            { id: 402, name: 'Ванильный', nameEn: 'Vanilla', nameUk: 'Ванільний', nameBe: 'Ванільны', price: 0, image: 'Bento vanilla.jpg', category: 'bento', originalId: 40 },
+            { id: 403, name: 'Красный бархат', nameEn: 'Red Velvet', nameUk: 'Червоний оксамит', nameBe: 'Чырвоны аксаміт', price: 0, image: 'Bento red.jpg', category: 'bento', originalId: 40 }
+        ];
+
+        // Массив размеров Бенто
+        const bentoSizes = [
+            { id: 1, name: '12 см (500-600г)', nameEn: '12 cm (500-600g)', nameUk: '12 см (500-600г)', nameBe: '12 см (500-600г)', price: 1400 },
+            { id: 2, name: '14 см (700-800г)', nameEn: '14 cm (700-800g)', nameUk: '14 см (700-800г)', nameBe: '14 см (700-800г)', price: 1600 }
+        ];
+
+        // Массив начинок для Бенто
+        const bentoFillings = [
+            { id: 1, name: 'Карамель', nameEn: 'Caramel', nameUk: 'Карамель', nameBe: 'Карамель' },
+            { id: 2, name: 'Клубничный конфитюр', nameEn: 'Strawberry confiture', nameUk: 'Полуничний конфітюр', nameBe: 'Клубнічны канфіцюр' },
+            { id: 3, name: 'Вишнёвый конфитюр', nameEn: 'Cherry confiture', nameUk: 'Вишневий конфітюр', nameBe: 'Вішнёвы канфіцюр' },
+            { id: 4, name: 'Малиновый конфитюр', nameEn: 'Raspberry confiture', nameUk: 'Малиновий конфітюр', nameBe: 'Малінавы канфіцюр' }
+        ];
+
+        // Массив вкусов Зефира
+        const marshmallowVarieties = [
+            { id: 351, name: 'Бананово-яблочный', nameEn: 'Banana-Apple', nameUk: 'Бананово-яблучний', nameBe: 'Бананава-яблычны', price: 100, image: 'Banana and Apple Marshmallow.jpg', category: 'marshmallow', originalId: 35 },
+            { id: 352, name: 'Ванильный', nameEn: 'Vanilla', nameUk: 'Ванільний', nameBe: 'Ванільны', price: 100, image: 'Vanilla Marshmallow.jpg', category: 'marshmallow', originalId: 35 },
+            { id: 353, name: 'Клубничный', nameEn: 'Strawberry', nameUk: 'Полуничний', nameBe: 'Клубнічны', price: 100, image: 'Strawberry marshmallows.jpg', category: 'marshmallow', originalId: 35 }
+        ];
+
+        // Массив вкусов Трайфлов
+        const trifleVarieties = [
+            { id: 341, name: 'Шоколадный', nameEn: 'Chocolate', nameUk: 'Шоколадний', nameBe: 'Шакаладны', price: 350, image: 'Chocolate Trifles.jpg', category: 'trifle', originalId: 34 },
+            { id: 342, name: 'Ванильный', nameEn: 'Vanilla', nameUk: 'Ванільний', nameBe: 'Ванільны', price: 350, image: 'Vanilla Trifles.jpg', category: 'trifle', originalId: 34 },
+            { id: 343, name: 'Красный бархат', nameEn: 'Red Velvet', nameUk: 'Червоний оксамит', nameBe: 'Чырвоны аксаміт', price: 350, image: 'Red Trifles.jpg', category: 'trifle', originalId: 34 }
+        ];
+
+        // Массив начинок для Трайфлов
+        const trifleFillings = [
+            { id: 1, name: 'Карамель с арахисом', nameEn: 'Caramel with peanuts', nameUk: 'Карамель з арахісом', nameBe: 'Карамель з арахісам' },
+            { id: 2, name: 'Клубничный конфитюр', nameEn: 'Strawberry confiture', nameUk: 'Полуничний конфітюр', nameBe: 'Клубнічны канфіцюр' },
+            { id: 3, name: 'Вишнёвый конфитюр', nameEn: 'Cherry confiture', nameUk: 'Вишневий конфітюр', nameBe: 'Вішнёвы канфіцюр' },
+            { id: 4, name: 'Малиновый конфитюр', nameEn: 'Raspberry confiture', nameUk: 'Малиновий конфітюр', nameBe: 'Малінавы канфіцюр' },
+            { id: 5, name: 'Манго-маракуйя конфитюр', nameEn: 'Mango-passionfruit confiture', nameUk: 'Манго-маракуйя конфітюр', nameBe: 'Манга-маракуйя канфіцюр' }
+        ];
+
+        // НОВЫЕ МАССИВЫ ДЛЯ БИСКВИТНОГО РУЛЕТА
+        const spongeRollVarieties = [
+            { id: 321, name: 'Шоколадный', nameEn: 'Chocolate', nameUk: 'Шоколадний', nameBe: 'Шакаладны', price: 1700, image: 'Meringue roll Chocolate.jpg', category: 'spongeRoll', originalId: 32 },
+            { id: 322, name: 'Ванильный', nameEn: 'Vanilla', nameUk: 'Ванільний', nameBe: 'Ванільны', price: 1700, image: 'Meringue roll Vanilla.jpg', category: 'spongeRoll', originalId: 32 },
+            { id: 323, name: 'Красный бархат', nameEn: 'Red Velvet', nameUk: 'Червоний оксамит', nameBe: 'Чырвоны аксаміт', price: 1700, image: 'Meringue roll red.jpg', category: 'spongeRoll', originalId: 32 }
+        ];
+
+        // Массив начинок для рулетов (общий)
+        const rollFillings = [
+            { id: 1, name: 'Карамель', nameEn: 'Caramel', nameUk: 'Карамель', nameBe: 'Карамель' },
+            { id: 2, name: 'Клубничный конфитюр', nameEn: 'Strawberry confiture', nameUk: 'Полуничний конфітюр', nameBe: 'Клубнічны канфіцюр' },
+            { id: 3, name: 'Вишнёвый конфитюр', nameEn: 'Cherry confiture', nameUk: 'Вишневий конфітюр', nameBe: 'Вішнёвы канфіцюр' },
+            { id: 4, name: 'Малиновый конфитюр', nameEn: 'Raspberry confiture', nameUk: 'Малиновий конфітюр', nameBe: 'Малінавы канфіцюр' },
+            { id: 5, name: 'Манго-маракуйя конфитюр', nameEn: 'Mango-passionfruit confiture', nameUk: 'Манго-маракуйя конфітюр', nameBe: 'Манга-маракуйя канфіцюр' }
+        ];
+
+        // Массив начинок для Меренгового рулета (без карамели)
+        const meringueFillings = [
+            { id: 2, name: 'Клубничный конфитюр', nameEn: 'Strawberry confiture', nameUk: 'Полуничний конфітюр', nameBe: 'Клубнічны канфіцюр' },
+            { id: 3, name: 'Вишнёвый конфитюр', nameEn: 'Cherry confiture', nameUk: 'Вишневий конфітюр', nameBe: 'Вішнёвы канфіцюр' },
+            { id: 4, name: 'Малиновый конфитюр', nameEn: 'Raspberry confiture', nameUk: 'Малиновий конфітюр', nameBe: 'Малінавы канфіцюр' },
+            { id: 5, name: 'Манго-маракуйя конфитюр', nameEn: 'Mango-passionfruit confiture', nameUk: 'Манго-маракуйя конфітюр', nameBe: 'Манга-маракуйя канфіцюр' }
+        ];
+
+        // Полный список товаров с переводами (ОБНОВЛЕННЫЙ - с images для Солёного торта)
+        const products = [
+            { id: 1, title: 'Киндер Кантри', titleEn: 'Kinder Country', titleUk: 'Кіндер Кантрі', titleBe: 'Кіндер Кантры', category: 'cakes', pricePerKg: 2400, icon: '🎂', image: 'kinder.jpg' },
+            { id: 2, title: 'Дубайский шоколад', titleEn: 'Dubai Chocolate', titleUk: 'Дубайський шоколад', titleBe: 'Дубайскі шакалад', category: 'cakes', pricePerKg: 2300, icon: '🎂', image: 'Dubai.jpg' },
+            { id: 3, title: 'Ягодная нежность', titleEn: 'Berry Tenderness', titleUk: 'Ягідна ніжність', titleBe: 'Ягадная пяшчота', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Berry.jpg' },
+            { id: 4, title: 'Ванильно-шоколадное мороженое', titleEn: 'Vanilla-Chocolate Ice Cream', titleUk: 'Ванільно-шоколадне морозиво', titleBe: 'Ванільна-шакаладнае марожанае', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Vanilla-chocolate.jpg' },
+            { id: 5, title: 'Нежная грушка', titleEn: 'Tender Pear', titleUk: 'Ніжна грушка', titleBe: 'Пяшчотная грушка', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Pear.jpg' },
+            { id: 6, title: 'Сметанно-йогуртовый', titleEn: 'Sour Cream Yogurt', titleUk: 'Сметанно-йогуртовий', titleBe: 'Смятанкава-ёгуртавы', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Sour cream yogurt.jpg' },
+            { id: 7, title: 'Шоколадный медовик', titleEn: 'Chocolate Medovik', titleUk: 'Шоколадний медовик', titleBe: 'Шакаладны мёдавік', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Chocolate cake.jpg' },
+            { id: 8, title: 'Клубника-малина', titleEn: 'Strawberry-Raspberry', titleUk: 'Полуниця-малина', titleBe: 'Клубніца-маліна', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Strawberry-raspberry.jpg' },
+            { id: 9, title: 'Морковно-ореховый', titleEn: 'Carrot-Nut', titleUk: 'Морквяно-горіховий', titleBe: 'Морквава-арэхавы', category: 'cakes', pricePerKg: 1900, icon: '🎂',image: 'Carrot-nut.jpg' },
+            { id: 10, title: 'Малиновый тирамису', titleEn: 'Raspberry Tiramisu', titleUk: 'Малиновий тірамісу', titleBe: 'Малінавы тырамісу', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Raspberry Tiramisu.jpg' },
+            // СОЛЁНЫЙ ТОРТ С ГАЛЕРЕЕЙ (2 ФОТО)
+            { id: 11, title: 'Солёный торт', titleEn: 'Salty Cake', titleUk: 'Солоний торт', titleBe: 'Салёны торт', category: 'cakes', pricePerKg: 2000, icon: '🎂', images: ['salty.jpg', 'salty2.jpg'], image: 'salty.jpg' },
+            { id: 12, title: 'Шоколадно-абрикосовый с безе', titleEn: 'Chocolate-Apricot with Meringue', titleUk: 'Шоколадно-абрикосовий з безе', titleBe: 'Шакаладна-абрыкосавы з бязэ', category: 'cakes', pricePerKg: 2000, icon: '🎂', image: 'Chocolate and apricot.jpg' },
+            { id: 13, title: 'Лимонно-лаймовый', titleEn: 'Lemon-Lime', titleUk: 'Лимонно-лаймовий', titleBe: 'Лімонна-лаймавы', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Lemon-lime.jpg' },
+            { id: 14, title: 'Апельсин-манго-маракуйя', titleEn: 'Orange-Mango-Passionfruit', titleUk: 'Апельсин-манго-маракуйя', titleBe: 'Апельсін-манга-маракуйя', category: 'cakes', pricePerKg: 1800, icon: '🎂', image: 'Orange-Mango-Passion Fruit.jpg' },
+            { id: 15, title: 'Шоколадный торт', titleEn: 'Chocolate Cake', titleUk: 'Шоколадний торт', titleBe: 'Шакаладны торт', category: 'cakes', pricePerKg: 2100, icon: '🎂', image: 'Chocolate.jpg' },
+            { id: 16, title: 'Медовик', titleEn: 'Medovik', titleUk: 'Медовик', titleBe: 'Мёдавік', category: 'cakes', pricePerKg: 1800, icon: '🎂', image: 'Medovik.jpg' },
+            { id: 17, title: 'Наполеон', titleEn: 'Napoleon', titleUk: 'Наполеон', titleBe: 'Напалеон', category: 'cakes', pricePerKg: 1800, icon: '🎂', image: 'Napoleon.jpg' },
+            { id: 18, title: 'Натс торт', titleEn: 'Nuts Cake', titleUk: 'Натс торт', titleBe: 'Натс торт', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Nats.jpg' },
+            { id: 19, title: 'Карамельно-банановый', titleEn: 'Caramel-Banana', titleUk: 'Карамельно-банановий', titleBe: 'Карамельна-бананавы', category: 'cakes', pricePerKg: 1800, icon: '🎂', image: 'Caramel banana.jpg' },
+            { id: 20, title: 'Карамельно-грушевый', titleEn: 'Caramel-Pear', titleUk: 'Карамельно-грушевий', titleBe: 'Карамельна-грушавы', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Caramel-pear.jpg' },
+            { id: 21, title: 'Раффаэло торт', titleEn: 'Raffaello Cake', titleUk: 'Раффаелло торт', titleBe: 'Раффаэла торт', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Raffaello.jpg' },
+            { id: 22, title: 'Шоколадно-вишнёвый', titleEn: 'Chocolate-Cherry', titleUk: 'Шоколадно-вишневий', titleBe: 'Шакаладна-вішнёвы', category: 'cakes', pricePerKg: 1800, icon: '🎂', image: 'Chocolate and cherry.jpg' },
+            { id: 23, title: 'Сникерс', titleEn: 'Snickers', titleUk: 'Снікерс', titleBe: 'Снікерс', category: 'cakes', pricePerKg: 1800, icon: '🎂', image: 'Snickers.jpg' },
+            { id: 24, title: 'Лимонно-смородиновый', titleEn: 'Lemon-Currant', titleUk: 'Лимонно-смородиновий', titleBe: 'Лімонна-парэчкавы', category: 'cakes', pricePerKg: 1700, icon: '🎂', image: 'Lemon-currant.jpg' },
+            { id: 25, title: 'Красный бархат', titleEn: 'Red Velvet', titleUk: 'Червоний оксамит', titleBe: 'Чырвоны аксаміт', category: 'cakes', pricePerKg: 1800, icon: '🎂', image: 'Red velvet.jpg' },
+            { id: 26, title: 'Йогуртовый торт', titleEn: 'Yogurt Cake', titleUk: 'Йогуртовий торт', titleBe: 'Ёгуртавы торт', category: 'cakes', pricePerKg: 1700, icon: '🎂', image: 'Yogurt.jpg' },
+            { id: 27, title: 'Изумрудный торт', titleEn: 'Emerald Cake', titleUk: 'Смарагдовий торт', titleBe: 'Ізумрудны торт', category: 'cakes', pricePerKg: 1800, icon: '🎂', image: 'Emerald.jpg' },
+            { id: 28, title: 'Молочная девочка', titleEn: 'Milky Girl', titleUk: 'Молочна дівчинка', titleBe: 'Малочная дзяўчынка', category: 'cakes', pricePerKg: 1800, icon: '🎂', image: 'Milk girl.jpg' },
+            { id: 29, title: 'Ванильно-ягодный', titleEn: 'Vanilla-Berry', titleUk: 'Ванільно-ягідний', titleBe: 'Ванільна-ягадны', category: 'cakes', pricePerKg: 1700, icon: '🎂', image: 'Vanilla berry.jpg' },
+            { id: 30, title: 'Баунти', titleEn: 'Bounty', titleUk: 'Баунті', titleBe: 'Баўнці', category: 'cakes', pricePerKg: 1900, icon: '🎂', image: 'Bounty.jpg' },
+            { id: 31, title: 'Муссовый торт', titleEn: 'Mousse Cake', titleUk: 'Мусовий торт', titleBe: 'Мусавы торт', category: 'cakes', pricePerKg: 2700, icon: '🎂', image: 'mousse.jpg', description: 'Бисквит с ягодной (фруктовой) прослойкой и с нежным суфле', descriptionEn: 'Sponge cake with berry (fruit) layer and delicate souffle', descriptionUk: 'Бісквіт з ягідною (фруктовою) прошарком і ніжним суфле', descriptionBe: 'Бісквіт з ягаднай (садавінай) праслойкай і пяшчотным суфле' },
+            // ОБНОВЛЕННЫЙ БИСКВИТНЫЙ РУЛЕТ (id 32)
+            { id: 32, title: 'Бисквитный рулет', titleEn: 'Sponge Roll', titleUk: 'Бісквітний рулет', titleBe: 'Бісквітны рулет', category: 'desserts', price: 1700, unit: 'шт', options: [1,2,3], icon: '🍮', image: 'Sponge cake roll.jpg', isVariety: true, description: 'Бисквитный рулет с рисунком из теста или украшением из крема, крем-чиз и конфитюр на выбор', descriptionEn: 'Sponge roll with pattern from dough or cream decoration, cream cheese and confiture to choose from', descriptionUk: 'Бісквітний рулет з малюнком з тіста або прикрасою з крему, крем-чиз і конфітюр на вибір', descriptionBe: 'Бісквітны рулет з малюнкам з цесту або ўпрыгажэннем з крэму, крэм-чыз і канфіцюр на выбар' },
+            // ОБНОВЛЕННЫЙ МЕРЕНГОВЫЙ РУЛЕТ (id 33)
+            { id: 33, title: 'Меренговый рулет', titleEn: 'Meringue Roll', titleUk: 'Меренговий рулет', titleBe: 'Мерынгавы рулет', category: 'desserts', price: 1700, unit: 'шт', options: [1,2,3], icon: '🍮', image: 'Meringue roll.jpg', hasVarietyOptions: true, description: 'Нежнейший меренговый рулет с кремом из творожного сыра и ягодным конфитюром', descriptionEn: 'The most delicate meringue roll with cream cheese and berry confiture', descriptionUk: 'Ніжніший меренговий рулет з кремом з сиру та ягідним конфітюром', descriptionBe: 'Пяшчотны мерынгавы рулет з крэмам з тварожнага сыру і ягадным канфіцюрам' },
+	    { id: 34, title: 'Трайфлы', titleEn: 'Trifles', titleUk: 'Трайфли', titleBe: 'Трайфлы', category: 'desserts', price: 350, unit: 'шт', options: [4,6,8,10,12], icon: '🍮', image: 'Trifles.jpg', isVariety: true, description: 'Порционный десерт в стакане, начинка обсуждается индивидуально', descriptionEn: 'Portion dessert in a glass, filling is discussed individually', descriptionUk: 'Порційний десерт у склянці, начинка обговорюється індивідуально', descriptionBe: 'Парцыйны дэсерт у шклянцы, начынка абмяркоўваецца індывідуальна' },
+	    { id: 35, title: 'Зефир', titleEn: 'Marshmallow', titleUk: 'Зефір', titleBe: 'Зефір', category: 'desserts', price: 100, unit: 'шт', options: [4,6,9,12], icon: '🍮', image: 'Marshmallows.jpg', isVariety: true, description: 'Нежный, вкусный, натуральный зефир.', descriptionEn: 'Delicate, tasty, natural marshmallow.', descriptionUk: 'Ніжний, смачний, натуральний зефір.', descriptionBe: 'Пяшчотны, смачны, натуральны зефір.', composition: 'Состав: яичный белок, сахар, ягодное(фруктовое) пюре, агар-агар, глюкозный сироп.', compositionEn: 'Ingredients: egg white, sugar, berry (fruit) puree, agar-agar, glucose syrup.', compositionUk: 'Склад: яєчний білок, цукор, ягідне(фруктове) пюре, агар-агар, глюкозний сироп.', compositionBe: 'Склад: яечны бялок, цукар, ягаднае(садавінавае) пюрэ, агар-агар, глюкозны сіроп.' },
+	    { id: 36, title: 'Печенье с трещинами', titleEn: 'Crackled Cookies', titleUk: 'Печиво з тріщинами', titleBe: 'Пячыва з трэшчынамі', category: 'desserts', price: 650, unit: '0.5 кг', unitEn: '0.5 kg', unitUk: '0,5 кг', unitBe: '0,5 кг', instant: true, icon: '🍪', image: 'Cookies with cracks.jpg', description: 'Ароматное печенье, нежное внутри и лёгкой корочкой снаружи', descriptionEn: 'Aromatic cookies, tender inside and with a light crust outside', descriptionUk: 'Ароматне печиво, ніжне всередині та легкою скоринкою зовні', descriptionBe: 'Араматнае пячыва, пяшчотнае ўнутры і лёгкай скарынкай звонку' },
+	    { id: 37, title: 'Кейкпопсы', titleEn: 'Cake Pops', titleUk: 'Кейкпопси', titleBe: 'Кейкпопсы', category: 'desserts', price: 100, unit: 'шт', options: [10,14,18,20], icon: '🧁', image: 'Cape Town.jpg', isVariety: true, description: 'Вкусы: Красный бархат, Ваниль, Шоколад, Апельсин, Лимон', descriptionEn: 'Flavors: Red Velvet, Vanilla, Chocolate, Orange, Lemon', descriptionUk: 'Смаки: Червоний оксамит, Ваніль, Шоколад, Апельсин, Лимон', descriptionBe: 'Смакі: Чырвоны аксаміт, Ваніль, Шакалад, Апельсін, Лімон' },
+	    { id: 38, title: 'Капкейки', titleEn: 'Cupcakes', titleUk: 'Капкейки', titleBe: 'Капкейкі', category: 'desserts', price: 200, unit: 'шт', options: [4,6,9], icon: '🧁', image: 'Cupcakes.jpg', isVariety: true, description: 'Начинка обговаривается индивидуально', descriptionEn: 'Filling is discussed individually', descriptionUk: 'Начинка обговорюється індивідуально', descriptionBe: 'Начынка абмяркоўваецца індывідуальна' },
+	    { id: 39, title: 'Моти', titleEn: 'Mochi', titleUk: 'Моті', titleBe: 'Моці', category: 'desserts', price: 150, unit: 'шт', options: [3,6,9,12], icon: '🍡', image: 'Moti.jpg', isVariety: true, description: 'Вкусы: Ванильно-ягодный, Имбирный латте, Лайм-лимон, Кофе-банан, Фисташка-малина, Двойная смородина', descriptionEn: 'Flavors: Vanilla-berry, Ginger latte, Lime-lemon, Coffee-banana, Pistachio-raspberry, Double currant', descriptionUk: 'Смаки: Ванільно-ягідний, Імбирний латте, Лайм-лимон, Кава-банан, Фісташка-малина, Подвійна смородина', descriptionBe: 'Смакі: Ванільна-ягадны, Імбірны латэ, Лайм-лімон, Кава-банан, Фісташка-маліна, Двайная парэчка' },
+            { id: 40, title: 'Бенто', titleEn: 'Bento', titleUk: 'Бенто', titleBe: 'Бента', category: 'bento', price: 1400, icon: '🍰', image: 'bento.jpg', isVariety: true, description: 'Начинка по договорённости, цена за штуку, возможна доплата за дизайн. Упаковка зависит от размера торта.', descriptionEn: 'Filling by agreement, price per piece, possible extra charge for design. Packaging depends on the size of the cake.', descriptionUk: 'Начинка за домовленістю, ціна за штуку, можлива доплата за дизайн. Упаковка залежить від розміру торта.', descriptionBe: 'Начынка па дамоўленасці, цана за штуку, магчымая даплата за дызайн. Упакоўка залежыць ад памеру торта.' }
+        ];
+
+        // Переменные для отслеживания режимов
+        let showCakePopVarieties = false;
+        let showMochiVarieties = false;
+        let showCupcakeVarieties = false;
+        let showBentoVarieties = false;
+        let showMarshmallowVarieties = false;
+        let showTrifleVarieties = false;
+        let showSpongeRollVarieties = false;
+
+        // Переменные для Моти
+        let selectedMochiQuantity = null;
+        let currentMochiVariety = null;
+
+        // Переменные для Капкейков
+        let selectedCupcakeQuantity = null;
+        let selectedCupcakeFilling = null;
+        let currentCupcakeVariety = null;
+
+        // Переменные для Бенто
+        let selectedBentoSize = null;
+        let selectedBentoFilling = null;
+        let currentBentoVariety = null;
+
+        // Переменные для Зефира
+        let selectedMarshmallowQuantity = null;
+        let currentMarshmallowVariety = null;
+
+        // Переменные для Трайфлов
+        let selectedTrifleQuantity = null;
+        let selectedTrifleFilling = null;
+        let currentTrifleVariety = null;
+
+        // Переменные для Бисквитного рулета
+        let selectedSpongeRollQuantity = null;
+        let selectedSpongeRollFilling = null;
+        let currentSpongeRollVariety = null;
+
+        // Переменные для Меренгового рулета
+        let selectedMeringueQuantity = null;
+        let selectedMeringueFilling = null;
+        let currentMeringueProduct = null;
+
+        const translations = {
+            ru: {
+                siteTitle: "Торты на заказ Воронеж", cart: "Корзина", orders: "Мои заказы", login: "Войти",
+                sortTitle: "📋 Сортировка", desserts: "🍮 Десерты", bento: "🍰 Бенто", cakes: "🎂 Торты", designs: "🎨 Дизайны",
+                sortPrice: "💰 Сортировать по цене", reviewsTitle: "⭐ Отзывы", searchPlaceholder: "🔍 Поиск вкуса...",
+                addToCart: "Добавить", addedToCart: "✓ Добавлено", selectWeight: "Выберите вес торта", selectQuantity: "Выберите количество",
+                selectBento: "Выберите размер бенто", add: "Добавить", cancel: "Отмена", yourCart: "🛒 Корзина",
+                orderDate: "📅 Дата заказа (мин. +3 дня):", orderCake: "🎂 Заказать", continueShopping: "Продолжить",
+                registration: "Регистрация", register: "Зарегистрироваться", profile: "👤 Профиль", logout: "🚪 Выйти",
+                close: "Закрыть", editProfile: "✍ Редактировать профиль", save: "Сохранить", cartEmpty: "Корзина пуста",
+                total: "Итого", deleteConfirm: "Удалить товар из корзины?", needLogin: "Войдите в аккаунт!",
+                invalidDate: "Дата заказа не ранее чем через 3 дня", emailRequired: "Email должен содержать @",
+                phoneRequired: "Телефон формата +7XXXXXXXXXX", nameRequired: "Введите фамилию и имя",
+                successReg: "Регистрация успешна!", logoutConfirm: "Вы правда хотите выйти?", logoutSuccess: "Вы вышли",
+                noOrders: "У вас пока нет заказов", noReviews: "Пока нет отзывов", perKg: "за 1 кг", from: "от",
+                pcs: "шт", kg: "кг", cm: "см", g: "г", surname: "Фамилия:", nameLabel: "Имя:", emailLabel: "Email:", phoneLabel: "Телефон:",
+                productReviews: "⭐ Отзывы о товаре", writeReview: "Оставить отзыв", reviewNamePlaceholder: "Иван Иванов",
+                reviewTextPlaceholder: "Ваш отзыв...", submitReview: "Отправить отзыв", reviewErrorEmpty: "Заполните все поля!",
+                reviewErrorAlready: "Вы уже оставили отзыв!", reviewSuccess: "Спасибо за отзыв!",
+                favoritesTitle: "❤️ Избранные товары", noFavorites: "💔 Нет избранных", removeConfirm: "Удалить из избранного?",
+                productAdded: "добавлено!", orderPlaced: "Заказ оформлен!", chatPlaceholder: "Ваше сообщение...",
+                send: "Отправить", selectLanguage: "🌐 Выберите язык", yes: "Да", no: "Нет",
+                termsTitle: "📋 Условия заказа", deliveryTitle: "🚚 Подробнее о доставке", locationTitle: "📍 Адрес самовывоза",
+                address: "ул. Генерала Лизюкова, 43, Воронеж", exactAddress: "ул. Генерала Лизюкова, 43, Воронеж",
+                closeBtn: "Закрыть",
+                moreDetails: "📖 Подробнее",
+                caramel: "Карамель",
+                strawberry: "Клубничный конфитюр",
+                cherry: "Вишнёвый конфитюр",
+                raspberry: "Малиновый конфитюр",
+                size12: "12 см (500-600г)",
+                size14: "14 см (700-800г)",
+                bananaApple: "Бананово-яблочный",
+                vanillaMarshmallow: "Ванильный",
+                strawberryMarshmallow: "Клубничный",
+                composition: "Состав",
+                trifleChocolate: "Шоколадный",
+                trifleVanilla: "Ванильный",
+                trifleRedVelvet: "Красный бархат",
+                fillingCaramelPeanut: "Карамель с арахисом",
+                fillingStrawberry: "Клубничный конфитюр",
+                fillingCherry: "Вишнёвый конфитюр",
+                fillingRaspberry: "Малиновый конфитюр",
+                fillingMangoPassion: "Манго-маракуйя конфитюр",
+                spongeRollChocolate: "Шоколадный",
+                spongeRollVanilla: "Ванильный",
+                spongeRollRedVelvet: "Красный бархат",
+                fillingCaramel: "Карамель",
+                termsText: `<h4>1. Сроки оформления заказа:</h4><p>- Заказы принимаются не менее чем за 2-3 дня до даты торжества.<br>- Для крупных заказов рекомендуется делать заказ за 7-10 дней.</p><h4>2. Выбор десерта:</h4><p>- Индивидуальный дизайн и вкус по согласованию.</p><h4>3. Стоимость и предоплата:</h4><p>- Цены за кг/порцию, доплата за дизайн.<br>- Предоплата после уточнения деталей.</p><h4>4. Индивидуальные предпочтения:</h4><p>- Учитываются аллергии и диетические ограничения.</p><h4>5. Доставка:</h4><p>- Самовывоз: <strong>ул. Генерала Лизюкова, 43, Воронеж</strong><br>- Доставка такси по тарифу.</p><div class="button-group"><button class="small-btn" onclick="closeTermsModal(); openDeliveryModal();">🚚 Подробнее о доставке</button></div><h4>6. Отмена заказа:</h4><p>- За 3 дня - возврат предоплаты.</p><h4>7. Ответственность:</h4><p>- За транспортировку отвечает перевозчик!</p>`,
+                deliveryText: `<div class="delivery-section"><h4>📍 Самовывоз: ул. Генерала Лизюкова, 43, Воронеж</h4><p><strong>Рекомендации:</strong></p><ul><li>коробку на ровную поверхность</li><li>не рядом с печкой</li><li>избегать резких торможений</li><li>держать за дно коробки</li></ul></div><div class="delivery-section"><h4>🚕 Доставка такси</h4><p>- Оплата до передачи водителю<br>- Ответственность у перевозчика</p></div>`
+            },
+            en: {
+                siteTitle: "Cakes to order Voronezh", cart: "Cart", orders: "My orders", login: "Login",
+                sortTitle: "📋 Sort", desserts: "🍮 Desserts", bento: "🍰 Bento", cakes: "🎂 Cakes", designs: "🎨 Designs",
+                sortPrice: "💰 Sort by price", reviewsTitle: "⭐ Reviews", searchPlaceholder: "🔍 Search flavor...",
+                addToCart: "Add to cart", addedToCart: "✓ Added", selectWeight: "Select weight", selectQuantity: "Select quantity",
+                selectBento: "Select size", add: "Add", cancel: "Cancel", yourCart: "🛒 Your cart",
+                orderDate: "📅 Order date (min +3 days):", orderCake: "🎂 Order", continueShopping: "Continue",
+                registration: "Registration", register: "Register", profile: "👤 Profile", logout: "🚪 Logout",
+                close: "Close", editProfile: "✍ Edit profile", save: "Save", cartEmpty: "Cart is empty",
+                total: "Total", deleteConfirm: "Delete item?", needLogin: "Please login!",
+                invalidDate: "Order date must be at least 3 days from now", emailRequired: "Email must contain @",
+                phoneRequired: "Phone format +7XXXXXXXXXX", nameRequired: "Enter name",
+                successReg: "Registration successful!", logoutConfirm: "Are you sure?", logoutSuccess: "Logged out",
+                noOrders: "No orders yet", noReviews: "No reviews yet", perKg: "per 1 kg", from: "from",
+                pcs: "pcs", kg: "kg", cm: "cm", g: "g", surname: "Surname:", nameLabel: "Name:", emailLabel: "Email:", phoneLabel: "Phone:",
+                productReviews: "⭐ Reviews", writeReview: "Write review", reviewNamePlaceholder: "Ivan Ivanov",
+                reviewTextPlaceholder: "Your review...", submitReview: "Submit", reviewErrorEmpty: "Fill all fields!",
+                reviewErrorAlready: "You already reviewed!", reviewSuccess: "Thank you!",
+                favoritesTitle: "❤️ Favorites", noFavorites: "💔 No favorites", removeConfirm: "Remove from favorites?",
+                productAdded: "added!", orderPlaced: "Order placed!", chatPlaceholder: "Your message...",
+                send: "Send", selectLanguage: "🌐 Select language", yes: "Yes", no: "No",
+                termsTitle: "📋 Terms", deliveryTitle: "🚚 Delivery details", locationTitle: "📍 Pickup address",
+                address: "Generala Lizyukova str., 43, Voronezh", exactAddress: "Generala Lizyukova str., 43, Voronezh",
+                closeBtn: "Close",
+                moreDetails: "📖 More details",
+                caramel: "Caramel",
+                strawberry: "Strawberry confiture",
+                cherry: "Cherry confiture",
+                raspberry: "Raspberry confiture",
+                size12: "12 cm (500-600g)",
+                size14: "14 cm (700-800g)",
+                bananaApple: "Banana-Apple",
+                vanillaMarshmallow: "Vanilla",
+                strawberryMarshmallow: "Strawberry",
+                composition: "Ingredients",
+                trifleChocolate: "Chocolate",
+                trifleVanilla: "Vanilla",
+                trifleRedVelvet: "Red Velvet",
+                fillingCaramelPeanut: "Caramel with peanuts",
+                fillingStrawberry: "Strawberry confiture",
+                fillingCherry: "Cherry confiture",
+                fillingRaspberry: "Raspberry confiture",
+                fillingMangoPassion: "Mango-passionfruit confiture",
+                spongeRollChocolate: "Chocolate",
+                spongeRollVanilla: "Vanilla",
+                spongeRollRedVelvet: "Red Velvet",
+                fillingCaramel: "Caramel",
+                termsText: `<h4>1. Order deadlines:</h4><p>- Orders are accepted at least 2-3 days before the celebration date.<br>- For large orders, recommended to order 7-10 days in advance.</p><h4>2. Dessert selection:</h4><p>- Individual design and taste by prior agreement.</p><h4>3. Cost and prepayment:</h4><p>- Prices per kg/serving, extra charge for design possible.<br>- Prepayment required after clarifying details.</p><h4>4. Individual preferences:</h4><p>- Allergies and dietary restrictions are taken into account.</p><h4>5. Delivery:</h4><p>- Pickup: <strong>Generala Lizyukova str., 43, Voronezh</strong><br>- Taxi delivery at their rate.</p><div class="button-group"><button class="small-btn" onclick="closeTermsModal(); openDeliveryModal();">🚚 More about delivery</button></div><h4>6. Order cancellation:</h4><p>- 3 days before - prepayment refund.</p><h4>7. Responsibility:</h4><p>- The carrier is responsible for transportation!</p>`,
+                deliveryText: `<div class="delivery-section"><h4>📍 Pickup: Generala Lizyukova str., 43, Voronezh</h4><p><strong>Recommendations:</strong></p><ul><li>place the box on a flat surface</li><li>do not place near the heater</li><li>avoid sudden braking</li><li>hold the bottom of the box</li></ul></div><div class="delivery-section"><h4>🚕 Taxi delivery</h4><p>- Payment before handing over to driver<br>- The carrier is responsible</p></div>`
+            },
+            uk: {
+                siteTitle: "Торти на замовлення Воронеж", cart: "Кошик", orders: "Мої замовлення", login: "Увійти",
+                sortTitle: "📋 Сортування", desserts: "🍮 Десерти", bento: "🍰 Бенто", cakes: "🎂 Торти", designs: "🎨 Дизайни",
+                sortPrice: "💰 Сортувати за ціною", reviewsTitle: "⭐ Відгуки", searchPlaceholder: "🔍 Пошук смаку...",
+                addToCart: "Додати", addedToCart: "✓ Додано", selectWeight: "Виберіть вагу", selectQuantity: "Виберіть кількість",
+                selectBento: "Виберіть розмір", add: "Додати", cancel: "Скасувати", yourCart: "🛒 Кошик",
+                orderDate: "📅 Дата замовлення (мін. +3 дні):", orderCake: "🎂 Замовити", continueShopping: "Продовжити",
+                registration: "Реєстрація", register: "Зареєструватися", profile: "👤 Профіль", logout: "🚪 Вийти",
+                close: "Закрити", editProfile: "✍ Редагувати", save: "Зберегти", cartEmpty: "Кошик порожній",
+                total: "Разом", deleteConfirm: "Видалити товар?", needLogin: "Увійдіть в акаунт!",
+                invalidDate: "Дата не раніше ніж через 3 дні", emailRequired: "Email має містити @",
+                phoneRequired: "Телефон формату +7XXXXXXXXXX", nameRequired: "Введіть прізвище та ім'я",
+                successReg: "Реєстрація успішна!", logoutConfirm: "Вийти?", logoutSuccess: "Ви вийшли",
+                noOrders: "Немає замовлень", noReviews: "Немає відгуків", perKg: "за 1 кг", from: "від",
+                pcs: "шт", kg: "кг", cm: "см", g: "г", surname: "Прізвище:", nameLabel: "Ім'я:", emailLabel: "Email:", phoneLabel: "Телефон:",
+                productReviews: "⭐ Відгуки", writeReview: "Написати відгук", reviewNamePlaceholder: "Іван Іванов",
+                reviewTextPlaceholder: "Ваш відгук...", submitReview: "Надіслати", reviewErrorEmpty: "Заповніть поля!",
+                reviewErrorAlready: "Ви вже писали відгук!", reviewSuccess: "Дякуємо!",
+                favoritesTitle: "❤️ Обрані", noFavorites: "💔 Немає обраних", removeConfirm: "Видалити з обраних?",
+                productAdded: "додано!", orderPlaced: "Замовлення оформлено!", chatPlaceholder: "Ваше повідомлення...",
+                send: "Надіслати", selectLanguage: "🌐 Виберіть мову", yes: "Так", no: "Ні",
+                termsTitle: "📋 Умови", deliveryTitle: "🚚 Деталі доставки", locationTitle: "📍 Адреса самовивозу",
+                address: "вул. Генерала Лизюкова, 43, Воронеж", exactAddress: "вул. Генерала Лизюкова, 43, Воронеж",
+                closeBtn: "Закрити",
+                moreDetails: "📖 Детальніше",
+                caramel: "Карамель",
+                strawberry: "Полуничний конфітюр",
+                cherry: "Вишневий конфітюр",
+                raspberry: "Малиновий конфітюр",
+                size12: "12 см (500-600г)",
+                size14: "14 см (700-800г)",
+                bananaApple: "Бананово-яблучний",
+                vanillaMarshmallow: "Ванільний",
+                strawberryMarshmallow: "Полуничний",
+                composition: "Склад",
+                trifleChocolate: "Шоколадний",
+                trifleVanilla: "Ванільний",
+                trifleRedVelvet: "Червоний оксамит",
+                fillingCaramelPeanut: "Карамель з арахісом",
+                fillingStrawberry: "Полуничний конфітюр",
+                fillingCherry: "Вишневий конфітюр",
+                fillingRaspberry: "Малиновий конфітюр",
+                fillingMangoPassion: "Манго-маракуйя конфітюр",
+                spongeRollChocolate: "Шоколадний",
+                spongeRollVanilla: "Ванільний",
+                spongeRollRedVelvet: "Червоний оксамит",
+                fillingCaramel: "Карамель",
+                termsText: `<h4>1. Терміни оформлення:</h4><p>- Замовлення приймаються за 2-3 дні до свята.</p><h4>2. Вибір десерту:</h4><p>- Індивідуальний дизайн та смак.</p><h4>3. Вартість:</h4><p>- Ціни за кг/порцію, доплата за дизайн.</p><h4>4. Уподобання:</h4><p>- Враховуються алергії та обмеження.</p><h4>5. Доставка:</h4><p>- Самовивіз: <strong>вул. Генерала Лизюкова, 43, Воронеж</strong><br>- Доставка таксі.</p><div class="button-group"><button class="small-btn" onclick="closeTermsModal(); openDeliveryModal();">🚚 Детальніше</button></div><h4>6. Скасування:</h4><p>- За 3 дні - повернення.</p><h4>7. Відповідальність:</h4><p>- Відповідає перевізник!</p>`,
+                deliveryText: `<div class="delivery-section"><h4>📍 Самовивіз: вул. Генерала Лизюкова, 43</h4><p><strong>Рекомендації:</strong></p><ul><li>коробку на рівну поверхню</li><li>не біля печі</li><li>уникати різких рухів</li><li>тримати за дно</li></ul></div><div class="delivery-section"><h4>🚕 Доставка таксі</h4><p>- Оплата до передачі водієві<br>- Відповідальність у перевізника</p></div>`
+            },
+            be: {
+                siteTitle: "Тарты на заказ Воронеж", cart: "Кошык", orders: "Мае заказы", login: "Увайсці",
+                sortTitle: "📋 Сартыроўка", desserts: "🍮 Дэсерты", bento: "🍰 Бента", cakes: "🎂 Тарты", designs: "🎨 Дызайны",
+                sortPrice: "💰 Сартыраваць па цане", reviewsTitle: "⭐ Адзывы", searchPlaceholder: "🔍 Пошук густу...",
+                addToCart: "Дадаць", addedToCart: "✓ Дададзена", selectWeight: "Абярыце вагу", selectQuantity: "Абярыце колькасць",
+                selectBento: "Абярыце памер", add: "Дадаць", cancel: "Скасаваць", yourCart: "🛒 Кошык",
+                orderDate: "📅 Дата заказу (мін. +3 дні):", orderCake: "🎂 Заказаць", continueShopping: "Працягнуць",
+                registration: "Рэгістрацыя", register: "Зарэгістравацца", profile: "👤 Профіль", logout: "🚪 Выйсці",
+                close: "Закрыць", editProfile: "✍ Рэдагаваць", save: "Захаваць", cartEmpty: "Кошык пусты",
+                total: "Разам", deleteConfirm: "Выдаліць тавар?", needLogin: "Увайдзіце ў акаўнт!",
+                invalidDate: "Дата не раней чым праз 3 дні", emailRequired: "Email павінен утрымліваць @",
+                phoneRequired: "Тэлефон фармату +7XXXXXXXXXX", nameRequired: "Увядзіце прозвішча і імя",
+                successReg: "Рэгістрацыя паспяховая!", logoutConfirm: "Выйсці?", logoutSuccess: "Вы выйшлі",
+                noOrders: "Няма заказаў", noReviews: "Няма водгукаў", perKg: "за 1 кг", from: "ад",
+                pcs: "шт", kg: "кг", cm: "см", g: "г", surname: "Прозвішча:", nameLabel: "Імя:", emailLabel: "Email:", phoneLabel: "Тэлефон:",
+                productReviews: "⭐ Водгукі", writeReview: "Пакінуць водгук", reviewNamePlaceholder: "Іван Іванаў",
+                reviewTextPlaceholder: "Ваш водгук...", submitReview: "Даслаць", reviewErrorEmpty: "Запоўніце палі!",
+                reviewErrorAlready: "Вы ўжо пісалі водгук!", reviewSuccess: "Дзякуй!",
+                favoritesTitle: "❤️ Абраныя", noFavorites: "💔 Няма абраных", removeConfirm: "Выдаліць з абраных?",
+                productAdded: "дададзена!", orderPlaced: "Заказ аформлены!", chatPlaceholder: "Ваше паведамленне...",
+                send: "Даслаць", selectLanguage: "🌐 Абярыце мову", yes: "Так", no: "Не",
+                termsTitle: "📋 Умовы", deliveryTitle: "🚚 Падрабязнасці", locationTitle: "📍 Адрас самавывазу",
+                address: "вул. Генерала Лізюкова, 43, Варонеж", exactAddress: "вул. Генерала Лізюкова, 43, Варонеж",
+                closeBtn: "Закрыць",
+                moreDetails: "📖 Падрабязней",
+                caramel: "Карамель",
+                strawberry: "Клубнічны канфіцюр",
+                cherry: "Вішнёвы канфіцюр",
+                raspberry: "Малінавы канфіцюр",
+                size12: "12 см (500-600г)",
+                size14: "14 см (700-800г)",
+                bananaApple: "Бананава-яблычны",
+                vanillaMarshmallow: "Ванільны",
+                strawberryMarshmallow: "Клубнічны",
+                composition: "Склад",
+                trifleChocolate: "Шакаладны",
+                trifleVanilla: "Ванільны",
+                trifleRedVelvet: "Чырвоны аксаміт",
+                fillingCaramelPeanut: "Карамель з арахісам",
+                fillingStrawberry: "Клубнічны канфіцюр",
+                fillingCherry: "Вішнёвы канфіцюр",
+                fillingRaspberry: "Малінавы канфіцюр",
+                fillingMangoPassion: "Манга-маракуйя канфіцюр",
+                spongeRollChocolate: "Шакаладны",
+                spongeRollVanilla: "Ванільны",
+                spongeRollRedVelvet: "Чырвоны аксаміт",
+                fillingCaramel: "Карамель",
+                termsText: `<h4>1. Тэрміны афармлення:</h4><p>- Заказы прымаюцца за 2-3 дні да ўрачыстасці.</p><h4>2. Выбар дэсерту:</h4><p>- Індывідуальны дызайн і смак.</p><h4>3. Кошт:</h4><p>- Цэны за кг/порцыю, даплата за дызайн.</p><h4>4. Перавагі:</h4><p>- Улічваюцца алергіі і абмежаванні.</p><h4>5. Дастаўка:</h4><p>- Самавываз: <strong>вул. Генерала Лізюкова, 43, Варонеж</strong><br>- Дастаўка таксі.</p><div class="button-group"><button class="small-btn" onclick="closeTermsModal(); openDeliveryModal();">🚚 Падрабязней</button></div><h4>6. Адмена:</h4><p>- За 3 дні - вяртанне.</p><h4>7. Адказнасць:</h4><p>- Адкажа перавозчык!</p>`,
+                deliveryText: `<div class="delivery-section"><h4>📍 Самавываз: вул. Генерала Лізюкова, 43</h4><p><strong>Рэкамендацыі:</strong></p><ul><li>скрынку на роўную паверхню</li><li>не каля печкі</li><li>пазбягаць рэзкіх рухаў</li><li>трымаць за дно</li></ul></div><div class="delivery-section"><h4>🚕 Дастаўка таксі</h4><p>- Аплата да перадачы кіроўцу<br>- Адказнасць у перавозчыка</p></div>`
+            }
+        };
+
+        let cart = [], currentUser = null, priceSortDesc = true;
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        let productReviews = JSON.parse(localStorage.getItem('product_reviews')) || {};
+        let globalReviews = JSON.parse(localStorage.getItem('global_reviews')) || [];
+        let orders = JSON.parse(localStorage.getItem('user_orders')) || [];
+        let orderChats = JSON.parse(localStorage.getItem('order_chats')) || {};
+        let currentLang = 'ru';
+        
+        function t(key) { return translations[currentLang][key] || key; }
+        function getDesignTitle(d) { 
+            if(currentLang === 'en') return d.nameEn || d.name;
+            if(currentLang === 'uk') return d.nameUk || d.name;
+            if(currentLang === 'be') return d.nameBe || d.name;
+            return d.name;
+        }
+        function getProductTitle(p) { 
+            if(currentLang === 'en') return p.titleEn || p.title;
+            if(currentLang === 'uk') return p.titleUk || p.title;
+            if(currentLang === 'be') return p.titleBe || p.title;
+            return p.title;
+        }
+        function getProductDescription(p) { 
+            if(currentLang === 'en') return p.descriptionEn || p.description || '';
+            if(currentLang === 'uk') return p.descriptionUk || p.description || '';
+            if(currentLang === 'be') return p.descriptionBe || p.description || '';
+            return p.description || '';
+        }
+        function getProductComposition(p) {
+            if(currentLang === 'en') return p.compositionEn || p.composition || '';
+            if(currentLang === 'uk') return p.compositionUk || p.composition || '';
+            if(currentLang === 'be') return p.compositionBe || p.composition || '';
+            return p.composition || '';
+        }
+        
+        // Функции для Моти
+        function getMochiTitle(v) {
+            if(currentLang === 'en') return v.nameEn || v.name;
+            if(currentLang === 'uk') return v.nameUk || v.name;
+            if(currentLang === 'be') return v.nameBe || v.name;
+            return v.name;
+        }
+
+        function openMochiVarieties() {
+            showMochiVarieties = true;
+            renderProducts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function exitMochiVarieties() {
+            showMochiVarieties = false;
+            renderProducts();
+        }
+
+        function selectMochiQuantity(el, q) {
+            document.querySelectorAll('#mochiQuantityOptions .quantity-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedMochiQuantity = q;
+        }
+
+        function confirmAddMochiToCart() {
+            if (selectedMochiQuantity && currentMochiVariety) {
+                addToCart(
+                    { ...currentMochiVariety, title: getMochiTitle(currentMochiVariety) }, 
+                    `${selectedMochiQuantity} шт`, 
+                    currentMochiVariety.price * selectedMochiQuantity, 
+                    currentMochiVariety.id
+                );
+                closeMochiQuantityModal();
+                selectedMochiQuantity = null;
+                currentMochiVariety = null;
+            } else {
+                alert('Выберите количество');
+            }
+        }
+
+        function closeMochiQuantityModal() {
+            document.getElementById('mochiQuantityModal').classList.remove('show');
+        }
+
+        function handleAddMochiToCart(id) {
+            const mochi = mochiVarieties.find(v => v.id === id);
+            if (!mochi) return;
+            
+            currentMochiVariety = mochi;
+            document.getElementById('mochiQuantityOptions').innerHTML = [3,6,9,12].map(q => `
+                <div class="quantity-option" onclick="selectMochiQuantity(this, ${q})">
+                    <label>${q} шт</label>
+                    <span class="option-price">${mochi.price * q} ₽</span>
+                </div>
+            `).join('');
+            document.getElementById('mochiQuantityModal').classList.add('show');
+        }
+        
+        // Функции для Кейкпопсов
+        function getCakePopTitle(v) {
+            if(currentLang === 'en') return v.nameEn || v.name;
+            if(currentLang === 'uk') return v.nameUk || v.name;
+            if(currentLang === 'be') return v.nameBe || v.name;
+            return v.name;
+        }
+
+        function openCakePopVarieties() {
+            showCakePopVarieties = true;
+            renderProducts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function exitCakePopVarieties() {
+            showCakePopVarieties = false;
+            renderProducts();
+        }
+
+        let selectedCakePopQuantity = null;
+        let currentProductVariety = null;
+
+        function selectCakePopQuantity(el, q) {
+            document.querySelectorAll('#cakePopQuantityOptions .quantity-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedCakePopQuantity = q;
+        }
+
+        function confirmAddCakePopToCart() {
+            if (selectedCakePopQuantity && currentProductVariety) {
+                addToCart(
+                    { ...currentProductVariety, title: getCakePopTitle(currentProductVariety) }, 
+                    `${selectedCakePopQuantity} шт`, 
+                    currentProductVariety.price * selectedCakePopQuantity, 
+                    currentProductVariety.id
+                );
+                closeCakePopQuantityModal();
+                selectedCakePopQuantity = null;
+                currentProductVariety = null;
+            } else {
+                alert('Выберите количество');
+            }
+        }
+
+        function closeCakePopQuantityModal() {
+            document.getElementById('cakePopQuantityModal').classList.remove('show');
+        }
+
+        function handleAddCakePopToCart(id) {
+            const cakePop = cakePopVarieties.find(v => v.id === id);
+            if (!cakePop) return;
+            
+            currentProductVariety = cakePop;
+            document.getElementById('cakePopQuantityOptions').innerHTML = [10,14,18,20].map(q => `
+                <div class="quantity-option" onclick="selectCakePopQuantity(this, ${q})">
+                    <label>${q} шт</label>
+                    <span class="option-price">${cakePop.price * q} ₽</span>
+                </div>
+            `).join('');
+            document.getElementById('cakePopQuantityModal').classList.add('show');
+        }
+
+        // Функции для Капкейков
+        function getCupcakeTitle(v) {
+            if(currentLang === 'en') return v.nameEn || v.name;
+            if(currentLang === 'uk') return v.nameUk || v.name;
+            if(currentLang === 'be') return v.nameBe || v.name;
+            return v.name;
+        }
+
+        function getFillingTitle(f) {
+            if(currentLang === 'en') return f.nameEn || f.name;
+            if(currentLang === 'uk') return f.nameUk || f.name;
+            if(currentLang === 'be') return f.nameBe || f.name;
+            return f.name;
+        }
+
+        function openCupcakeVarieties() {
+            showCupcakeVarieties = true;
+            renderProducts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function exitCupcakeVarieties() {
+            showCupcakeVarieties = false;
+            renderProducts();
+        }
+
+        function selectCupcakeQuantity(el, q) {
+            document.querySelectorAll('#cupcakeQuantityOptions .quantity-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedCupcakeQuantity = q;
+        }
+
+        function selectCupcakeFilling(el, fillingId, fillingName) {
+            document.querySelectorAll('#cupcakeFillingOptions .filling-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedCupcakeFilling = { id: fillingId, name: fillingName };
+        }
+
+        function confirmAddCupcakeToCart() {
+            if (!selectedCupcakeQuantity) {
+                alert('Выберите количество');
+                return;
+            }
+            if (!selectedCupcakeFilling) {
+                alert('Выберите начинку');
+                return;
+            }
+            if (currentCupcakeVariety) {
+                const filling = cupcakeFillings.find(f => f.id === selectedCupcakeFilling.id);
+                const fillingText = getFillingTitle(filling);
+                const productTitle = `${getCupcakeTitle(currentCupcakeVariety)} (${fillingText})`;
+                addToCart(
+                    { ...currentCupcakeVariety, title: productTitle }, 
+                    `${selectedCupcakeQuantity} шт, начинка: ${fillingText}`, 
+                    currentCupcakeVariety.price * selectedCupcakeQuantity, 
+                    currentCupcakeVariety.id
+                );
+                closeCupcakeQuantityModal();
+                selectedCupcakeQuantity = null;
+                selectedCupcakeFilling = null;
+                currentCupcakeVariety = null;
+            }
+        }
+
+        function closeCupcakeQuantityModal() {
+            document.getElementById('cupcakeQuantityModal').classList.remove('show');
+            document.getElementById('cupcakeFillingModal').classList.remove('show');
+        }
+
+        function showCupcakeFillingModal() {
+            if (!selectedCupcakeQuantity) {
+                alert('Сначала выберите количество');
+                return;
+            }
+            const fillingsHtml = cupcakeFillings.map(f => `
+                <div class="quantity-option filling-option" onclick="selectCupcakeFilling(this, ${f.id}, '${f.name}')">
+                    <label>${getFillingTitle(f)}</label>
+                </div>
+            `).join('');
+            document.getElementById('cupcakeFillingOptions').innerHTML = fillingsHtml;
+            document.getElementById('cupcakeFillingModal').classList.add('show');
+        }
+
+        function handleAddCupcakeToCart(id) {
+            const cupcake = cupcakeVarieties.find(v => v.id === id);
+            if (!cupcake) return;
+            
+            currentCupcakeVariety = cupcake;
+            selectedCupcakeQuantity = null;
+            selectedCupcakeFilling = null;
+            
+            document.getElementById('cupcakeQuantityOptions').innerHTML = [4,6,9].map(q => `
+                <div class="quantity-option" onclick="selectCupcakeQuantity(this, ${q})">
+                    <label>${q} шт</label>
+                    <span class="option-price">${cupcake.price * q} ₽</span>
+                </div>
+            `).join('');
+            document.getElementById('cupcakeQuantityModal').classList.add('show');
+        }
+
+        // Функции для Бенто
+        function getBentoTitle(v) {
+            if(currentLang === 'en') return v.nameEn || v.name;
+            if(currentLang === 'uk') return v.nameUk || v.name;
+            if(currentLang === 'be') return v.nameBe || v.name;
+            return v.name;
+        }
+
+        function getBentoSizeTitle(s) {
+            if(currentLang === 'en') return s.nameEn || s.name;
+            if(currentLang === 'uk') return s.nameUk || s.name;
+            if(currentLang === 'be') return s.nameBe || s.name;
+            return s.name;
+        }
+
+        function getBentoFillingTitle(f) {
+            if(currentLang === 'en') return f.nameEn || f.name;
+            if(currentLang === 'uk') return f.nameUk || f.name;
+            if(currentLang === 'be') return f.nameBe || f.name;
+            return f.name;
+        }
+
+        function openBentoVarieties() {
+            showBentoVarieties = true;
+            renderProducts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function exitBentoVarieties() {
+            showBentoVarieties = false;
+            renderProducts();
+        }
+
+        function selectBentoSize(el, sizeId, sizeName, price) {
+            document.querySelectorAll('#bentoSizeOptions .size-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedBentoSize = { id: sizeId, name: sizeName, price: price };
+        }
+
+        function selectBentoFilling(el, fillingId, fillingName) {
+            document.querySelectorAll('#bentoFillingOptions .filling-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedBentoFilling = { id: fillingId, name: fillingName };
+        }
+
+        function confirmAddBentoToCart() {
+            if (!selectedBentoSize) {
+                alert('Выберите размер');
+                return;
+            }
+            if (!selectedBentoFilling) {
+                alert('Выберите начинку');
+                return;
+            }
+            if (currentBentoVariety) {
+                const sizeText = getBentoSizeTitle(selectedBentoSize);
+                const filling = bentoFillings.find(f => f.id === selectedBentoFilling.id);
+                const fillingText = getBentoFillingTitle(filling);
+                const productTitle = `${getBentoTitle(currentBentoVariety)} (${sizeText}, начинка: ${fillingText})`;
+                addToCart(
+                    { ...currentBentoVariety, title: productTitle }, 
+                    `${sizeText}, начинка: ${fillingText}`, 
+                    selectedBentoSize.price, 
+                    currentBentoVariety.id
+                );
+                closeBentoModals();
+                selectedBentoSize = null;
+                selectedBentoFilling = null;
+                currentBentoVariety = null;
+            }
+        }
+
+        function closeBentoModals() {
+            document.getElementById('bentoSizeModal').classList.remove('show');
+            document.getElementById('bentoFillingModal').classList.remove('show');
+        }
+
+        function showBentoFillingModal() {
+            if (!selectedBentoSize) {
+                alert('Сначала выберите размер');
+                return;
+            }
+            const fillingsHtml = bentoFillings.map(f => `
+                <div class="quantity-option filling-option" onclick="selectBentoFilling(this, ${f.id}, '${f.name}')">
+                    <label>${getBentoFillingTitle(f)}</label>
+                </div>
+            `).join('');
+            document.getElementById('bentoFillingOptions').innerHTML = fillingsHtml;
+            document.getElementById('bentoFillingModal').classList.add('show');
+        }
+
+        function handleAddBentoToCart(id) {
+            const bento = bentoVarieties.find(v => v.id === id);
+            if (!bento) return;
+            
+            currentBentoVariety = bento;
+            selectedBentoSize = null;
+            selectedBentoFilling = null;
+            
+            document.getElementById('bentoSizeOptions').innerHTML = bentoSizes.map(s => `
+                <div class="quantity-option size-option" onclick="selectBentoSize(this, ${s.id}, '${s.name}', ${s.price})">
+                    <label>${getBentoSizeTitle(s)}</label>
+                    <span class="option-price">${s.price} ₽</span>
+                </div>
+            `).join('');
+            document.getElementById('bentoSizeModal').classList.add('show');
+        }
+
+        // Функции для Зефира
+        function getMarshmallowTitle(v) {
+            if(currentLang === 'en') return v.nameEn || v.name;
+            if(currentLang === 'uk') return v.nameUk || v.name;
+            if(currentLang === 'be') return v.nameBe || v.name;
+            return v.name;
+        }
+
+        function openMarshmallowVarieties() {
+            showMarshmallowVarieties = true;
+            renderProducts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function exitMarshmallowVarieties() {
+            showMarshmallowVarieties = false;
+            renderProducts();
+        }
+
+        function selectMarshmallowQuantity(el, q) {
+            document.querySelectorAll('#marshmallowQuantityOptions .quantity-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedMarshmallowQuantity = q;
+        }
+
+        function confirmAddMarshmallowToCart() {
+            if (selectedMarshmallowQuantity && currentMarshmallowVariety) {
+                addToCart(
+                    { ...currentMarshmallowVariety, title: getMarshmallowTitle(currentMarshmallowVariety) }, 
+                    `${selectedMarshmallowQuantity} шт`, 
+                    currentMarshmallowVariety.price * selectedMarshmallowQuantity, 
+                    currentMarshmallowVariety.id
+                );
+                closeMarshmallowQuantityModal();
+                selectedMarshmallowQuantity = null;
+                currentMarshmallowVariety = null;
+            } else {
+                alert('Выберите количество');
+            }
+        }
+
+        function closeMarshmallowQuantityModal() {
+            document.getElementById('marshmallowQuantityModal').classList.remove('show');
+        }
+
+        function handleAddMarshmallowToCart(id) {
+            const marshmallow = marshmallowVarieties.find(v => v.id === id);
+            if (!marshmallow) return;
+            
+            currentMarshmallowVariety = marshmallow;
+            document.getElementById('marshmallowQuantityOptions').innerHTML = [4,6,9,12].map(q => `
+                <div class="quantity-option" onclick="selectMarshmallowQuantity(this, ${q})">
+                    <label>${q} шт</label>
+                    <span class="option-price">${marshmallow.price * q} ₽</span>
+                </div>
+            `).join('');
+            document.getElementById('marshmallowQuantityModal').classList.add('show');
+        }
+
+        // Функции для Трайфлов
+        function getTrifleTitle(v) {
+            if(currentLang === 'en') return v.nameEn || v.name;
+            if(currentLang === 'uk') return v.nameUk || v.name;
+            if(currentLang === 'be') return v.nameBe || v.name;
+            return v.name;
+        }
+
+        function getTrifleFillingTitle(f) {
+            if(currentLang === 'en') return f.nameEn || f.name;
+            if(currentLang === 'uk') return f.nameUk || f.name;
+            if(currentLang === 'be') return f.nameBe || f.name;
+            return f.name;
+        }
+
+        function openTrifleVarieties() {
+            showTrifleVarieties = true;
+            renderProducts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function exitTrifleVarieties() {
+            showTrifleVarieties = false;
+            renderProducts();
+        }
+
+        function selectTrifleQuantity(el, q) {
+            document.querySelectorAll('#trifleQuantityOptions .quantity-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedTrifleQuantity = q;
+        }
+
+        function selectTrifleFilling(el, fillingId, fillingName) {
+            document.querySelectorAll('#trifleFillingOptions .filling-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedTrifleFilling = { id: fillingId, name: fillingName };
+        }
+
+        function confirmAddTrifleToCart() {
+            if (!selectedTrifleQuantity) {
+                alert('Выберите количество');
+                return;
+            }
+            if (!selectedTrifleFilling) {
+                alert('Выберите начинку');
+                return;
+            }
+            if (currentTrifleVariety) {
+                const fillingText = getTrifleFillingTitle(selectedTrifleFilling);
+                const productTitle = `${getTrifleTitle(currentTrifleVariety)} трайфл (${fillingText})`;
+                addToCart(
+                    { ...currentTrifleVariety, title: productTitle }, 
+                    `${selectedTrifleQuantity} шт, начинка: ${fillingText}`, 
+                    currentTrifleVariety.price * selectedTrifleQuantity, 
+                    currentTrifleVariety.id
+                );
+                closeTrifleModals();
+                selectedTrifleQuantity = null;
+                selectedTrifleFilling = null;
+                currentTrifleVariety = null;
+            }
+        }
+
+        function closeTrifleModals() {
+            document.getElementById('trifleQuantityModal').classList.remove('show');
+            document.getElementById('trifleFillingModal').classList.remove('show');
+        }
+
+        function showTrifleFillingModal() {
+            if (!selectedTrifleQuantity) {
+                alert('Сначала выберите количество');
+                return;
+            }
+            document.getElementById('trifleFillingOptions').innerHTML = trifleFillings.map(f => `
+                <div class="quantity-option filling-option" onclick="selectTrifleFilling(this, ${f.id}, '${f.name}')">
+                    <label>${getTrifleFillingTitle(f)}</label>
+                </div>
+            `).join('');
+            document.getElementById('trifleFillingModal').classList.add('show');
+        }
+
+        function handleAddTrifleToCart(id) {
+            const trifle = trifleVarieties.find(v => v.id === id);
+            if (!trifle) return;
+            
+            currentTrifleVariety = trifle;
+            selectedTrifleQuantity = null;
+            selectedTrifleFilling = null;
+            
+            document.getElementById('trifleQuantityOptions').innerHTML = [4,6,8,10,12].map(q => `
+                <div class="quantity-option" onclick="selectTrifleQuantity(this, ${q})">
+                    <label>${q} шт</label>
+                    <span class="option-price">${trifle.price * q} ₽</span>
+                </div>
+            `).join('');
+            document.getElementById('trifleQuantityModal').classList.add('show');
+        }
+        
+        // НОВЫЕ ФУНКЦИИ ДЛЯ БИСКВИТНОГО РУЛЕТА
+        function getSpongeRollTitle(v) {
+            if(currentLang === 'en') return v.nameEn || v.name;
+            if(currentLang === 'uk') return v.nameUk || v.name;
+            if(currentLang === 'be') return v.nameBe || v.name;
+            return v.name;
+        }
+
+        function getRollFillingTitle(f) {
+            if(currentLang === 'en') return f.nameEn || f.name;
+            if(currentLang === 'uk') return f.nameUk || f.name;
+            if(currentLang === 'be') return f.nameBe || f.name;
+            return f.name;
+        }
+
+        function openSpongeRollVarieties() {
+            showSpongeRollVarieties = true;
+            renderProducts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function exitSpongeRollVarieties() {
+            showSpongeRollVarieties = false;
+            renderProducts();
+        }
+
+        function selectSpongeRollQuantity(el, q) {
+            document.querySelectorAll('#spongeRollQuantityOptions .quantity-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedSpongeRollQuantity = q;
+        }
+
+        function selectSpongeRollFilling(el, fillingId, fillingName) {
+            document.querySelectorAll('#spongeRollFillingOptions .filling-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedSpongeRollFilling = { id: fillingId, name: fillingName };
+        }
+
+        function confirmAddSpongeRollToCart() {
+            if (!selectedSpongeRollQuantity) {
+                alert('Выберите количество');
+                return;
+            }
+            if (!selectedSpongeRollFilling) {
+                alert('Выберите начинку');
+                return;
+            }
+            if (currentSpongeRollVariety) {
+                const fillingText = getRollFillingTitle(selectedSpongeRollFilling);
+                const productTitle = `${getSpongeRollTitle(currentSpongeRollVariety)} бисквитный рулет (${fillingText})`;
+                addToCart(
+                    { ...currentSpongeRollVariety, title: productTitle }, 
+                    `${selectedSpongeRollQuantity} шт, начинка: ${fillingText}`, 
+                    currentSpongeRollVariety.price * selectedSpongeRollQuantity, 
+                    currentSpongeRollVariety.id
+                );
+                closeSpongeRollModals();
+                selectedSpongeRollQuantity = null;
+                selectedSpongeRollFilling = null;
+                currentSpongeRollVariety = null;
+            }
+        }
+
+        function closeSpongeRollModals() {
+            document.getElementById('spongeRollQuantityModal').classList.remove('show');
+            document.getElementById('spongeRollFillingModal').classList.remove('show');
+        }
+
+        function showSpongeRollFillingModal() {
+            if (!selectedSpongeRollQuantity) {
+                alert('Сначала выберите количество');
+                return;
+            }
+            document.getElementById('spongeRollFillingOptions').innerHTML = rollFillings.map(f => `
+                <div class="quantity-option filling-option" onclick="selectSpongeRollFilling(this, ${f.id}, '${f.name}')">
+                    <label>${getRollFillingTitle(f)}</label>
+                </div>
+            `).join('');
+            document.getElementById('spongeRollFillingModal').classList.add('show');
+        }
+
+        function handleAddSpongeRollToCart(id) {
+            const roll = spongeRollVarieties.find(v => v.id === id);
+            if (!roll) return;
+            
+            currentSpongeRollVariety = roll;
+            selectedSpongeRollQuantity = null;
+            selectedSpongeRollFilling = null;
+            
+            document.getElementById('spongeRollQuantityOptions').innerHTML = [1,2,3].map(q => `
+                <div class="quantity-option" onclick="selectSpongeRollQuantity(this, ${q})">
+                    <label>${q} шт</label>
+                    <span class="option-price">${roll.price * q} ₽</span>
+                </div>
+            `).join('');
+            document.getElementById('spongeRollQuantityModal').classList.add('show');
+        }
+
+        // НОВЫЕ ФУНКЦИИ ДЛЯ МЕРЕНГОВОГО РУЛЕТА
+        function selectMeringueQuantity(el, q) {
+            document.querySelectorAll('#meringueQuantityOptions .quantity-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedMeringueQuantity = q;
+        }
+
+        function selectMeringueFilling(el, fillingId, fillingName) {
+            document.querySelectorAll('#meringueFillingOptions .filling-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedMeringueFilling = { id: fillingId, name: fillingName };
+        }
+
+        function confirmAddMeringueToCart() {
+            if (!selectedMeringueQuantity) {
+                alert('Выберите количество');
+                return;
+            }
+            if (!selectedMeringueFilling) {
+                alert('Выберите начинку');
+                return;
+            }
+            if (currentMeringueProduct) {
+                const fillingText = getRollFillingTitle(selectedMeringueFilling);
+                const productTitle = `Меренговый рулет (${fillingText})`;
+                addToCart(
+                    { ...currentMeringueProduct, title: productTitle }, 
+                    `${selectedMeringueQuantity} шт, начинка: ${fillingText}`, 
+                    currentMeringueProduct.price * selectedMeringueQuantity, 
+                    currentMeringueProduct.id
+                );
+                closeMeringueModals();
+                selectedMeringueQuantity = null;
+                selectedMeringueFilling = null;
+                currentMeringueProduct = null;
+            }
+        }
+
+        function closeMeringueModals() {
+            document.getElementById('meringueQuantityModal').classList.remove('show');
+            document.getElementById('meringueFillingModal').classList.remove('show');
+        }
+
+        function showMeringueFillingModal() {
+            if (!selectedMeringueQuantity) {
+                alert('Сначала выберите количество');
+                return;
+            }
+            document.getElementById('meringueFillingOptions').innerHTML = meringueFillings.map(f => `
+                <div class="quantity-option filling-option" onclick="selectMeringueFilling(this, ${f.id}, '${f.name}')">
+                    <label>${getRollFillingTitle(f)}</label>
+                </div>
+            `).join('');
+            document.getElementById('meringueFillingModal').classList.add('show');
+        }
+
+        function handleAddMeringueToCart() {
+            const product = products.find(p => p.id === 33);
+            if (!product) return;
+            
+            currentMeringueProduct = product;
+            selectedMeringueQuantity = null;
+            selectedMeringueFilling = null;
+            
+            document.getElementById('meringueQuantityOptions').innerHTML = [1,2,3].map(q => `
+                <div class="quantity-option" onclick="selectMeringueQuantity(this, ${q})">
+                    <label>${q} шт</label>
+                    <span class="option-price">${product.price * q} ₽</span>
+                </div>
+            `).join('');
+            document.getElementById('meringueQuantityModal').classList.add('show');
+        }
+
+        // ФУНКЦИИ ДЛЯ ГАЛЕРЕИ
+        function changeGalleryImage(btn, direction) {
+            event.stopPropagation();
+            const gallery = btn.closest('.product-gallery');
+            const img = gallery.querySelector('.product-image');
+            let currentIndex = parseInt(img.getAttribute('data-current-index')) || 0;
+            const images = JSON.parse(img.getAttribute('data-images'));
+            
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = images.length - 1;
+            if (currentIndex >= images.length) currentIndex = 0;
+            
+            img.setAttribute('data-current-index', currentIndex);
+            img.src = images[currentIndex];
+        }
+
+        function openGallery(imgElement) {
+            event.stopPropagation();
+            const currentIndex = parseInt(imgElement.getAttribute('data-current-index')) || 0;
+            const images = JSON.parse(imgElement.getAttribute('data-images'));
+            if (images && images.length) {
+                openFullscreenImage(images[currentIndex]);
+            } else {
+                const card = imgElement.closest('.product-card');
+                const productId = parseInt(card.querySelector('.add-to-cart-btn')?.getAttribute('data-id') || 0);
+                if (productId) openProductDetail(productId);
+            }
+        }
+        
+        function saveFavorites() { localStorage.setItem('favorites', JSON.stringify(favorites)); }
+        function toggleFavorite(id) { 
+            let idx = favorites.indexOf(id); 
+            idx === -1 ? favorites.push(id) : favorites.splice(idx,1); 
+            saveFavorites(); 
+            renderProducts(); 
+        }
+        function isFavorite(id) { return favorites.includes(id); }
+        function getProductAvgRating(id) { 
+            let revs = productReviews[id] || []; 
+            return revs.length ? revs.reduce((s,r)=>s+r.rating,0)/revs.length : 0; 
+        }
+        
+        function updateCartCount() { 
+            let cnt = cart.reduce((s,i)=>s+i.quantity,0); 
+            let countElement = document.getElementById('cartCount');
+            if (countElement) {
+                countElement.textContent = cnt;
+                countElement.classList.toggle('show', cnt > 0);
+            }
+            renderProducts(); 
+        }
+        
+        function addToCart(p, size, price, originalId) { 
+            let ex = cart.find(i => i.originalId === originalId && i.weight === size); 
+            if (ex) { 
+                ex.quantity++; 
+                ex.finalPrice = ex.unitPrice * ex.quantity; 
+            } else { 
+                cart.push({...p, title: getProductTitle(p), weight: size, unitPrice: price, finalPrice: price, quantity: 1, originalId: originalId}); 
+            } 
+            updateCartCount(); 
+            alert(`✅ ${getProductTitle(p)} ${t('productAdded')}`); 
+        }
+        
+        function openCart() { 
+            const container = document.getElementById('cartItems'); 
+            if (!cart.length) container.innerHTML = `<p style="text-align:center;padding:20px;">${t('cartEmpty')}</p>`; 
+            else container.innerHTML = cart.map((item,idx) => `<div class="cart-item"><div class="cart-item-info"><b>${item.title}</b><br><small>${item.weight}</small></div><div class="cart-item-controls"><button class="qty-btn" onclick="updateCartItemQuantity(${idx}, -1)">-</button><span class="cart-item-qty">${item.quantity}</span><button class="qty-btn" onclick="updateCartItemQuantity(${idx}, 1)">+</button><span class="cart-item-price">${item.finalPrice} ₽</span><button class="delete-item-btn" onclick="deleteCartItem(${idx})">🗑️</button></div></div>`).join(''); 
+            const total = cart.reduce((s,i) => s + i.finalPrice, 0); 
+            document.getElementById('cartTotal').innerHTML = `${t('total')}: ${total} ₽`; 
+            let minDate = new Date(); 
+            minDate.setDate(minDate.getDate() + 3); 
+            document.getElementById('orderDate').min = minDate.toISOString().split('T')[0]; 
+            document.getElementById('cartModal').classList.add('show'); 
+        }
+        
+        function updateCartItemQuantity(index, delta) { 
+            const item = cart[index]; 
+            const newQty = item.quantity + delta; 
+            if (newQty <= 0) { 
+                if (confirm(t('deleteConfirm'))) cart.splice(index, 1); 
+            } else { 
+                item.quantity = newQty; 
+                item.finalPrice = item.unitPrice * newQty; 
+            } 
+            updateCartCount(); 
+            openCart(); 
+        }
+        
+        function deleteCartItem(idx) { 
+            if (confirm(t('deleteConfirm'))) { 
+                cart.splice(idx,1); 
+                updateCartCount(); 
+                openCart(); 
+            } 
+        }
+        
+        function closeCart() { document.getElementById('cartModal').classList.remove('show'); }
+        
+        async function placeOrder() { 
+            if (!currentUser) { alert(t('needLogin')); openLoginModal(); return false; } 
+            const date = document.getElementById('orderDate').value; 
+            if (cart.length === 0) { alert(t('cartEmpty')); return false; } 
+            let minDate = new Date(); 
+            minDate.setDate(minDate.getDate() + 3); 
+            if (!date || date < minDate.toISOString().split('T')[0]) { alert(t('invalidDate')); return false; } 
+            
+            const total = cart.reduce((s,i) => s + i.finalPrice, 0); 
+            const newOrder = {id: Date.now(), deliveryDate: date, items: [...cart], total: total, orderDate: new Date().toLocaleString(), userEmail: currentUser.email}; 
+            orders.push(newOrder); 
+            saveOrders(); 
+            
+            let orderDetails = `👤 Клиент: ${currentUser.surname} ${currentUser.name}\n📞 Телефон: ${currentUser.phone}\n📧 Email: ${currentUser.email}\n📅 Дата получения: ${date}\n🛒 Состав заказа:\n`;
+            cart.forEach(item => {
+                orderDetails += `   • ${item.title} - ${item.weight} x${item.quantity} = ${item.finalPrice} ₽\n`;
+            });
+            orderDetails += `\n💰 Общая сумма: ${total} ₽`;
+            
+            sendTelegramNotification(orderDetails).catch(e => console.log('Telegram error:', e));
+            
+            alert(`${t('orderPlaced')} Дата: ${date}. Сумма: ${total} ₽.`); 
+            cart = []; 
+            updateCartCount(); 
+            closeCart(); 
+            setTimeout(() => { showContactModal(); }, 500); 
+            return true;
+        }
+        
+        function openOrdersHistory() { 
+            if (!currentUser) { alert(t('needLogin')); openLoginModal(); return; } 
+            const userOrders = orders.filter(o => o.userEmail === currentUser.email); 
+            const container = document.getElementById('ordersList'); 
+            if (!userOrders.length) container.innerHTML = `<p style="text-align:center;padding:20px;">${t('noOrders')}</p>`; 
+            else container.innerHTML = userOrders.map(o => `<div class="order-history-item"><strong>Заказ #${o.id}</strong><br>📅 Дата получения: ${o.deliveryDate}<br>🕒 Заказано: ${o.orderDate}<br>📦 Товаров: ${o.items.reduce((s,i)=>s+i.quantity,0)}<br>💰 Итого: ${o.total} ₽<br><small>${o.items.map(i=>`${i.title} x${i.quantity} (${i.weight})`).join(', ')}</small><br><button class="chat-icon-btn" onclick="openChatForOrder(${o.id})">💬</button></div>`).join(''); 
+            document.getElementById('ordersModal').classList.add('show'); 
+        }
+        
+        function closeOrdersModal() { document.getElementById('ordersModal').classList.remove('show'); }
+        
+        let currentOrderId = null; 
+        function openChatForOrder(orderId) { 
+            currentOrderId = orderId; 
+            renderChat(); 
+            document.getElementById('chatModal').classList.add('show'); 
+            closeOrdersModal(); 
+        }
+        
+        function renderChat() { 
+            const messages = orderChats[currentOrderId] || []; 
+            const container = document.getElementById('chatMessages'); 
+            if (!messages.length) container.innerHTML = '<p>Напишите продавцу свои пожелания</p>'; 
+            else container.innerHTML = messages.map(m => `<div class="chat-message"><b>${m.from}:</b> ${m.text}<br><small>${m.time}</small></div>`).join(''); 
+        }
+        
+        function sendChatMessage() { 
+            const msg = document.getElementById('chatInput').value.trim(); 
+            if (!msg) return; 
+            if (!orderChats[currentOrderId]) orderChats[currentOrderId] = []; 
+            orderChats[currentOrderId].push({ from: `${currentUser.surname} ${currentUser.name}`, text: msg, time: new Date().toLocaleString() }); 
+            saveChats(); 
+            renderChat(); 
+            document.getElementById('chatInput').value = ''; 
+        }
+        
+        function closeChatModal() { document.getElementById('chatModal').classList.remove('show'); currentOrderId = null; }
+        function saveOrders() { localStorage.setItem('user_orders', JSON.stringify(orders)); }
+        function saveChats() { localStorage.setItem('order_chats', JSON.stringify(orderChats)); }
+        function saveUser() { localStorage.setItem('currentUser', JSON.stringify(currentUser)); }
+        
+        function registerUser() { 
+            const surname = document.getElementById('regSurname').value.trim(), name = document.getElementById('regName').value.trim(); 
+            const email = document.getElementById('regEmail').value.trim(), phone = document.getElementById('regPhone').value.trim(); 
+            const errorDiv = document.getElementById('loginError'); 
+            if (!surname || !name) { errorDiv.innerText = t('nameRequired'); return; } 
+            if (!email.includes('@')) { errorDiv.innerText = t('emailRequired'); return; } 
+            if (!/^\+7\d{10}$/.test(phone)) { errorDiv.innerText = t('phoneRequired'); return; } 
+            currentUser = {surname, name, email, phone, hasGlobalReviewed: false}; 
+            saveUser(); 
+            updateLoginButton(); 
+            closeLoginModal(); 
+            alert(t('successReg')); 
+        }
+        
+        function openProfileOrLogin() { currentUser ? openProfileModal() : openLoginModal(); }
+        function openLoginModal() { document.getElementById('loginModal').classList.add('show'); }
+        function closeLoginModal() { document.getElementById('loginModal').classList.remove('show'); document.getElementById('loginError').innerText = ''; }
+        
+        function openProfileModal() { 
+            const container = document.getElementById('profileInfo'); 
+            container.innerHTML = `<div class="profile-field"><label>${t('surname')}</label><p>${currentUser.surname}</p></div><div class="profile-field"><label>${t('nameLabel')}</label><p>${currentUser.name}</p></div><div class="profile-field"><label>${t('emailLabel')}</label><p>${currentUser.email}</p></div><div class="profile-field"><label>${t('phoneLabel')}</label><p>${currentUser.phone}</p></div><div class="profile-field"><label>Общий отзыв:</label><p>${currentUser.hasGlobalReviewed ? '✅ Оставлен' : '⏳ Не оставлен'}</p></div>`; 
+            document.getElementById('profileModal').classList.add('show'); 
+        }
+        
+        function closeProfileModal() { document.getElementById('profileModal').classList.remove('show'); }
+        function openEditProfile() { 
+            closeProfileModal(); 
+            document.getElementById('editSurname').value = currentUser.surname; 
+            document.getElementById('editName').value = currentUser.name; 
+            document.getElementById('editEmail').value = currentUser.email; 
+            document.getElementById('editPhone').value = currentUser.phone; 
+            document.getElementById('editProfileModal').classList.add('show'); 
+        }
+        
+        function closeEditProfileModal() { document.getElementById('editProfileModal').classList.remove('show'); }
+        
+        function saveProfile() { 
+            const surname = document.getElementById('editSurname').value.trim(), name = document.getElementById('editName').value.trim(); 
+            const email = document.getElementById('editEmail').value.trim(), phone = document.getElementById('editPhone').value.trim(); 
+            if (!surname || !name) { alert(t('nameRequired')); return; } 
+            if (!email.includes('@')) { alert(t('emailRequired')); return; } 
+            if (!/^\+7\d{10}$/.test(phone)) { alert(t('phoneRequired')); return; } 
+            currentUser = {...currentUser, surname, name, email, phone}; 
+            saveUser(); 
+            updateLoginButton(); 
+            closeEditProfileModal(); 
+            openProfileModal(); 
+            alert('Данные сохранены'); 
+        }
+        
+        function logout() { 
+            if (confirm(t('logoutConfirm'))) { 
+                localStorage.removeItem('currentUser'); 
+                currentUser = null; 
+                updateLoginButton(); 
+                closeProfileModal(); 
+                alert(t('logoutSuccess')); 
+            } 
+        }
+        
+        function openProductDetail(productId) { 
+            const product = products.find(p => p.id === productId); 
+            if (!product) return; 
+            const container = document.getElementById('productDetailContent'); 
+            let description = getProductDescription(product);
+            let composition = getProductComposition(product);
+            let html = `<img src="${product.image || ''}" class="product-detail-image" alt="${getProductTitle(product)}" onclick="event.stopPropagation(); openFullscreenImage('${product.image}')" onerror="this.style.display='none'"><div class="product-detail-title">${getProductTitle(product)}</div><div class="product-detail-category">${product.category === 'cakes' ? '🎂 Торт' : (product.category === 'bento' ? '🍱 Бенто' : '🍮 Десерт')}</div><div class="product-detail-price">${product.pricePerKg ? product.pricePerKg + ' ₽/кг' : (product.price ? product.price + ' ₽' : '')}</div>`;
+            if (description) {
+                html += `<div class="product-detail-description"><h4>📝 ${currentLang === 'ru' ? 'Описание' : (currentLang === 'en' ? 'Description' : (currentLang === 'uk' ? 'Опис' : 'Апісанне'))}</h4><p>${description.replace(/\n/g, '<br>')}</p></div>`;
+            }
+            if (composition) {
+                html += `<div class="product-detail-composition"><h4>🔬 ${currentLang === 'ru' ? 'Состав' : (currentLang === 'en' ? 'Ingredients' : (currentLang === 'uk' ? 'Склад' : 'Склад'))}</h4><p>${composition.replace(/\n/g, '<br>')}</p></div>`;
+            }
+            container.innerHTML = html; 
+            document.getElementById('productDetailModal').classList.add('show'); 
+        }
+        
+        function closeProductDetailModal() { document.getElementById('productDetailModal').classList.remove('show'); }
+        function openFullscreenImage(imageSrc) { 
+            const modal = document.getElementById('fullscreenImageModal'); 
+            const img = document.getElementById('fullscreenImage'); 
+            img.src = imageSrc; 
+            modal.classList.add('show'); 
+        }
+        function closeFullscreenImage() { document.getElementById('fullscreenImageModal').classList.remove('show'); }
+        
+        function openProductReviews(productId) { 
+            window.currentProductReviewId = productId; 
+            const reviews = productReviews[productId] || []; 
+            const container = document.getElementById('productReviewsList'); 
+            if (!reviews.length) { container.innerHTML = `<p style="text-align:center;padding:20px;">${t('noReviews')}</p>`; } 
+            else { container.innerHTML = reviews.map(r => `<div class="review-card"><div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div><div class="review-author">${r.author}</div><div class="review-text">${r.text}</div><div class="review-date">${r.date}</div></div>`).join(''); } 
+            document.getElementById('productReviewModal').classList.add('show'); 
+        }
+        
+        function closeProductReviewModal() { document.getElementById('productReviewModal').classList.remove('show'); }
+        
+        function openFavoritesModal() { 
+            const container = document.getElementById('favoritesList'); 
+            const favProducts = products.filter(p => favorites.includes(p.id)); 
+            if (favProducts.length === 0) { container.innerHTML = `<p style="text-align:center;padding:20px;">${t('noFavorites')}</p>`; } 
+            else { 
+                container.innerHTML = favProducts.map(p => { 
+                    const priceText = p.category === 'cakes' ? `${p.pricePerKg} ₽/кг` : (p.category === 'bento' ? `${t('from')} ${p.price} ₽` : `${p.price} ₽`); 
+                    return `<div class="favorites-item"><div class="favorites-item-info"><div class="favorites-item-title">${p.icon} ${getProductTitle(p)}</div><div class="favorites-item-price">${priceText}</div></div><button class="delete-item-btn" onclick="removeFromFavorites(${p.id})">🗑️</button></div>`; 
+                }).join(''); 
+            } 
+            closeProfileModal(); 
+            document.getElementById('favoritesModal').classList.add('show'); 
+        }
+        
+        function removeFromFavorites(productId) { 
+            if (confirm(t('removeConfirm'))) { 
+                const index = favorites.indexOf(productId); 
+                if (index !== -1) favorites.splice(index, 1); 
+                saveFavorites(); 
+                renderProducts(); 
+                openFavoritesModal(); 
+            } 
+        }
+        
+        function closeFavoritesModal() { document.getElementById('favoritesModal').classList.remove('show'); }
+        
+        function handleAddToCart(id) { 
+            const p = products.find(p => p.id === id); 
+            if (p.category === 'cakes' && p.pricePerKg) { 
+                currentProduct = p; 
+                document.getElementById('weightOptions').innerHTML = [1,2,3,4,5].map(w => `<div class="weight-option" onclick="selectWeight(this,${w})"><label>${w} ${t('kg')}</label><span class="option-price">${p.pricePerKg * w} ₽</span></div>`).join(''); 
+                document.getElementById('weightModal').classList.add('show'); 
+            } else if (p.category === 'bento') { 
+                currentProduct = p; 
+                document.getElementById('bentoOptions').innerHTML = `<div class="weight-option" onclick="selectBento(this,1400,'12 ${t('cm')} (500-600г)')"><label>12 ${t('cm')} (500-600г)</label><span class="option-price">1400 ₽</span></div><div class="weight-option" onclick="selectBento(this,1600,'14 ${t('cm')} (700-800г)')"><label>14 ${t('cm')} (700-800г)</label><span class="option-price">1600 ₽</span></div>`; 
+                document.getElementById('bentoModal').classList.add('show'); 
+            } else if (p.instant) { 
+                addToCart(p, p.unit, p.price, p.id); 
+            } else if (p.options) { 
+                currentProduct = p; 
+                document.getElementById('quantityOptions').innerHTML = p.options.map(o => `<div class="quantity-option" onclick="selectQuantity(this,${o})"><label>${o} ${t('pcs')}</label><span class="option-price">${p.price * o} ₽</span></div>`).join(''); 
+                document.getElementById('quantityModal').classList.add('show'); 
+            } 
+        }
+        
+        let currentProduct = null, selectedWeight = null, selectedQuantity = null, selectedBentoPrice = null, selectedBentoText = null;
+        function selectWeight(el, w) { document.querySelectorAll('#weightOptions .weight-option').forEach(e => e.classList.remove('selected')); el.classList.add('selected'); selectedWeight = w; }
+        function selectQuantity(el, q) { document.querySelectorAll('#quantityOptions .quantity-option').forEach(e => e.classList.remove('selected')); el.classList.add('selected'); selectedQuantity = q; }
+        function selectBento(el, price, text) { document.querySelectorAll('#bentoOptions .weight-option').forEach(e => e.classList.remove('selected')); el.classList.add('selected'); selectedBentoPrice = price; selectedBentoText = text; }
+        function confirmAddToCart() { if (selectedWeight && currentProduct) { addToCart(currentProduct, `${selectedWeight} ${t('kg')}`, currentProduct.pricePerKg * selectedWeight, currentProduct.id); closeWeightModal(); } else alert(t('reviewErrorEmpty')); }
+        function confirmAddQuantity() { if (selectedQuantity && currentProduct) { addToCart(currentProduct, `${selectedQuantity} ${t('pcs')}`, currentProduct.price * selectedQuantity, currentProduct.id); closeQuantityModal(); } else alert(t('reviewErrorEmpty')); }
+        function confirmAddBento() { if (selectedBentoPrice && currentProduct) { addToCart(currentProduct, selectedBentoText, selectedBentoPrice, currentProduct.id); closeBentoModal(); } else alert(t('reviewErrorEmpty')); }
+        function closeWeightModal() { document.getElementById('weightModal').classList.remove('show'); selectedWeight = null; }
+        function closeQuantityModal() { document.getElementById('quantityModal').classList.remove('show'); selectedQuantity = null; }
+        function closeBentoModal() { document.getElementById('bentoModal').classList.remove('show'); selectedBentoPrice = null; }
+        function filterProducts() { renderProducts(); }
+        function togglePriceSort() { priceSortDesc = !priceSortDesc; document.getElementById('sortArrow').innerHTML = priceSortDesc ? '▴' : '▾'; renderProducts(); }
+        document.getElementById('searchBox').addEventListener('input', filterProducts);
+        
+        function openLanguageModal() { 
+            const container = document.getElementById('languageOptions'); 
+            container.innerHTML = `<div class="lang-option" onclick="setLanguage('ru')"><span>🇷🇺</span><label>Русский</label></div><div class="lang-option" onclick="setLanguage('en')"><span>🇺🇸</span><label>English</label></div><div class="lang-option" onclick="setLanguage('uk')"><span>🇺🇦</span><label>Українська</label></div><div class="lang-option" onclick="setLanguage('be')"><span>🇧🇾</span><label>Беларуская</label></div>`; 
+            document.getElementById('languageModal').classList.add('show'); 
+        }
+        
+        function setLanguage(lang) { 
+            currentLang = lang; 
+            const langCodes = { ru:'RU', en:'EN', uk:'UK', be:'BE' }; 
+            document.getElementById('langSwitcher').innerText = langCodes[lang]; 
+            localStorage.setItem('preferredLanguage', lang); 
+            applyLanguage(); 
+            closeLanguageModal(); 
+        }
+        
+        function closeLanguageModal() { document.getElementById('languageModal').classList.remove('show'); }
+        
+        function updateLoginButton() { 
+            document.getElementById('loginBtn').innerHTML = currentUser ? `👤 ${currentUser.surname} ${currentUser.name}` : `👤 ${t('login')}`; 
+        }
+        
+        function applyLanguage() { 
+            document.getElementById('siteLogo').innerHTML = `🎂 ${t('siteTitle')}`; 
+            document.getElementById('sortTitle').innerText = t('sortTitle'); 
+            document.getElementById('filterDessertsLabel').innerHTML = t('desserts'); 
+            document.getElementById('filterBentoLabel').innerHTML = t('bento'); 
+            document.getElementById('filterCakesLabel').innerHTML = t('cakes'); 
+            document.getElementById('filterDesignsLabel').innerHTML = t('designs'); 
+            document.getElementById('sortPriceLabel').innerHTML = t('sortPrice'); 
+            document.getElementById('reviewsTitle').innerHTML = t('reviewsTitle'); 
+            document.getElementById('searchBox').placeholder = t('searchPlaceholder'); 
+            document.getElementById('ordersBtn').innerHTML = `📋 ${t('orders')}`; 
+            document.getElementById('cartBtnText').innerText = t('cart'); 
+            document.getElementById('weightModalTitle').innerText = t('selectWeight'); 
+            document.getElementById('quantityModalTitle').innerText = t('selectQuantity'); 
+            document.getElementById('bentoModalTitle').innerText = t('selectBento'); 
+            document.getElementById('cartTitle').innerText = t('yourCart'); 
+            document.getElementById('orderDateLabel').innerText = t('orderDate'); 
+            document.getElementById('orderBtnText').innerHTML = t('orderCake'); 
+            document.getElementById('continueBtnText').innerText = t('continueShopping'); 
+            document.getElementById('regTitle').innerText = t('registration'); 
+            document.getElementById('registerBtnText').innerText = t('register'); 
+            document.getElementById('profileTitle').innerHTML = t('profile'); 
+            document.getElementById('logoutBtnText').innerHTML = t('logout'); 
+            document.getElementById('editProfileTitle').innerText = t('editProfile'); 
+            document.getElementById('saveBtnText').innerText = t('save'); 
+            document.getElementById('productReviewTitle').innerHTML = t('productReviews'); 
+            document.getElementById('writeReviewTitle').innerHTML = t('writeReview'); 
+            document.getElementById('submitProductReviewBtn').innerText = t('submitReview'); 
+            document.getElementById('reviewName').placeholder = t('reviewNamePlaceholder'); 
+            document.getElementById('reviewText').placeholder = t('reviewTextPlaceholder'); 
+            document.getElementById('ordersTitle').innerHTML = t('orders'); 
+            document.getElementById('chatTitle').innerHTML = t('chat'); 
+            document.getElementById('sendMsgBtn').innerText = t('send'); 
+            document.getElementById('langSelectTitle').innerText = t('selectLanguage'); 
+            document.getElementById('closeLangBtn').innerText = t('cancel'); 
+            document.getElementById('favoritesModalTitle').innerHTML = t('favoritesTitle'); 
+            document.getElementById('closeFavoritesBtn').innerText = t('close'); 
+            document.getElementById('closeProductReviewBtn').innerText = t('close'); 
+            document.getElementById('closeWriteReviewBtn').innerText = t('cancel'); 
+            document.getElementById('closeOrdersBtn').innerText = t('close'); 
+            document.getElementById('closeChatBtn').innerText = t('close'); 
+            document.getElementById('closeProfileBtn').innerText = t('close'); 
+            document.getElementById('favoritesProfileBtn').innerHTML = `❤️ ${t('favoritesTitle')}`; 
+            document.getElementById('termsBtn').innerHTML = `📋 ${t('termsTitle').replace('📋 ', '')}`;
+            document.getElementById('termsModalTitle').innerHTML = t('termsTitle');
+            document.getElementById('deliveryModalTitle').innerHTML = t('deliveryTitle');
+            document.getElementById('locationModalTitle').innerHTML = t('locationTitle');
+            document.getElementById('addressText').innerText = t('address');
+            document.getElementById('exactAddressText').innerText = t('exactAddress');
+            document.getElementById('closeTermsBtn').innerText = t('closeBtn');
+            document.getElementById('closeDeliveryBtn').innerText = t('closeBtn');
+            document.getElementById('closeLocationBtn').innerText = t('closeBtn');
+            
+            document.getElementById('termsContent').innerHTML = t('termsText');
+            document.getElementById('deliveryContent').innerHTML = t('deliveryText');
+            
+            document.querySelectorAll('#addBtnText, #addBtnText2, #addBtnText3').forEach(btn => { if(btn) btn.innerText = t('add'); }); 
+            document.querySelectorAll('#cancelBtnText, #cancelBtnText2, #cancelBtnText3, #cancelRegBtn, #cancelEditBtn').forEach(btn => { if(btn) btn.innerText = t('cancel'); }); 
+            updateLoginButton(); 
+            renderProducts(); 
+            renderGlobalReviews(); 
+        }
+        
+        function renderGlobalReviews() { 
+            const allReviews = [...globalReviews]; 
+            for (const productId in productReviews) { 
+                allReviews.push(...productReviews[productId]); 
+            } 
+            allReviews.sort((a,b) => new Date(b.date.split('.').reverse().join('-')) - new Date(a.date.split('.').reverse().join('-'))); 
+            const recentReviews = allReviews.slice(0, 10); 
+            const container = document.getElementById('reviewsContainer'); 
+            if (!recentReviews.length) { container.innerHTML = `<div class="no-reviews">${t('noReviews')}</div>`; return; } 
+            container.innerHTML = recentReviews.map(r => `<div class="review-card"><div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div><div class="review-author">${r.author}</div><div class="review-text">${r.text}</div><div class="review-date">${r.date}</div></div>`).join(''); 
+            const totalAvg = allReviews.length ? (allReviews.reduce((s,r)=>s+r.rating,0)/allReviews.length).toFixed(1) : 0; 
+            document.getElementById('avgRatingDisplay').innerHTML = `⭐ ${totalAvg}`; 
+        }
+        
+        function showContactModal() { 
+            const contactContent = document.getElementById('contactContent'); 
+            contactContent.innerHTML = `<p style="margin-bottom:15px;">Меня зовут Юлия, я домашний кондитер.</p><p style="margin-bottom:10px;">Вот мои соц сети где со мной можно связаться:</p><a href="https://vk.com/cake.yulia003" target="_blank" class="contact-link">📱 VK: cake.yulia003</a><p style="margin-top:15px; font-size:18px; font-weight:bold;">Благодарю за покупку! 🤗</p>`; 
+            document.getElementById('contactModal').classList.add('show'); 
+        }
+        
+        function closeContactModalAndOpenReview() { 
+            document.getElementById('contactModal').classList.remove('show'); 
+            setTimeout(() => { 
+                if (currentUser && !currentUser.hasGlobalReviewed) { 
+                    openGlobalReviewModal(); 
+                } else if (!currentUser) { 
+                    alert('Пожалуйста, зарегистрируйтесь, чтобы оставить отзыв'); 
+                    openLoginModal(); 
+                } else { 
+                    alert('Вы уже оставляли общий отзыв!'); 
+                } 
+            }, 300); 
+        }
+        
+        function openGlobalReviewModal() { 
+            if (!currentUser) { alert('Сначала зарегистрируйтесь!'); openLoginModal(); return; } 
+            if (currentUser.hasGlobalReviewed) { alert('Вы уже оставляли общий отзыв!'); return; } 
+            document.getElementById('globalReviewModal').classList.add('show'); 
+        }
+        
+        function submitGlobalReview() { 
+            const text = document.getElementById('globalReviewText').value.trim(); 
+            const ratingEl = document.querySelector('input[name="globalRating"]:checked'); 
+            const author = currentUser ? `${currentUser.surname} ${currentUser.name}` : 'Аноним'; 
+            if (!text || !ratingEl) { alert('Заполните все поля'); return; } 
+            if (!currentUser) { alert('Сначала зарегистрируйтесь!'); return; } 
+            if (currentUser.hasGlobalReviewed) { alert('Вы уже оставляли отзыв!'); return; } 
+            globalReviews.unshift({ text: text, author: author, rating: parseInt(ratingEl.value), date: new Date().toLocaleDateString(), userEmail: currentUser.email }); 
+            currentUser.hasGlobalReviewed = true; 
+            saveUser(); 
+            localStorage.setItem('global_reviews', JSON.stringify(globalReviews)); 
+            closeGlobalReviewModal(); 
+            renderGlobalReviews(); 
+            alert('Спасибо за отзыв!'); 
+        }
+        
+        function closeGlobalReviewModal() { 
+            document.getElementById('globalReviewModal').classList.remove('show'); 
+            document.getElementById('globalReviewText').value = ''; 
+            document.querySelectorAll('input[name="globalRating"]').forEach(r => r.checked = false); 
+        }
+        
+        function submitProductReview() { alert(t('reviewSuccess')); closeWriteReviewModal(); }
+        function closeWriteReviewModal() { document.getElementById('writeReviewModal').classList.remove('show'); }
+        function closeWelcomeModal() { document.getElementById('welcomeModal').classList.remove('show'); }
+        
+        function openTermsModal() { document.getElementById('termsModal').classList.add('show'); }
+        function closeTermsModal() { document.getElementById('termsModal').classList.remove('show'); }
+        function openDeliveryModal() { document.getElementById('deliveryModal').classList.add('show'); }
+        function closeDeliveryModal() { document.getElementById('deliveryModal').classList.remove('show'); }
+        
+        function openLocationModal() { 
+            document.getElementById('locationModal').classList.add('show');
+            setTimeout(function() {
+                if (typeof ymaps !== 'undefined') {
+                    ymaps.ready(initMap);
+                } else {
+                    var checkApi = setInterval(function() {
+                        if (typeof ymaps !== 'undefined') {
+                            clearInterval(checkApi);
+                            ymaps.ready(initMap);
+                        }
+                    }, 100);
+                }
+            }, 100);
+        }
+        
+        function closeLocationModal() { document.getElementById('locationModal').classList.remove('show'); }
+        
+        function initMap() {
+            var mapContainer = document.getElementById('map');
+            if (!mapContainer) return;
+            var addressCoords = [51.6739, 39.1876];
+            var myMap = new ymaps.Map("map", {
+                center: addressCoords,
+                zoom: 18,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+            var placemark = new ymaps.Placemark(addressCoords, {
+                hintContent: 'ул. Генерала Лизюкова, 43',
+                balloonContent: '<strong>ул. Генерала Лизюкова, 43, Воронеж</strong><br>📍 Самовывоз тортов'
+            }, {
+                preset: 'islands#redIcon',
+                iconColor: '#e94560'
+            });
+            myMap.geoObjects.add(placemark);
+        }
+        
+        // ОСНОВНАЯ ФУНКЦИЯ renderProducts (С ГАЛЕРЕЕЙ)
+        function renderProducts() {
+            let showDesigns = document.getElementById('filter-designs')?.checked;
+            let searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            let container = document.getElementById('productsGrid');
+            
+            // Режим для Бисквитного рулета
+            if (showSpongeRollVarieties) {
+                container.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:right; margin-bottom:10px;">
+                        <button onclick="exitSpongeRollVarieties()" class="exit-btn">✕ Выйти из раздела</button>
+                    </div>
+                    <div style="grid-column:1/-1; text-align:center; margin-bottom:20px;">
+                        <h2 style="color: var(--price-color);">🍮 Бисквитные рулеты - выберите вкус</h2>
+                    </div>
+                `;
+                
+                const filteredVarieties = spongeRollVarieties.filter(v => getSpongeRollTitle(v).toLowerCase().includes(searchTerm));
+                
+                if (filteredVarieties.length === 0) {
+                    container.innerHTML += '<div style="grid-column:1/-1; text-align:center; padding:40px;">Ничего не найдено</div>';
+                    return;
+                }
+                
+                container.innerHTML += filteredVarieties.map(v => {
+                    const isInCart = cart.some(item => item.originalId === v.id);
+                    const buttonText = isInCart ? `🛒 ${t('addedToCart')}` : `🛒 ${t('addToCart')}`;
+                    const buttonClass = isInCart ? 'add-to-cart-btn added' : 'add-to-cart-btn';
+                    const favActive = isFavorite(v.id) ? 'active' : '';
+                    
+                    return `<div class="product-card">
+                        <button class="favorite-heart ${favActive}" onclick="event.stopPropagation(); toggleFavorite(${v.id})">
+                            <span class="heart-outline">♡</span>
+                            <span class="heart-filled">❤️</span>
+                        </button>
+                        <img src="${v.image}" class="product-image" alt="${getSpongeRollTitle(v)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onclick="openFullscreenImage('${v.image}')">
+                        <div class="product-title">${getSpongeRollTitle(v)} бисквитный рулет</div>
+                        <div class="product-category">🍮 Бисквитный рулет</div>
+                        <div><div class="product-price">${v.price} ₽</div><div class="price-per-kg">за 1 шт</div></div>
+                        <button class="${buttonClass}" onclick="handleAddSpongeRollToCart(${v.id})">${buttonText}</button>
+                        <div class="product-rating" onclick="openProductReviews(32)"><span>⭐</span> ${getProductAvgRating(32).toFixed(1)}</div>
+                    </div>`;
+                }).join('');
+                return;
+            }
+            
+            // Режим для Трайфлов
+            if (showTrifleVarieties) {
+                container.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:right; margin-bottom:10px;">
+                        <button onclick="exitTrifleVarieties()" class="exit-btn">✕ Выйти из раздела</button>
+                    </div>
+                    <div style="grid-column:1/-1; text-align:center; margin-bottom:20px;">
+                        <h2 style="color: var(--price-color);">🍮 Трайфлы - выберите вкус</h2>
+                    </div>
+                `;
+                
+                const filteredVarieties = trifleVarieties.filter(v => getTrifleTitle(v).toLowerCase().includes(searchTerm));
+                
+                if (filteredVarieties.length === 0) {
+                    container.innerHTML += '<div style="grid-column:1/-1; text-align:center; padding:40px;">Ничего не найдено</div>';
+                    return;
+                }
+                
+                container.innerHTML += filteredVarieties.map(v => {
+                    const isInCart = cart.some(item => item.originalId === v.id);
+                    const buttonText = isInCart ? `🛒 ${t('addedToCart')}` : `🛒 ${t('addToCart')}`;
+                    const buttonClass = isInCart ? 'add-to-cart-btn added' : 'add-to-cart-btn';
+                    const favActive = isFavorite(v.id) ? 'active' : '';
+                    
+                    return `<div class="product-card">
+                        <button class="favorite-heart ${favActive}" onclick="event.stopPropagation(); toggleFavorite(${v.id})">
+                            <span class="heart-outline">♡</span>
+                            <span class="heart-filled">❤️</span>
+                        </button>
+                        <img src="${v.image}" class="product-image" alt="${getTrifleTitle(v)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onclick="openFullscreenImage('${v.image}')">
+                        <div class="product-title">${getTrifleTitle(v)} трайфл</div>
+                        <div class="product-category">🍮 Трайфлы</div>
+                        <div><div class="product-price">${v.price} ₽</div><div class="price-per-kg">за 1 шт</div></div>
+                        <button class="${buttonClass}" onclick="handleAddTrifleToCart(${v.id})">${buttonText}</button>
+                        <div class="product-rating" onclick="openProductReviews(34)"><span>⭐</span> ${getProductAvgRating(34).toFixed(1)}</div>
+                    </div>`;
+                }).join('');
+                return;
+            }
+            
+            // Режим для Зефира
+            if (showMarshmallowVarieties) {
+                container.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:right; margin-bottom:10px;">
+                        <button onclick="exitMarshmallowVarieties()" class="exit-btn">✕ Выйти из раздела</button>
+                    </div>
+                    <div style="grid-column:1/-1; text-align:center; margin-bottom:20px;">
+                        <h2 style="color: var(--price-color);">🍮 Зефир - выберите вкус</h2>
+                    </div>
+                `;
+                
+                const filteredVarieties = marshmallowVarieties.filter(v => getMarshmallowTitle(v).toLowerCase().includes(searchTerm));
+                
+                if (filteredVarieties.length === 0) {
+                    container.innerHTML += '<div style="grid-column:1/-1; text-align:center; padding:40px;">Ничего не найдено</div>';
+                    return;
+                }
+                
+                container.innerHTML += filteredVarieties.map(v => {
+                    const isInCart = cart.some(item => item.originalId === v.id);
+                    const buttonText = isInCart ? `🛒 ${t('addedToCart')}` : `🛒 ${t('addToCart')}`;
+                    const buttonClass = isInCart ? 'add-to-cart-btn added' : 'add-to-cart-btn';
+                    const favActive = isFavorite(v.id) ? 'active' : '';
+                    
+                    return `<div class="product-card">
+                        <button class="favorite-heart ${favActive}" onclick="event.stopPropagation(); toggleFavorite(${v.id})">
+                            <span class="heart-outline">♡</span>
+                            <span class="heart-filled">❤️</span>
+                        </button>
+                        <img src="${v.image}" class="product-image" alt="${getMarshmallowTitle(v)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onclick="openFullscreenImage('${v.image}')">
+                        <div class="product-title">${getMarshmallowTitle(v)} зефир</div>
+                        <div class="product-category">🍮 Зефир</div>
+                        <div><div class="product-price">${v.price} ₽</div><div class="price-per-kg">за 1 шт</div></div>
+                        <div class="product-detail-description" style="margin:10px 0; font-size:12px;">
+                            <small>${t('composition')}: яичный белок, сахар, ягодное пюре, агар-агар, глюкозный сироп.</small>
+                        </div>
+                        <button class="${buttonClass}" onclick="handleAddMarshmallowToCart(${v.id})">${buttonText}</button>
+                        <div class="product-rating" onclick="openProductReviews(35)"><span>⭐</span> ${getProductAvgRating(35).toFixed(1)}</div>
+                    </div>`;
+                }).join('');
+                return;
+            }
+            
+            // Режим для Бенто
+            if (showBentoVarieties) {
+                container.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:right; margin-bottom:10px;">
+                        <button onclick="exitBentoVarieties()" class="exit-btn">✕ Выйти из раздела</button>
+                    </div>
+                    <div style="grid-column:1/-1; text-align:center; margin-bottom:20px;">
+                        <h2 style="color: var(--price-color);">🍰 Бенто-торты - выберите вкус</h2>
+                    </div>
+                `;
+                
+                const filteredVarieties = bentoVarieties.filter(v => getBentoTitle(v).toLowerCase().includes(searchTerm));
+                
+                if (filteredVarieties.length === 0) {
+                    container.innerHTML += '<div style="grid-column:1/-1; text-align:center; padding:40px;">Ничего не найдено</div>';
+                    return;
+                }
+                
+                container.innerHTML += filteredVarieties.map(v => {
+                    const isInCart = cart.some(item => item.originalId === v.id);
+                    const buttonText = isInCart ? `🛒 ${t('addedToCart')}` : `🛒 ${t('addToCart')}`;
+                    const buttonClass = isInCart ? 'add-to-cart-btn added' : 'add-to-cart-btn';
+                    const favActive = isFavorite(v.id) ? 'active' : '';
+                    
+                    return `<div class="product-card">
+                        <button class="favorite-heart ${favActive}" onclick="event.stopPropagation(); toggleFavorite(${v.id})">
+                            <span class="heart-outline">♡</span>
+                            <span class="heart-filled">❤️</span>
+                        </button>
+                        <img src="${v.image}" class="product-image" alt="${getBentoTitle(v)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onclick="openFullscreenImage('${v.image}')">
+                        <div class="product-title">${getBentoTitle(v)} бенто-торт</div>
+                        <div class="product-category">🍰 Бенто</div>
+                        <div><div class="product-price">от 1400 ₽</div><div class="price-per-kg">за шт</div></div>
+                        <button class="${buttonClass}" onclick="handleAddBentoToCart(${v.id})">${buttonText}</button>
+                        <div class="product-rating" onclick="openProductReviews(40)"><span>⭐</span> ${getProductAvgRating(40).toFixed(1)}</div>
+                    </div>`;
+                }).join('');
+                return;
+            }
+            
+            // Режим для Капкейков
+            if (showCupcakeVarieties) {
+                container.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:right; margin-bottom:10px;">
+                        <button onclick="exitCupcakeVarieties()" class="exit-btn">✕ Выйти из раздела</button>
+                    </div>
+                    <div style="grid-column:1/-1; text-align:center; margin-bottom:20px;">
+                        <h2 style="color: var(--price-color);">🧁 Капкейки - выберите вкус</h2>
+                    </div>
+                `;
+                
+                const filteredVarieties = cupcakeVarieties.filter(v => getCupcakeTitle(v).toLowerCase().includes(searchTerm));
+                
+                if (filteredVarieties.length === 0) {
+                    container.innerHTML += '<div style="grid-column:1/-1; text-align:center; padding:40px;">Ничего не найдено</div>';
+                    return;
+                }
+                
+                container.innerHTML += filteredVarieties.map(v => {
+                    const isInCart = cart.some(item => item.originalId === v.id);
+                    const buttonText = isInCart ? `🛒 ${t('addedToCart')}` : `🛒 ${t('addToCart')}`;
+                    const buttonClass = isInCart ? 'add-to-cart-btn added' : 'add-to-cart-btn';
+                    const favActive = isFavorite(v.id) ? 'active' : '';
+                    
+                    return `<div class="product-card">
+                        <button class="favorite-heart ${favActive}" onclick="event.stopPropagation(); toggleFavorite(${v.id})">
+                            <span class="heart-outline">♡</span>
+                            <span class="heart-filled">❤️</span>
+                        </button>
+                        <img src="${v.image}" class="product-image" alt="${getCupcakeTitle(v)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onclick="openFullscreenImage('${v.image}')">
+                        <div class="product-title">${getCupcakeTitle(v)}</div>
+                        <div class="product-category">🧁 Капкейк</div>
+                        <div><div class="product-price">${v.price} ₽</div><div class="price-per-kg">за 1 шт</div></div>
+                        <button class="${buttonClass}" onclick="handleAddCupcakeToCart(${v.id})">${buttonText}</button>
+                        <div class="product-rating" onclick="openProductReviews(38)"><span>⭐</span> ${getProductAvgRating(38).toFixed(1)}</div>
+                    </div>`;
+                }).join('');
+                return;
+            }
+            
+            // Режим для Моти
+            if (showMochiVarieties) {
+                container.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:right; margin-bottom:10px;">
+                        <button onclick="exitMochiVarieties()" class="exit-btn">✕ Выйти из раздела</button>
+                    </div>
+                    <div style="grid-column:1/-1; text-align:center; margin-bottom:20px;">
+                        <h2 style="color: var(--price-color);">🍡 Моти - выберите вкус</h2>
+                    </div>
+                `;
+                
+                const filteredVarieties = mochiVarieties.filter(v => getMochiTitle(v).toLowerCase().includes(searchTerm));
+                
+                if (filteredVarieties.length === 0) {
+                    container.innerHTML += '<div style="grid-column:1/-1; text-align:center; padding:40px;">Ничего не найдено</div>';
+                    return;
+                }
+                
+                container.innerHTML += filteredVarieties.map(v => {
+                    const isInCart = cart.some(item => item.originalId === v.id);
+                    const buttonText = isInCart ? `🛒 ${t('addedToCart')}` : `🛒 ${t('addToCart')}`;
+                    const buttonClass = isInCart ? 'add-to-cart-btn added' : 'add-to-cart-btn';
+                    const favActive = isFavorite(v.id) ? 'active' : '';
+                    
+                    return `<div class="product-card">
+                        <button class="favorite-heart ${favActive}" onclick="event.stopPropagation(); toggleFavorite(${v.id})">
+                            <span class="heart-outline">♡</span>
+                            <span class="heart-filled">❤️</span>
+                        </button>
+                        <img src="${v.image}" class="product-image" alt="${getMochiTitle(v)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onclick="openFullscreenImage('${v.image}')">
+                        <div class="product-title">${getMochiTitle(v)}</div>
+                        <div class="product-category">🍡 Моти</div>
+                        <div><div class="product-price">${v.price} ₽</div><div class="price-per-kg">за 1 шт</div></div>
+                        <button class="${buttonClass}" onclick="handleAddMochiToCart(${v.id})">${buttonText}</button>
+                        <div class="product-rating" onclick="openProductReviews(39)"><span>⭐</span> ${getProductAvgRating(39).toFixed(1)}</div>
+                    </div>`;
+                }).join('');
+                return;
+            }
+            
+            // Режим для Кейкпопсов
+            if (showCakePopVarieties) {
+                container.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:right; margin-bottom:10px;">
+                        <button onclick="exitCakePopVarieties()" class="exit-btn">✕ Выйти из раздела</button>
+                    </div>
+                    <div style="grid-column:1/-1; text-align:center; margin-bottom:20px;">
+                        <h2 style="color: var(--price-color);">🍭 Кейкпопсы - выберите вкус</h2>
+                    </div>
+                `;
+                
+                const filteredVarieties = cakePopVarieties.filter(v => getCakePopTitle(v).toLowerCase().includes(searchTerm));
+                
+                if (filteredVarieties.length === 0) {
+                    container.innerHTML += '<div style="grid-column:1/-1; text-align:center; padding:40px;">Ничего не найдено</div>';
+                    return;
+                }
+                
+                container.innerHTML += filteredVarieties.map(v => {
+                    const isInCart = cart.some(item => item.originalId === v.id);
+                    const buttonText = isInCart ? `🛒 ${t('addedToCart')}` : `🛒 ${t('addToCart')}`;
+                    const buttonClass = isInCart ? 'add-to-cart-btn added' : 'add-to-cart-btn';
+                    const favActive = isFavorite(v.id) ? 'active' : '';
+                    
+                    return `<div class="product-card">
+                        <button class="favorite-heart ${favActive}" onclick="event.stopPropagation(); toggleFavorite(${v.id})">
+                            <span class="heart-outline">♡</span>
+                            <span class="heart-filled">❤️</span>
+                        </button>
+                        <img src="${v.image}" class="product-image" alt="${getCakePopTitle(v)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onclick="openFullscreenImage('${v.image}')">
+                        <div class="product-title">${getCakePopTitle(v)}</div>
+                        <div class="product-category">🍭 Кейкпопс</div>
+                        <div><div class="product-price">${v.price} ₽</div><div class="price-per-kg">за 1 шт</div></div>
+                        <button class="${buttonClass}" onclick="handleAddCakePopToCart(${v.id})">${buttonText}</button>
+                        <div class="product-rating" onclick="openProductReviews(37)"><span>⭐</span> ${getProductAvgRating(37).toFixed(1)}</div>
+                    </div>`;
+                }).join('');
+                return;
+            }
+            
+            // Обычный режим отображения товаров
+            if (showDesigns) {
+                container.classList.add('filter-designs-active');
+                let filteredDesigns = designsList.filter(d => getDesignTitle(d).toLowerCase().includes(searchTerm));
+                if (filteredDesigns.length === 0) { 
+                    container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px;">Ничего не найдено</div>'; 
+                    return; 
+                }
+                container.innerHTML = filteredDesigns.map(d => {
+                    const imageUrl = d.image;
+                    return `<div class="product-card" style="cursor:pointer; padding:12px;">
+                        <img src="${imageUrl}" class="product-image" alt="Дизайн" style="height: 350px; object-fit: cover;" onclick="openFullscreenImage('${imageUrl}')">
+                    </div>`;
+                }).join('');
+                return;
+            } else {
+                container.classList.remove('filter-designs-active');
+            }
+            
+            let filtered = [...products];
+            let showDesserts = document.getElementById('filter-desserts')?.checked;
+            let showBento = document.getElementById('filter-bento')?.checked;
+            let showCakes = document.getElementById('filter-cakes')?.checked;
+            if (showDesserts || showBento || showCakes) {
+                filtered = products.filter(p => (showDesserts && p.category === 'desserts') || (showBento && p.category === 'bento') || (showCakes && p.category === 'cakes'));
+            }
+            if (searchTerm) filtered = filtered.filter(p => getProductTitle(p).toLowerCase().includes(searchTerm));
+            filtered.sort((a,b) => (priceSortDesc ? (b.pricePerKg || b.price || 0) - (a.pricePerKg || a.price || 0) : (a.pricePerKg || a.price || 0) - (b.pricePerKg || b.price || 0)));
+            const categoryNames = { cakes: t('cakes'), bento: t('bento'), desserts: t('desserts') };
+            
+            container.innerHTML = filtered.map(p => {
+                let priceHtml = '';
+                if (p.category === 'cakes') priceHtml = `<div><div class="product-price">${p.pricePerKg} ₽</div><div class="price-per-kg">${t('perKg')}</div></div>`;
+                else if (p.category === 'bento') priceHtml = `<div><div class="product-price">${t('from')} ${p.price} ₽</div></div>`;
+                else priceHtml = `<div><div class="product-price">${p.price} ₽</div><div class="price-per-kg">${p.unit === 'шт' ? t('pcs') : p.unit}</div></div>`;
+                
+                // ГАЛЕРЕЯ ДЛЯ ТОВАРА С НЕСКОЛЬКИМИ ФОТО
+                let imageHtml = '';
+                if (p.images && p.images.length > 0) {
+                    const imagesJson = JSON.stringify(p.images).replace(/"/g, '&quot;');
+                    imageHtml = `<div class="product-gallery" style="position:relative;">
+                        <img src="${p.images[0]}" class="product-image" alt="${getProductTitle(p)}" data-current-index="0" data-images='${imagesJson}' onclick="event.stopPropagation(); openGallery(this)">
+                        ${p.images.length > 1 ? `
+                            <button class="gallery-prev" onclick="event.stopPropagation(); changeGalleryImage(this, -1)">◀</button>
+                            <button class="gallery-next" onclick="event.stopPropagation(); changeGalleryImage(this, 1)">▶</button>
+                        ` : ''}
+                    </div>`;
+                } else if (p.image) {
+                    imageHtml = `<img src="${p.image}" class="product-image" alt="${getProductTitle(p)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onclick="event.stopPropagation(); openProductDetail(${p.id})">`;
+                } else {
+                    imageHtml = `<div class="cake-icon" onclick="event.stopPropagation(); openProductDetail(${p.id})">${p.icon}</div>`;
+                }
+                
+                let buttonHtml = '';
+                // Для товаров с выбором вкуса показываем кнопку "Подробнее"
+                if (p.id === 37 && p.isVariety) {
+                    buttonHtml = `<button class="add-to-cart-btn" onclick="event.stopPropagation(); openCakePopVarieties()">${t('moreDetails')}</button>`;
+                } else if (p.id === 39 && p.isVariety) {
+                    buttonHtml = `<button class="add-to-cart-btn" onclick="event.stopPropagation(); openMochiVarieties()">${t('moreDetails')}</button>`;
+                } else if (p.id === 38 && p.isVariety) {
+                    buttonHtml = `<button class="add-to-cart-btn" onclick="event.stopPropagation(); openCupcakeVarieties()">${t('moreDetails')}</button>`;
+                } else if (p.id === 40 && p.isVariety) {
+                    buttonHtml = `<button class="add-to-cart-btn" onclick="event.stopPropagation(); openBentoVarieties()">${t('moreDetails')}</button>`;
+                } else if (p.id === 35 && p.isVariety) {
+                    buttonHtml = `<button class="add-to-cart-btn" onclick="event.stopPropagation(); openMarshmallowVarieties()">${t('moreDetails')}</button>`;
+                } else if (p.id === 34 && p.isVariety) {
+                    buttonHtml = `<button class="add-to-cart-btn" onclick="event.stopPropagation(); openTrifleVarieties()">${t('moreDetails')}</button>`;
+                } else if (p.id === 32 && p.isVariety) {
+                    buttonHtml = `<button class="add-to-cart-btn" onclick="event.stopPropagation(); openSpongeRollVarieties()">${t('moreDetails')}</button>`;
+                } else if (p.id === 33 && p.hasVarietyOptions) {
+                    buttonHtml = `<button class="add-to-cart-btn" onclick="event.stopPropagation(); handleAddMeringueToCart()">${t('addToCart')}</button>`;
+                } else {
+                    let isInCart = cart.some(item => item.originalId === p.id);
+                    let buttonText = isInCart ? `🛒 ${t('addedToCart')}` : `🛒 ${t('addToCart')}`;
+                    let buttonClass = isInCart ? 'add-to-cart-btn added' : 'add-to-cart-btn';
+                    buttonHtml = `<button class="${buttonClass}" data-id="${p.id}" onclick="event.stopPropagation(); handleAddToCart(${p.id})">${buttonText}</button>`;
+                }
+                
+                let avgRating = getProductAvgRating(p.id);
+                let favActive = isFavorite(p.id) ? 'active' : '';
+                
+                return `<div class="product-card">
+                    <button class="favorite-heart ${favActive}" onclick="event.stopPropagation(); toggleFavorite(${p.id})">
+                        <span class="heart-outline">♡</span>
+                        <span class="heart-filled">❤️</span>
+                    </button>
+                    ${imageHtml}
+                    <div class="product-title">${getProductTitle(p)}</div>
+                    <div class="product-category">${categoryNames[p.category]}</div>
+                    ${priceHtml}
+                    ${buttonHtml}
+                    <div class="product-rating" onclick="event.stopPropagation(); openProductReviews(${p.id})"><span>⭐</span> ${avgRating.toFixed(1)}</div>
+                </div>`;
+            }).join('');
+        }
+        
+        const globalReviewModalHTML = `
+            <div class="modal" id="globalReviewModal">
+                <div class="modal-content">
+                    <div class="modal-title">⭐ Оставить общий отзыв</div>
+                    <textarea id="globalReviewText" rows="4" placeholder="Ваш отзыв о нашей работе..."></textarea>
+                    <div class="star-rating">
+                        <input type="radio" name="globalRating" value="5" id="globalStar5"><label for="globalStar5">★</label>
+                        <input type="radio" name="globalRating" value="4" id="globalStar4"><label for="globalStar4">★</label>
+                        <input type="radio" name="globalRating" value="3" id="globalStar3"><label for="globalStar3">★</label>
+                        <input type="radio" name="globalRating" value="2" id="globalStar2"><label for="globalStar2">★</label>
+                        <input type="radio" name="globalRating" value="1" id="globalStar1"><label for="globalStar1">★</label>
+                    </div>
+                    <div class="modal-buttons">
+                        <button class="modal-btn confirm-btn" onclick="submitGlobalReview()">Отправить отзыв</button>
+                        <button class="modal-btn cancel-btn" onclick="closeGlobalReviewModal()">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', globalReviewModalHTML);
+        
+        const savedLang = localStorage.getItem('preferredLanguage') || 'ru';
+        setLanguage(savedLang);
+        
+        // Загружаем сохраненного пользователя
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) { 
+            currentUser = JSON.parse(savedUser); 
+            if (!currentUser.hasGlobalReviewed) currentUser.hasGlobalReviewed = false; 
+            updateLoginButton(); 
+        }
+        
+        if (localStorage.getItem('welcome_shown') === null) { 
+            localStorage.setItem('welcome_shown', 'true'); 
+            setTimeout(() => document.getElementById('welcomeModal').classList.add('show'), 500); 
+        }
+        renderProducts();
+        renderGlobalReviews();
+
+        document.getElementById('filter-designs').addEventListener('change', filterProducts);
+    </script>
+</body>
+</html>
