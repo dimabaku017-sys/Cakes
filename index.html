@@ -744,6 +744,174 @@ body.dark .exit-btn:hover {
         </div>
     </div>
 
+    <!-- ИИ ЧАТ ПОМОЩНИК - новая функциональность -->
+    <style>
+        /* AI Assistant Chat - Modern Floating Widget */
+        .ai-chat-button {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e94560, #ff6b9d);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            transition: all 0.3s ease;
+            border: none;
+            color: white;
+            font-size: 28px;
+        }
+        .ai-chat-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(233,69,96,0.4);
+        }
+        .ai-chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 350px;
+            max-width: calc(100vw - 40px);
+            height: 500px;
+            max-height: 70vh;
+            background: var(--modal-bg);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .ai-chat-window.hidden {
+            display: none;
+        }
+        .ai-chat-header {
+            background: linear-gradient(135deg, #e94560, #ff6b9d);
+            padding: 15px 20px;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .ai-chat-header span {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .ai-chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--bg-color);
+        }
+        .ai-message, .user-message {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        .ai-message {
+            background: var(--card-bg);
+            color: var(--text-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .user-message {
+            background: #e94560;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .ai-typing {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-style: italic;
+            font-size: 13px;
+            align-self: flex-start;
+        }
+        .ai-chat-input-area {
+            display: flex;
+            padding: 12px;
+            border-top: 1px solid var(--border-color);
+            background: var(--card-bg);
+            gap: 8px;
+        }
+        .ai-chat-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            background: var(--input-bg);
+            color: var(--text-color);
+            outline: none;
+            font-size: 14px;
+        }
+        .ai-chat-send {
+            background: #e94560;
+            border: none;
+            border-radius: 40px;
+            padding: 0 16px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .ai-chat-send:hover {
+            background: #d63651;
+        }
+        @media (max-width: 600px) {
+            .ai-chat-window { width: 300px; right: 10px; bottom: 80px; }
+            .ai-chat-button { bottom: 80px; right: 10px; width: 50px; height: 50px; font-size: 24px; }
+        }
+        body.dark .ai-message, body.dark .ai-chat-input-area, body.dark .ai-chat-window {
+            background: var(--card-bg);
+        }
+    </style>
+
+    <div class="ai-chat-button" id="aiChatButton">
+        🤖
+    </div>
+    <div class="ai-chat-window hidden" id="aiChatWindow">
+        <div class="ai-chat-header">
+            <span>🤖 ТортоБот — ИИ помощник</span>
+            <button class="ai-chat-close" id="aiChatClose">✕</button>
+        </div>
+        <div class="ai-chat-messages" id="aiChatMessages">
+            <div class="ai-message">🍰 Привет! Я ТортоБот. Спроси меня о тортах, доставке, условиях заказа или помогу выбрать десерт. Чем могу помочь?</div>
+        </div>
+        <div class="ai-chat-input-area">
+            <input type="text" class="ai-chat-input" id="aiChatInput" placeholder="Напишите вопрос...">
+            <button class="ai-chat-send" id="aiChatSend">➤</button>
+        </div>
+    </div>
+
     <script>
 	// Функция переключения темы
         function toggleTheme() {
@@ -2902,6 +3070,166 @@ body.dark .exit-btn:hover {
         renderGlobalReviews();
 
         document.getElementById('filter-designs').addEventListener('change', filterProducts);
+
+        // -------------------- ИНТЕГРАЦИЯ ИИ-ПОМОЩНИКА (обновлённая версия) --------------------
+        const aiChatButtonEl = document.getElementById('aiChatButton');
+        const aiChatWindowEl = document.getElementById('aiChatWindow');
+        const aiChatCloseEl = document.getElementById('aiChatClose');
+        const aiChatInputEl = document.getElementById('aiChatInput');
+        const aiChatSendEl = document.getElementById('aiChatSend');
+        const aiChatMessagesEl = document.getElementById('aiChatMessages');
+        
+        function toggleAIChat() {
+            aiChatWindowEl.classList.toggle('hidden');
+        }
+        
+        function addAIMessage(text, isTypingEffect = false) {
+            if (isTypingEffect) {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'ai-typing';
+                typingDiv.innerText = 'ТортоБот печатает...';
+                aiChatMessagesEl.appendChild(typingDiv);
+                aiChatMessagesEl.scrollTop = aiChatMessagesEl.scrollHeight;
+                setTimeout(() => {
+                    typingDiv.remove();
+                    const msgDiv = document.createElement('div');
+                    msgDiv.className = 'ai-message';
+                    msgDiv.innerText = text;
+                    aiChatMessagesEl.appendChild(msgDiv);
+                    aiChatMessagesEl.scrollTop = aiChatMessagesEl.scrollHeight;
+                }, 600);
+            } else {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'ai-message';
+                msgDiv.innerText = text;
+                aiChatMessagesEl.appendChild(msgDiv);
+                aiChatMessagesEl.scrollTop = aiChatMessagesEl.scrollHeight;
+            }
+        }
+        
+        function addUserMessage(text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'user-message';
+            msgDiv.innerText = text;
+            aiChatMessagesEl.appendChild(msgDiv);
+            aiChatMessagesEl.scrollTop = aiChatMessagesEl.scrollHeight;
+        }
+        
+        // Вспомогательная функция: расчёт веса торта по количеству людей
+        function getCakeWeightRecommendation(peopleCount) {
+            if (peopleCount <= 0) return "некорректное количество гостей";
+            if (peopleCount === 1) return "на 1 человека советую бенто торт 12 см (500-600 г)";
+            if (peopleCount === 2) return "на 2 человек советую бенто торт 12 см (500-600 г)";
+            if (peopleCount === 3) return "на 3 человек советую бенто торт 14 см (700-800 г)";
+            if (peopleCount >= 4 && peopleCount <= 5) return "на " + peopleCount + " человек советую торт 1 кг";
+            if (peopleCount >= 6 && peopleCount <= 7) return "на " + peopleCount + " человек советую торт 2 кг";
+            if (peopleCount >= 8 && peopleCount <= 10) return "на " + peopleCount + " человек советую торт 3 кг";
+            if (peopleCount >= 11 && peopleCount <= 13) return "на " + peopleCount + " человек советую торт 4 кг";
+            if (peopleCount >= 14) return "на " + peopleCount + " человек советую торт 5 кг или более (из расчёта 200 г на человека)";
+            return "торт весом " + Math.ceil(peopleCount * 0.2) + " кг (200 г на человека)";
+        }
+        
+        // Обновлённая ИИ-логика с расширенными ответами
+        function getAIResponse(userMessage) {
+            const msg = userMessage.toLowerCase();
+            
+            // ---- 1. Рекомендации тортов и десертов ----
+            if (msg.match(/какой торт посоветуешь|посоветуй торт|торт рекомендуешь|какой торт лучше/i)) {
+                return "🍰 Из тортов я особенно рекомендую: «Красный бархат» (нежный и яркий), «Молочная девочка» (классический вкус) и «Шоколадно-вишнёвый» (для любителей шоколада с кислинкой). Вы можете посмотреть их в разделе «Торты».";
+            }
+            if (msg.match(/какой десерт посоветуешь|посоветуй десерт|десерт рекомендуешь|какой десерт лучше/i)) {
+                return "🍮 Из десертов очень советую попробовать «Меренговый рулет» — нежный, воздушный, с ягодным конфитюром. А также наши капкейки (шоколадные, ванильные или красный бархат) — отличное дополнение к чаю!";
+            }
+            
+            // ---- 2. Расчёт веса торта на количество человек ----
+            let peopleMatch = msg.match(/(\d+)\s*(?:человек|чел|персон|гостей|людей)/i);
+            if (peopleMatch) {
+                let people = parseInt(peopleMatch[1]);
+                let recommendation = getCakeWeightRecommendation(people);
+                return `📏 ${recommendation}. Обычно мы исходим из расчёта 200 грамм торта на одного взрослого гостя.`;
+            }
+            if (msg.match(/сколько кг торт|какой вес торта|на сколько человек хватит|расчёт веса/i)) {
+                return "⚖️ Мы рекомендуем исходить из 200 грамм торта на одного человека. Например: на 2 человек — бенто 12 см (500-600 г), на 3 — бенто 14 см (700-800 г), на 4-5 человек — 1 кг, 6-7 чел — 2 кг, 8-10 чел — 3 кг, 11-13 чел — 4 кг, от 14 человек — 5 кг и более. Уточните количество гостей, и я скажу точнее.";
+            }
+            
+            // ---- 3. Срок годности ----
+            if (msg.match(/срок годности|сколько хранится|какой срок хранения|через сколько испортится/i)) {
+                return "⏳ Срок годности торта составляет 3 суток при хранении в холодильнике (от +2 до +6°C). Рекомендуем употребить в течение 2 дней для максимальной свежести.";
+            }
+            
+            // ---- 4. Масса торта с декором или без ----
+            if (msg.match(/масса торта с декором|вес с украшением|вес без декора|масса без дизайна|торт пишется с декором/i)) {
+                return "⚖️ Вес торта указан без учёта дизайна и дополнительных украшений. Декор может добавить до 200-300 г в зависимости от сложности. Точный вес уточняйте при заказе.";
+            }
+            
+            // ---- 5. Выбор дизайна ----
+            if (msg.match(/как выбрать дизайн|посоветуй дизайн|где посмотреть дизайны|какой дизайн/i)) {
+                return "🎨 Выбор дизайна можно посмотреть в разделе «Дизайны» на нашем сайте. Также много идей в моём VK канале: https://vk.com/cake.yulia003 . Загляните, там много вдохновения!";
+            }
+            
+            // ---- 6. Вопросы о доставке ----
+            if (msg.match(/в какой упаковке|упаковка торта/i)) {
+                return "📦 Торт доставят в специальной упаковочной коробке, которая обеспечивает сохранность во время перевозки.";
+            }
+            if (msg.match(/если во время доставки с тортом что то случится|повреждённым|доставят повреждённым|кто отвечает за доставку/i)) {
+                return "🚚 Мы не несём ответственность за доставку. Мы подробно объясняем водителю правила перевозки торта, но все вопросы при повреждении — к водителю или курьеру.";
+            }
+            if (msg.match(/конкретное время доставки|выбрать время доставки|во сколько доставят/i)) {
+                return "⏰ Да, можно выбрать конкретное время доставки. Этот вопрос лучше обговорить со мной в личных сообщениях VK: https://vk.com/cake.yulia003 . Напишите, договоримся.";
+            }
+            
+            // ---- 7. Возврат и предоплата ----
+            if (msg.match(/возврат|вернуть деньги|отказаться от заказа/i)) {
+                return "🔄 Если вы заказали торт и передумали за 3 дня до получения — предоплата возвращается полностью. Если за 2 дня или накануне — предоплата не возвращается. После получения торта возврат невозможен.";
+            }
+            if (msg.match(/итоговая цена включает доставку|доставка включена|цена с доставкой/i)) {
+                return "💰 Нет, итоговая цена включает только сам торт. Дизайн (если сложный) и доставка оплачиваются отдельно.";
+            }
+            if (msg.match(/нужна ли предоплата|предоплата/i)) {
+                return "✅ Предоплата обязательна. Без неё мы не начинаем готовить ваш торт или десерт.";
+            }
+            
+            // ---- 8. Другие вопросы ----
+            if (msg.match(/внести правки в дизайн|изменить дизайн|правки/i)) {
+                return "✏️ Да, можно внести правки в дизайн. Напишите мне в личные сообщения VK: https://vk.com/cake.yulia003 или выберите дизайн сами в интернете / в разделе «Дизайны» на сайте.";
+            }
+            if (msg.match(/без сахара|веганские|без глютена|диетические|аллергия/i)) {
+                return "🥺 К сожалению, у нас пока нет вариантов без сахара, веганских или без глютена. Все десерты готовятся по классическим рецептам.";
+            }
+            if (msg.match(/нестандартного размера|нестандартная форма|необычная форма/i)) {
+                return "🎂 Да, можно заказать торт нестандартного размера или формы. Этот вопрос нужно обсудить с кондитером в личных сообщениях VK: https://vk.com/cake.yulia003";
+            }
+            if (msg.match(/аксессуары|свечи|подложка|нож для разрезания/i)) {
+                return "🕯️ Нож для разрезания не входит в комплект. Подложка под торт всегда входит в стоимость. Свечи и другие аксессуары — за отдельную плату, по предварительному обсуждению с кондитером (пишите в VK: https://vk.com/cake.yulia003).";
+            }
+            
+            // ---- Приветствия и общие фразы ----
+            if (msg.match(/привет|здравствуй|добрый день|хай|ку-ку/i)) {
+                return "Привет-привет! 🎂 Я ТортоБот. Рад видеть тебя! Спрашивай о тортах, десертах, весе на компанию, доставке или дизайне.";
+            }
+            if (msg.match(/спасибо|благодар|отлично|класс/i)) {
+                return "Всегда рад помочь! 🍰 Если появятся вопросы, обращайтесь. Хорошего дня и приятного аппетита!";
+            }
+            
+            // ---- Ответ по умолчанию ----
+            return "🤔 Уточните, пожалуйста, ваш вопрос. Я могу подсказать: какой торт выбрать, рассчитать вес на гостей, рассказать о доставке, возврате, дизайне или аксессуарах.";
+        }
+        
+        function sendAIMessage() {
+            const text = aiChatInputEl.value.trim();
+            if (text === "") return;
+            addUserMessage(text);
+            aiChatInputEl.value = "";
+            const responseText = getAIResponse(text);
+            addAIMessage(responseText, true);
+        }
+        
+        aiChatButtonEl.addEventListener('click', toggleAIChat);
+        aiChatCloseEl.addEventListener('click', toggleAIChat);
+        aiChatSendEl.addEventListener('click', sendAIMessage);
+        aiChatInputEl.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendAIMessage();
+        });
     </script>
 </body>
-</html> 
+</html>
