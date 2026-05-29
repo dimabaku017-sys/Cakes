@@ -733,6 +733,14 @@ body.dark .exit-btn:hover {
         </div>
     </div>
 
+    <div class="modal" id="questionsModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-title">📋 Что я могу спросить у ТортоБота?</div>
+            <div id="questionsList" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;"></div>
+            <button class="modal-btn cancel-btn" onclick="closeQuestionsModal()">Закрыть</button>
+        </div>
+    </div>
+
     <div class="modal" id="meringueFillingModal">
         <div class="modal-content">
             <div class="modal-title">Выберите начинку для меренгового рулета</div>
@@ -3071,7 +3079,7 @@ body.dark .exit-btn:hover {
 
         document.getElementById('filter-designs').addEventListener('change', filterProducts);
 
-        // -------------------- ИНТЕГРАЦИЯ ИИ-ПОМОЩНИКА (обновлённая версия) --------------------
+        // -------------------- ИНТЕГРАЦИЯ ИИ-ПОМОЩНИКА (с окном вопросов) --------------------
         const aiChatButtonEl = document.getElementById('aiChatButton');
         const aiChatWindowEl = document.getElementById('aiChatWindow');
         const aiChatCloseEl = document.getElementById('aiChatClose');
@@ -3083,7 +3091,7 @@ body.dark .exit-btn:hover {
             aiChatWindowEl.classList.toggle('hidden');
         }
         
-        function addAIMessage(text, isTypingEffect = false) {
+        function addAIMessage(text, isTypingEffect = false, showQuestionsButton = false) {
             if (isTypingEffect) {
                 const typingDiv = document.createElement('div');
                 typingDiv.className = 'ai-typing';
@@ -3094,14 +3102,30 @@ body.dark .exit-btn:hover {
                     typingDiv.remove();
                     const msgDiv = document.createElement('div');
                     msgDiv.className = 'ai-message';
-                    msgDiv.innerText = text;
+                    msgDiv.innerHTML = text.replace(/\n/g, '<br>');
+                    if (showQuestionsButton) {
+                        const btn = document.createElement('button');
+                        btn.textContent = '📋 Список вопросов';
+                        btn.style.cssText = 'background: #e94560; color: white; border: none; border-radius: 20px; padding: 5px 12px; margin-top: 10px; cursor: pointer; font-size: 13px;';
+                        btn.onclick = () => openQuestionsModal();
+                        msgDiv.appendChild(document.createElement('br'));
+                        msgDiv.appendChild(btn);
+                    }
                     aiChatMessagesEl.appendChild(msgDiv);
                     aiChatMessagesEl.scrollTop = aiChatMessagesEl.scrollHeight;
                 }, 600);
             } else {
                 const msgDiv = document.createElement('div');
                 msgDiv.className = 'ai-message';
-                msgDiv.innerText = text;
+                msgDiv.innerHTML = text.replace(/\n/g, '<br>');
+                if (showQuestionsButton) {
+                    const btn = document.createElement('button');
+                    btn.textContent = '📋 Список вопросов';
+                    btn.style.cssText = 'background: #e94560; color: white; border: none; border-radius: 20px; padding: 5px 12px; margin-top: 10px; cursor: pointer; font-size: 13px;';
+                    btn.onclick = () => openQuestionsModal();
+                    msgDiv.appendChild(document.createElement('br'));
+                    msgDiv.appendChild(btn);
+                }
                 aiChatMessagesEl.appendChild(msgDiv);
                 aiChatMessagesEl.scrollTop = aiChatMessagesEl.scrollHeight;
             }
@@ -3127,6 +3151,49 @@ body.dark .exit-btn:hover {
             if (peopleCount >= 11 && peopleCount <= 13) return "на " + peopleCount + " человек советую торт 4 кг";
             if (peopleCount >= 14) return "на " + peopleCount + " человек советую торт 5 кг или более (из расчёта 200 г на человека)";
             return "торт весом " + Math.ceil(peopleCount * 0.2) + " кг (200 г на человека)";
+        }
+        
+        // Список предопределённых вопросов
+        const predefinedQuestions = [
+            "Какой торт посоветуешь?",
+            "Какой десерт посоветуешь?",
+            "Сколько кг торта нужно на 5 человек?",
+            "Какой срок годности у торта?",
+            "Масса торта пишется с декором или нет?",
+            "Как выбрать дизайн?",
+            "В какой упаковке доставят торт?",
+            "Что делать, если торт доставят повреждённым?",
+            "Можно ли выбрать конкретное время доставки?",
+            "Можно ли сделать возврат?",
+            "Итоговая цена включает доставку?",
+            "Нужна ли предоплата?",
+            "Можно ли внести правки в дизайн?",
+            "Есть ли варианты без сахара, веганские?",
+            "Можно ли заказать торт нестандартного размера?",
+            "Предоставляют ли свечи, подложку, нож?"
+        ];
+        
+        function openQuestionsModal() {
+            const modal = document.getElementById('questionsModal');
+            const container = document.getElementById('questionsList');
+            if (!container) return;
+            container.innerHTML = predefinedQuestions.map(q => 
+                `<div class="question-item" style="padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; background: var(--bg-color); color: var(--text-color); transition: 0.2s;"
+                     onmouseover="this.style.background='var(--filter-hover)'" onmouseout="this.style.background='var(--bg-color)'"
+                     onclick="sendQuestionAndClose('${q.replace(/'/g, "\\'")}')">${q}</div>`
+            ).join('');
+            modal.classList.add('show');
+        }
+        
+        function closeQuestionsModal() {
+            document.getElementById('questionsModal').classList.remove('show');
+        }
+        
+        function sendQuestionAndClose(question) {
+            closeQuestionsModal();
+            // Имитируем ввод пользователя и отправку
+            aiChatInputEl.value = question;
+            sendAIMessage();
         }
         
         // Обновлённая ИИ-логика с расширенными ответами
@@ -3211,7 +3278,7 @@ body.dark .exit-btn:hover {
                 return "Всегда рад помочь! 🍰 Если появятся вопросы, обращайтесь. Хорошего дня и приятного аппетита!";
             }
             
-            // ---- Ответ по умолчанию ----
+            // ---- Ответ по умолчанию с кнопкой показа вопросов ----
             return "🤔 Уточните, пожалуйста, ваш вопрос. Я могу подсказать: какой торт выбрать, рассчитать вес на гостей, рассказать о доставке, возврате, дизайне или аксессуарах.";
         }
         
@@ -3221,7 +3288,9 @@ body.dark .exit-btn:hover {
             addUserMessage(text);
             aiChatInputEl.value = "";
             const responseText = getAIResponse(text);
-            addAIMessage(responseText, true);
+            // Показываем кнопку только для стандартного ответа-подсказки
+            const isDefaultAnswer = (responseText === "🤔 Уточните, пожалуйста, ваш вопрос. Я могу подсказать: какой торт выбрать, рассчитать вес на гостей, рассказать о доставке, возврате, дизайне или аксессуарах.");
+            addAIMessage(responseText, true, isDefaultAnswer);
         }
         
         aiChatButtonEl.addEventListener('click', toggleAIChat);
