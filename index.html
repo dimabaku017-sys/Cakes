@@ -1403,23 +1403,144 @@
         }
 
         /* ============================================================
-           ЧАТ
+           ЧАТ (обновлён)
            ============================================================ */
-        .chat-messages {
-            max-height: 300px;
+        #chatModal .modal-content {
+            max-width: 700px;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        #chatModal .chat-messages {
+            flex: 1;
             overflow-y: auto;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             padding: 10px;
             background: var(--review-bg);
             border-radius: 10px;
         }
+        .chat-input-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            position: relative;
+        }
+        .chat-input-area textarea {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--text-color);
+            resize: none;
+            font-size: 14px;
+            min-height: 48px;
+            max-height: 100px;
+        }
+        .chat-input-area .chat-toolbar {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        .chat-toolbar button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background 0.2s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+        }
+        .chat-toolbar button:hover {
+            background: var(--filter-hover);
+        }
+        .chat-toolbar .send-btn {
+            background: #e94560;
+            color: white;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 20px;
+            transition: transform 0.2s;
+        }
+        .chat-toolbar .send-btn:hover {
+            transform: scale(1.05);
+            background: #d63651;
+        }
         .chat-message {
             background: var(--card-bg);
-            padding: 8px 12px;
-            margin-bottom: 8px;
-            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            border-radius: 12px;
             color: var(--text-color);
             position: relative;
+            max-width: 80%;
+            word-wrap: break-word;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .chat-message .message-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
+        }
+        .chat-message .message-header .sender-name {
+            font-weight: bold;
+            color: var(--price-color);
+        }
+        .chat-message .online-status {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .chat-message .online-status .online-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .chat-message .online-status .online-dot.online {
+            background: #4caf50;
+        }
+        .chat-message .online-status .online-dot.offline {
+            background: #999;
+        }
+        .chat-message .online-status.online {
+            color: #4caf50;
+        }
+        .chat-message .online-status.offline {
+            color: #999;
+        }
+        .chat-message .message-time {
+            font-size: 11px;
+            color: #999;
+            margin-left: auto;
+        }
+        .chat-message .message-text {
+            margin-top: 4px;
+        }
+        .chat-message .message-media {
+            margin-top: 8px;
+        }
+        .chat-message .message-media img,
+        .chat-message .message-media video {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .chat-message .message-media img:hover {
+            opacity: 0.9;
         }
         .chat-message.premium {
             border: 2px solid var(--gold);
@@ -1439,9 +1560,55 @@
             border-radius: 12px;
             letter-spacing: 0.5px;
         }
-        .chat-message.premium .premium-username {
-            color: var(--gold);
-            font-weight: 700;
+        .chat-message.premium .sender-name {
+            color: var(--gold) !important;
+        }
+
+        .emoji-picker {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 8px;
+            position: absolute;
+            bottom: 60px;
+            left: 10px;
+            width: 250px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 20;
+            flex-wrap: wrap;
+            gap: 4px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .emoji-picker.show {
+            display: flex;
+        }
+        .emoji-picker span {
+            font-size: 28px;
+            cursor: pointer;
+            padding: 4px;
+            transition: transform 0.2s;
+        }
+        .emoji-picker span:hover {
+            transform: scale(1.3);
+        }
+
+        /* Стили для модалки выбора заказа для дизайна */
+        #selectOrderModal .modal-content {
+            max-width: 500px;
+        }
+        #selectOrderModal .order-item {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+            color: var(--text-color);
+        }
+        #selectOrderModal .order-item:hover {
+            background: var(--filter-hover);
         }
 
         /* ============================================================
@@ -1972,6 +2139,7 @@
             .modal-content { padding: 20px; }
             .modal-title { font-size: 22px; }
             .question-frame { padding: 6px 10px; margin: 4px 0; font-size: 13px; }
+            #chatModal .modal-content { height: 90vh; max-width: 100%; }
         }
         @media (max-width:480px) {
             .products-grid { gap: 10px; }
@@ -1981,6 +2149,7 @@
             .cart-btn, .orders-btn, .login-btn { padding: 4px 6px; font-size: 9px; }
             .logo { font-size: 14px; }
             .sept-designs-grid { grid-template-columns: 1fr; }
+            .emoji-picker { width: 180px; left: 5px; }
         }
 
         /* ============================================================
@@ -2282,7 +2451,7 @@
         </div>
     </div>
 
-    <!-- Корзина (обновлена) -->
+    <!-- Корзина -->
     <div class="modal" id="cartModal">
         <div class="modal-content">
             <div class="modal-title" id="cartTitle">🛒 Корзина</div>
@@ -2418,14 +2587,22 @@
         </div>
     </div>
 
-    <!-- Чат -->
+    <!-- Чат (обновлён) -->
     <div class="modal" id="chatModal">
         <div class="modal-content">
             <div class="modal-title" id="chatTitle">💬 Чат с продавцом</div>
             <div id="chatMessages" class="chat-messages"></div>
-            <textarea id="chatInput" placeholder="Ваше сообщение..." rows="3" style="width:100%; padding:10px; margin-bottom:10px;"></textarea>
-            <div class="modal-buttons">
-                <button class="modal-btn confirm-btn" id="sendMsgBtn" onclick="sendChatMessage()">Отправить</button>
+            <div class="chat-input-area">
+                <textarea id="chatInput" placeholder="Ваше сообщение..." rows="2"></textarea>
+                <div class="chat-toolbar">
+                    <button onclick="toggleEmojiPicker()" title="Смайлики">😊</button>
+                    <button onclick="document.getElementById('chatFileInput').click()" title="Прикрепить файл">📎</button>
+                    <input type="file" id="chatFileInput" accept="image/*,video/*" style="display:none;" multiple>
+                    <button class="send-btn" id="sendMsgBtn" onclick="sendChatMessage()">➤</button>
+                </div>
+            </div>
+            <div id="emojiPicker" class="emoji-picker"></div>
+            <div class="modal-buttons" style="margin-top:10px;">
                 <button class="modal-btn cancel-btn" id="closeChatBtn" onclick="closeChatModal()">Закрыть</button>
             </div>
         </div>
@@ -2934,33 +3111,33 @@
         </div>
     </div>
 
-   <!-- ===== МОДАЛКА ПРАВИЛ ===== -->
-<div class="modal" id="rulesModal">
-    <div class="modal-content">
-        <button class="close-cross" onclick="closeRulesModal()">✕</button>
-        <div class="modal-title">📋 Правила заведения</div>
-        <div class="rules-content" id="rulesContent">
-            <h4>1. Время получения заказа</h4>
-            <p>Заказ необходимо забрать <strong>± 25 минут</strong> от указанного времени. Если вы приходите раньше или позже на 26 минут и более, человек, который отдаёт ваш торт, может отсутствовать.</p>
-            <p>Если вы приходите на <strong>30 минут раньше</strong> назначенного времени, ваш товар может быть ещё не упакован в коробку.</p>
-            <p>Если вы не приходите за товаром в течение <strong>часа</strong> после согласованного времени, мы не отвечаем за ваш товар и можем покинуть место встречи.</p>
+    <!-- ===== МОДАЛКА ПРАВИЛ ===== -->
+    <div class="modal" id="rulesModal">
+        <div class="modal-content">
+            <button class="close-cross" onclick="closeRulesModal()">✕</button>
+            <div class="modal-title">📋 Правила заведения</div>
+            <div class="rules-content" id="rulesContent">
+                <h4>1. Время получения заказа</h4>
+                <p>Заказ необходимо забрать <strong>± 25 минут</strong> от указанного времени. Если вы приходите раньше или позже на 26 минут и более, человек, который отдаёт ваш торт, может отсутствовать.</p>
+                <p>Если вы приходите на <strong>30 минут раньше</strong> назначенного времени, ваш товар может быть ещё не упакован в коробку.</p>
+                <p>Если вы не приходите за товаром в течение <strong>часа</strong> после согласованного времени, мы не отвечаем за ваш товар и можем покинуть место встречи.</p>
 
-            <h4>2. Доставка</h4>
-            <p>Если вы вызываете доставку, мы <strong>не несём ответственности</strong> за ваш товар после того, как передали его курьеру.</p>
-            <p>После передачи товара курьеру возврат денежных средств <strong>невозможен</strong>.</p>
+                <h4>2. Доставка</h4>
+                <p>Если вы вызываете доставку, мы <strong>не несём ответственности</strong> за ваш товар после того, как передали его курьеру.</p>
+                <p>После передачи товара курьеру возврат денежных средств <strong>невозможен</strong>.</p>
 
-            <h4>3. Состояние товара и качество</h4>
-            <p>Если вы забрали торт и он упал, помялся или получил повреждения, мы <strong>не несём ответственности</strong> за это. Возврат и компенсация <strong>не предусмотрены</strong>.</p>
-            <p><strong>Важно!</strong> Мы не осуществляем возврат денег, если вкус торта вам субъективно не понравился. Выбор вкуса остаётся за вами, а мы, в свою очередь, используем только качественные и проверенные ингредиенты. Наша продукция готовится <strong>за день до получения</strong>, поэтому к моменту встречи вы всегда получаете свежий десерт, приготовленный с душой и вниманием к деталям.</p>
+                <h4>3. Состояние товара и качество</h4>
+                <p>Если вы забрали торт и он упал, помялся или получил повреждения, мы <strong>не несём ответственности</strong> за это. Возврат и компенсация <strong>не предусмотрены</strong>.</p>
+                <p><strong>Важно!</strong> Мы не осуществляем возврат денег, если вкус торта вам субъективно не понравился. Выбор вкуса остаётся за вами, а мы, в свою очередь, используем только качественные и проверенные ингредиенты. Наша продукция готовится <strong>за день до получения</strong>, поэтому к моменту встречи вы всегда получаете свежий десерт, приготовленный с душой и вниманием к деталям.</p>
 
-            <h4>4. Возврат</h4>
-            <p>После получения товара возврат денег на баланс <strong>не осуществляется</strong>.</p>
-        </div>
-        <div class="modal-buttons">
-            <button class="modal-btn confirm-btn" onclick="closeRulesModal()">Закрыть</button>
+                <h4>4. Возврат</h4>
+                <p>После получения товара возврат денег на баланс <strong>не осуществляется</strong>.</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="closeRulesModal()">Закрыть</button>
+            </div>
         </div>
     </div>
-</div>
 
     <!-- ===== ГЛОБАЛЬНЫЙ ОТЗЫВ ===== -->
     <div class="modal" id="globalReviewModal">
@@ -3036,6 +3213,17 @@
                     <button class="modal-btn confirm-btn" id="pistachioAddBtn" onclick="confirmAddPistachioCake()" style="display:none;">Добавить в корзину</button>
                     <button class="modal-btn cancel-btn" onclick="closePistachioModal()">Отмена</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== МОДАЛКА ВЫБОРА ЗАКАЗА ДЛЯ ДИЗАЙНА ===== -->
+    <div class="modal" id="selectOrderModal">
+        <div class="modal-content">
+            <div class="modal-title">Выберите заказ для отправки дизайна</div>
+            <div id="orderListForDesign"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel-btn" onclick="closeSelectOrderModal()">Отмена</button>
             </div>
         </div>
     </div>
@@ -3469,7 +3657,7 @@
         };
 
         // ----------------------------------------------
-        // НОВЫЕ ОТЗЫВЫ С РЕАЛЬНЫМИ ССЫЛКАМИ НА ИЗОБРАЖЕНИЯ
+        // НОВЫЕ ОТЗЫВЫ С ЛОКАЛЬНЫМИ ИЗОБРАЖЕНИЯМИ
         // ----------------------------------------------
         const newGlobalReviews = [
             {
@@ -3478,7 +3666,7 @@
                 rating: 5,
                 date: "13.08.2025",
                 time: "22:07",
-                media: ['https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?w=200&h=200&fit=crop']
+                media: ['Feedback2.jpg']
             },
             {
                 author: "Екатерина Калямина",
@@ -3486,14 +3674,14 @@
                 rating: 5,
                 date: "15.03.2025",
                 time: "07:13",
-                media: ['https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=200&h=200&fit=crop']
+                media: ['Feedback3.jpg']
             },
             {
                 author: "Вита Скарлетт",
                 text: "Очень вкусны и красивый тортик получился! Советую!!!",
                 rating: 5,
                 date: "04.06.2025",
-                media: ['https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=200&h=200&fit=crop']
+                media: ['Feedback4.jpg']
             },
             {
                 author: "Яна Полунина",
@@ -3507,10 +3695,7 @@
                 text: "Уже не первый раз заказываем торты у Юли. Очень вкусные и нежные! Всегда учтены все пожелания и тонкости в дизайне. Спасибо огромное за ваш труд.",
                 rating: 5,
                 date: "03.02.2025",
-                media: [
-                    'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=200&h=200&fit=crop',
-                    'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=200&h=200&fit=crop'
-                ]
+                media: ['Feedback5.jpg', 'Feedback5.jpg']
             }
         ];
 
@@ -3750,7 +3935,7 @@
         let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
         let productReviews = JSON.parse(localStorage.getItem('product_reviews')) || {};
         let globalReviews = JSON.parse(localStorage.getItem('global_reviews')) || [];
-        // Добавляем новые отзывы в globalReviews
+        // Добавляем новые отзывы с локальными изображениями
         const existingAuthors = new Set(globalReviews.map(r => r.author));
         for (let newRev of newGlobalReviews) {
             if (!existingAuthors.has(newRev.author)) {
@@ -3815,7 +4000,6 @@
         let honeyCustomNumberValue = null;
         let honeyTotalPrice = 0;
 
-        // Переменные для бенто с надписью
         let bentoTextSize = null;
         let bentoTextSizePrice = 0;
         let bentoTextFlavor = null;
@@ -3825,14 +4009,12 @@
         let bentoTextColorPrice = 0;
         let bentoTextTotalPrice = 0;
 
-        // Переменные для бенто в форме сердца
         let bentoHeartWeight = null;
         let bentoHeartWeightPrice = 0;
         let bentoHeartFlavor = null;
         let bentoHeartFilling = null;
         let bentoHeartTotalPrice = 0;
 
-        // Переменные для торта Фисташка-Малина
         let pistachioWeight = null;
         let pistachioFilling = null;
         let pistachioTotalPrice = 0;
@@ -3844,10 +4026,13 @@
             selectedBentoText = null;
         let currentOrderId = null;
 
-        // Переменные для заказа
         let selectedTime = null;
         let customTime = null;
         let isAgreed = false;
+
+        // Для чата
+        let sellerOnline = true; // Продавец всегда онлайн
+        let emojiPickerVisible = false;
 
         // ============================================================
         //  5. ПЕРЕВОДЫ
@@ -4588,7 +4773,6 @@
             document.getElementById('cartTotal').innerHTML = `${t('total')}: ${total} ₽`;
             updateOrderDate();
             updateCartBonusInfo();
-            // Сбросить время и галочку при открытии
             document.querySelectorAll('#timeOptions button').forEach(b => b.classList.remove('selected'));
             selectedTime = null;
             document.getElementById('customTime').value = '';
@@ -4689,7 +4873,6 @@
             }
         }
 
-        // Обработчики для галочки и даты
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('agreeRules').addEventListener('change', checkOrderReady);
             document.getElementById('orderDate').addEventListener('change', checkOrderReady);
@@ -4882,50 +5065,222 @@
 
         function closeOrdersModal() { document.getElementById('ordersModal').classList.remove('show'); }
 
-        // --- ЧАТ ---
+        // --- ЧАТ (ОБНОВЛЁН) ---
         function openChatForOrder(orderId) {
             currentOrderId = orderId;
             renderChat();
             document.getElementById('chatModal').classList.add('show');
             closeOrdersModal();
+            // Если пользователь онлайн, показываем зеленый кружок
         }
 
         function renderChat() {
             const messages = orderChats[currentOrderId] || [];
             const container = document.getElementById('chatMessages');
             const isPremium = isPremiumActive();
-            if (!messages.length) container.innerHTML = '<p>Напишите продавцу свои пожелания</p>';
-            else container.innerHTML = messages.map(m => {
-                let premiumClass = '';
-                let nameDisplay = m.from;
-                if (isPremium && m.isPremium) {
-                    premiumClass = 'premium';
-                    nameDisplay = `<span class="premium-username">👑 ${m.from}</span>`;
-                }
-                return `<div class="chat-message ${premiumClass}"><b>${nameDisplay}</b>: ${m.text}<br><small>${m.time}</small></div>`;
-            }).join('');
+            const userOnline = !!currentUser;
+            const sellerName = 'Продавец';
+            const userName = currentUser ? `${currentUser.surname} ${currentUser.name}` : 'Пользователь';
+
+            if (!messages.length) {
+                container.innerHTML = '<p style="text-align:center;padding:20px;color:#999;">Напишите продавцу свои пожелания</p>';
+            } else {
+                container.innerHTML = messages.map(m => {
+                    let premiumClass = '';
+                    let nameDisplay = m.from;
+                    let isSeller = m.from === sellerName;
+                    let status = '';
+                    let dotClass = '';
+                    if (isSeller) {
+                        // Продавец всегда онлайн
+                        status = 'в сети';
+                        dotClass = 'online';
+                    } else {
+                        // Пользователь — если залогинен, то онлайн (в данном случае он всегда онлайн, если есть currentUser)
+                        if (userOnline) {
+                            status = 'в сети';
+                            dotClass = 'online';
+                        } else {
+                            status = 'не в сети';
+                            dotClass = 'offline';
+                        }
+                    }
+                    // Для премиум-сообщений
+                    if (isPremium && m.isPremium) {
+                        premiumClass = 'premium';
+                    }
+                    let mediaHtml = '';
+                    if (m.media && Array.isArray(m.media)) {
+                        mediaHtml = m.media.map(src => {
+                            if (src.startsWith('data:image') || src.startsWith('http')) {
+                                return `<div class="message-media"><img src="${src}" alt="Вложение" onclick="openFullscreenImage('${src}')"></div>`;
+                            } else if (src.startsWith('data:video')) {
+                                return `<div class="message-media"><video controls><source src="${src}"></video></div>`;
+                            }
+                            return '';
+                        }).join('');
+                    }
+                    return `<div class="chat-message ${premiumClass}">
+                        <div class="message-header">
+                            <span class="sender-name">${nameDisplay}</span>
+                            <span class="online-status ${dotClass}">
+                                <span class="online-dot ${dotClass}"></span>
+                                ${status}
+                            </span>
+                            <span class="message-time">${m.time}</span>
+                        </div>
+                        <div class="message-text">${m.text}</div>
+                        ${mediaHtml}
+                    </div>`;
+                }).join('');
+            }
+            // Автопрокрутка вниз
+            container.scrollTop = container.scrollHeight;
         }
 
         function sendChatMessage() {
             const msg = document.getElementById('chatInput').value.trim();
-            if (!msg) return;
+            const files = document.getElementById('chatFileInput').files;
+            if (!msg && files.length === 0) return;
             if (!orderChats[currentOrderId]) orderChats[currentOrderId] = [];
             const isPremium = isPremiumActive();
-            orderChats[currentOrderId].push({
-                from: `${currentUser.surname} ${currentUser.name}`,
-                text: msg,
-                time: new Date().toLocaleString(),
-                isPremium: isPremium
-            });
-            saveChats();
-            renderChat();
-            document.getElementById('chatInput').value = '';
+            let mediaFiles = [];
+
+            // Обработка файлов
+            if (files.length > 0) {
+                // Читаем файлы и добавляем их в media
+                const promises = [];
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('Файл слишком большой (максимум 5 МБ)');
+                        continue;
+                    }
+                    const promise = new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            resolve(e.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                    promises.push(promise);
+                }
+                Promise.all(promises).then(results => {
+                    mediaFiles = results;
+                    // Отправляем сообщение после загрузки всех файлов
+                    const fullMsg = {
+                        from: `${currentUser.surname} ${currentUser.name}`,
+                        text: msg || '📎 Вложение',
+                        time: new Date().toLocaleString(),
+                        isPremium: isPremium,
+                        media: mediaFiles
+                    };
+                    orderChats[currentOrderId].push(fullMsg);
+                    saveChats();
+                    renderChat();
+                    document.getElementById('chatInput').value = '';
+                    document.getElementById('chatFileInput').value = '';
+                });
+            } else {
+                // Если нет файлов, просто отправляем текст
+                const fullMsg = {
+                    from: `${currentUser.surname} ${currentUser.name}`,
+                    text: msg,
+                    time: new Date().toLocaleString(),
+                    isPremium: isPremium,
+                    media: []
+                };
+                orderChats[currentOrderId].push(fullMsg);
+                saveChats();
+                renderChat();
+                document.getElementById('chatInput').value = '';
+            }
         }
 
-        function closeChatModal() { document.getElementById('chatModal').classList.remove('show');
-            currentOrderId = null; }
+        function closeChatModal() {
+            document.getElementById('chatModal').classList.remove('show');
+            currentOrderId = null;
+            document.getElementById('chatFileInput').value = '';
+        }
 
         function saveChats() { localStorage.setItem('order_chats', JSON.stringify(orderChats)); }
+
+        // --- ЭМОДЗИ И ФАЙЛЫ В ЧАТЕ ---
+        function toggleEmojiPicker() {
+            const picker = document.getElementById('emojiPicker');
+            emojiPickerVisible = !emojiPickerVisible;
+            picker.classList.toggle('show', emojiPickerVisible);
+        }
+
+        function populateEmojiPicker() {
+            const picker = document.getElementById('emojiPicker');
+            const emojis = ['😀', '😂', '🥰', '😍', '🤩', '😎', '😊', '😉', '😘', '😗', '😙', '😚', '😋', '😛', '😝', '😜', '🤪', '🤗', '🤔', '😐', '😑', '😶', '🙄', '😏', '😣', '😥', '😮', '🤐', '😯', '😪', '😫', '😴', '😌', '😛', '😜', '😝', '🤤', '😒', '😓', '😔', '😕', '🙃', '🤑', '😲', '☹️', '🙁', '😖', '😞', '😟', '😤', '😢', '😭', '😦', '😧', '😨', '😩', '😬', '😰', '😱', '😳', '😵', '😡', '😠', '🤬', '🤯', '😇', '🥳', '🥺', '🤭', '🤫', '🤨', '🧐', '🤓', '😈', '👿', '👹', '👺', '💀', '👻', '👽', '🤖', '🎃', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '😿', '😾', '🙈', '🙉', '🙊', '💋', '💌', '💘', '💝', '💖', '💗', '💓', '💞', '💕', '💟', '❣️', '❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '💔', '❤️‍🔥', '❤️‍🩹', '💯', '💢', '💥', '💫', '💦', '💨', '🐱', '🐶', '🐺', '🦊', '🐹', '🐰', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐽', '🐸', '🐵', '🙈', '🙉', '🙊', '🐒', '🐔', '🐧', '🐦', '🐤', '🐣', '🐥', '🦆', '🦅', '🦉', '🐴', '🦄', '🐝', '🐞', '🦋', '🐙', '🦑', '🐬', '🐳', '🐋', '🐊', '🦈', '🐅', '🐆', '🐃', '🐂', '🐄', '🐖', '🐗', '🐑', '🐏', '🐫', '🐪', '🦒', '🐘', '🦏', '🐭', '🐁', '🐀', '🐿️', '🦔', '🐾'];
+            picker.innerHTML = '';
+            emojis.forEach(emoji => {
+                const span = document.createElement('span');
+                span.textContent = emoji;
+                span.addEventListener('click', function() {
+                    const input = document.getElementById('chatInput');
+                    input.value += emoji;
+                    input.focus();
+                    toggleEmojiPicker();
+                });
+                picker.appendChild(span);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            populateEmojiPicker();
+        });
+
+        // --- ФУНКЦИЯ ДЛЯ ОТПРАВКИ ДИЗАЙНА В ЧАТ ---
+        let pendingDesignImage = null;
+
+        function openSelectOrderForDesign(imageSrc) {
+            if (!currentUser) {
+                alert('Сначала зарегистрируйтесь!');
+                return;
+            }
+            const userOrders = orders.filter(o => o.userEmail === currentUser.email);
+            if (userOrders.length === 0) {
+                alert('У вас нет заказов, чтобы отправить дизайн.');
+                return;
+            }
+            pendingDesignImage = imageSrc;
+            const container = document.getElementById('orderListForDesign');
+            container.innerHTML = userOrders.map(o => `
+                <div class="order-item" onclick="sendDesignToOrder(${o.id})">
+                    <strong>Заказ #${o.id}</strong> от ${o.orderDate}<br>
+                    <small>Товары: ${o.items.map(i => i.title).join(', ')}</small>
+                </div>
+            `).join('');
+            document.getElementById('selectOrderModal').classList.add('show');
+        }
+
+        function sendDesignToOrder(orderId) {
+            if (!pendingDesignImage) return;
+            if (!orderChats[orderId]) orderChats[orderId] = [];
+            const isPremium = isPremiumActive();
+            const msg = {
+                from: `${currentUser.surname} ${currentUser.name}`,
+                text: 'Я хочу такой дизайн:',
+                time: new Date().toLocaleString(),
+                isPremium: isPremium,
+                media: [pendingDesignImage]
+            };
+            orderChats[orderId].push(msg);
+            saveChats();
+            alert('✅ Дизайн отправлен в чат заказа #' + orderId);
+            closeSelectOrderModal();
+            pendingDesignImage = null;
+            // Открываем чат этого заказа
+            openChatForOrder(orderId);
+        }
+
+        function closeSelectOrderModal() {
+            document.getElementById('selectOrderModal').classList.remove('show');
+            pendingDesignImage = null;
+        }
 
         // --- ПОЛЬЗОВАТЕЛЬ ---
         function saveUser() { localStorage.setItem('currentUser', JSON.stringify(currentUser)); }
@@ -4937,7 +5292,6 @@
             const phone = document.getElementById('regPhone').value.trim();
             const errorDiv = document.getElementById('loginError');
 
-            // Проверка имени и фамилии: только русские буквы, с заглавной
             const russianNameRegex = /^[А-ЯЁ][а-яё]+$/;
             if (!russianNameRegex.test(surname)) {
                 errorDiv.innerText = 'Фамилия должна содержать только русские буквы и начинаться с заглавной';
@@ -4948,7 +5302,6 @@
                 return;
             }
 
-            // Проверка email: латиница, цифры, символы, @, окончание .com или .ru
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|ru)$/;
             if (!emailRegex.test(email)) {
                 errorDiv.innerText = t('emailRequired');
@@ -5384,9 +5737,7 @@
         }
 
         function selectHoneyFilling(filling, price) {
-            // Снимаем выделение со всех кнопок
             document.querySelectorAll('#honeyFillingOptions .option-btn').forEach(b => b.classList.remove('selected'));
-            // Ищем кнопку по тексту
             const buttons = document.querySelectorAll('#honeyFillingOptions .option-btn');
             for (let btn of buttons) {
                 if (btn.textContent.includes(filling)) {
@@ -5488,7 +5839,6 @@
             document.querySelectorAll('#bentoTextSizeOptions .option-btn').forEach(b => b.classList.remove('selected'));
             event.target.classList.add('selected');
 
-            // Обновляем лимит символов в зависимости от размера
             const maxLen = size === 12 ? 24 : 32;
             const input = document.getElementById('bentoTextInput');
             input.maxLength = maxLen;
@@ -5551,7 +5901,6 @@
             document.getElementById('bentoTextAddBtn').style.display = 'block';
         }
 
-        // Обновляем счетчик символов при вводе
         document.addEventListener('DOMContentLoaded', function() {
             const input = document.getElementById('bentoTextInput');
             if (input) {
@@ -5698,7 +6047,7 @@
         // ============================================================
         function openPistachioModal() {
             pistachioWeight = null;
-            pistachioFilling = 'Малиновый конфитюр'; // По умолчанию
+            pistachioFilling = 'Малиновый конфитюр';
             pistachioTotalPrice = 0;
 
             document.getElementById('pistachioStep1').style.display = 'block';
@@ -5709,7 +6058,6 @@
             document.querySelectorAll('#pistachioWeightOptions .option-btn').forEach(b => b.classList.remove('selected'));
             document.querySelectorAll('#pistachioFillingOptions .option-btn').forEach(b => b.classList.remove('selected'));
 
-            // Сбрасываем выделение и устанавливаем по умолчанию Малиновый
             const defaultFillingBtn = document.querySelector('#pistachioFillingOptions .option-btn[data-filling="Малиновый конфитюр"]');
             if (defaultFillingBtn) {
                 defaultFillingBtn.classList.add('selected');
@@ -5887,7 +6235,6 @@
                     }
                     return;
                 }
-                // Проверяем, если это торт Фисташка-Малина
                 if (p.isPistachioCake) {
                     openPistachioModal();
                     return;
@@ -6266,7 +6613,6 @@
             const img = document.getElementById('reviewPhotoModalImage');
             const textContainer = document.getElementById('reviewPhotoModalText');
 
-            // Проверяем, является ли src валидной ссылкой
             if (imageSrc && (imageSrc.startsWith('http') || imageSrc.startsWith('data:image'))) {
                 img.src = imageSrc;
                 img.style.display = 'block';
@@ -6274,7 +6620,6 @@
                 img.style.display = 'none';
             }
 
-            // Формируем текст отзыва
             textContainer.innerHTML = `
                 <div class="review-photo-author">👤 ${author}</div>
                 <div style="margin-top:8px;">${reviewText || 'Фото из отзыва'}</div>
@@ -6879,8 +7224,11 @@
                 if (!filteredDesigns.length) { container.innerHTML =
                     '<div style="grid-column:1/-1; text-align:center; padding:40px;">Ничего не найдено</div>'; return; }
                 container.innerHTML = filteredDesigns.map(d =>
-                    `<div class="product-card" style="cursor:pointer; padding:12px;"><img src="${d.image}" class="product-image" alt="Дизайн" style="height:350px; object-fit:cover;" onclick="openFullscreenImage('${d.image}')"></div>`
-                    ).join('');
+                    `<div class="product-card" style="cursor:pointer; padding:12px;">
+                        <img src="${d.image}" class="product-image" alt="Дизайн" style="height:350px; object-fit:cover;" onclick="openFullscreenImage('${d.image}')">
+                        <button class="small-btn" onclick="event.stopPropagation(); openSelectOrderForDesign('${d.image}')" style="margin-top:8px;">📤 Отправить дизайн продавцу</button>
+                    </div>`
+                ).join('');
                 setTimeout(() => window.scrollTo(0, savedScrollY), 10);
                 return;
             } else {
@@ -7328,7 +7676,7 @@
 
         function selectMarshmallowQuantity(el, q, price) {
             document.querySelectorAll('#marshmallowQuantityOptions .quantity-option').forEach(e => e.classList.remove(
-            'selected'));
+                'selected'));
             el.classList.add('selected');
             selectedMarshmallowQuantity = q;
             selectedMarshmallowFinalPrice = price;
@@ -7452,7 +7800,7 @@
 
         function selectSpongeRollQuantity(el, q, price) {
             document.querySelectorAll('#spongeRollQuantityOptions .quantity-option').forEach(e => e.classList.remove(
-            'selected'));
+                'selected'));
             el.classList.add('selected');
             selectedSpongeRollQuantity = q;
             selectedSpongeRollFinalPrice = price;
@@ -7460,7 +7808,7 @@
 
         function selectSpongeRollFilling(el, fillingId, fillingName) {
             document.querySelectorAll('#spongeRollFillingOptions .filling-option').forEach(e => e.classList.remove(
-            'selected'));
+                'selected'));
             el.classList.add('selected');
             selectedSpongeRollFilling = { id: fillingId, name: fillingName };
         }
@@ -7846,6 +8194,9 @@
         console.log('📧 Email: только латиница, @, окончание .com или .ru');
         console.log('🖼️ Добавлена функция просмотра фото из отзывов в увеличенном размере');
         console.log('📸 Фото в отзывах теперь отображаются в виде миниатюр');
+        console.log('💬 Чат с продавцом улучшен: большой размер, смайлики, прикрепление файлов, индикаторы онлайн.');
+        console.log('📤 Добавлена отправка дизайна в чат через кнопку "Отправить дизайн продавцу".');
+        console.log('🔄 Общее количество строк кода превышает 7900.');
     </script>
 </body>
 </html>
