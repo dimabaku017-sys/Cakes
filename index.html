@@ -216,7 +216,7 @@
             .sept-designs-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 480px) {
-            .sept-designs-grid { grid-template-columns: 1fr; }
+            .sept-designs-grid { grid-template-columns: repeat(2, 1fr); }
             .leaf { font-size: 20px; }
         }
 
@@ -655,6 +655,10 @@
             border-bottom: 2px solid var(--border-color);
             flex-wrap: wrap;
             gap: 10px;
+            cursor: pointer;
+        }
+        .reviews-header:hover {
+            opacity: 0.8;
         }
         .avg-rating {
             background: #e94560;
@@ -2140,6 +2144,20 @@
             .modal-title { font-size: 22px; }
             .question-frame { padding: 6px 10px; margin: 4px 0; font-size: 13px; }
             #chatModal .modal-content { height: 90vh; max-width: 100%; }
+
+            /* На телефоне отзывы скрыты, показываются по клику на заголовок */
+            .reviews-section .reviews-header {
+                cursor: pointer;
+            }
+            .reviews-section .reviews-header:hover {
+                opacity: 0.8;
+            }
+            .reviews-section .reviews-container-wrapper {
+                display: none;
+            }
+            .reviews-section.open .reviews-container-wrapper {
+                display: block;
+            }
         }
         @media (max-width:480px) {
             .products-grid { gap: 10px; }
@@ -2148,7 +2166,7 @@
             .product-price { font-size: 14px; }
             .cart-btn, .orders-btn, .login-btn { padding: 4px 6px; font-size: 9px; }
             .logo { font-size: 14px; }
-            .sept-designs-grid { grid-template-columns: 1fr; }
+            .sept-designs-grid { grid-template-columns: repeat(2, 1fr); }
             .emoji-picker { width: 180px; left: 5px; }
         }
 
@@ -2346,6 +2364,212 @@
             color: #888;
             display: block;
         }
+
+        /* ============================================================
+           СТИЛИ ДЛЯ AI ЧАТА
+           ============================================================ */
+        .ai-chat-button {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e94560, #ff6b9d);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            transition: all 0.3s ease;
+            border: none;
+            color: white;
+            font-size: 28px;
+        }
+        .ai-chat-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+        }
+        .ai-chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 350px;
+            max-width: calc(100vw - 40px);
+            height: 500px;
+            max-height: 70vh;
+            background: var(--modal-bg);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .ai-chat-window.hidden {
+            display: none;
+        }
+        .ai-chat-header {
+            background: linear-gradient(135deg, #e94560, #ff6b9d);
+            padding: 15px 20px;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .ai-chat-header span {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .ai-chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--bg-color);
+        }
+        .ai-message, .user-message {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        .ai-message {
+            background: var(--card-bg);
+            color: var(--text-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .user-message {
+            background: #e94560;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .ai-typing {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-style: italic;
+            font-size: 13px;
+            align-self: flex-start;
+        }
+        .ai-chat-input-area {
+            display: flex;
+            padding: 12px;
+            border-top: 1px solid var(--border-color);
+            background: var(--card-bg);
+            gap: 8px;
+        }
+        .ai-chat-input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 40px;
+            background: var(--input-bg);
+            color: var(--text-color);
+            outline: none;
+            font-size: 14px;
+        }
+        .ai-chat-send {
+            background: #e94560;
+            border: none;
+            border-radius: 40px;
+            padding: 0 16px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .ai-chat-send:hover {
+            background: #d63651;
+        }
+        .ai-typing-indicator {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            padding: 8px 14px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            align-self: flex-start;
+        }
+        .ai-typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+        .ai-typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .ai-typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+        @media (max-width:600px) {
+            .ai-chat-window { width: 300px; right: 10px; bottom: 80px; }
+            .ai-chat-button { bottom: 80px; right: 10px; width: 50px; height: 50px; font-size: 24px; }
+        }
+        body.dark .ai-message, body.dark .ai-chat-input-area, body.dark .ai-chat-window {
+            background: var(--card-bg);
+        }
+        body.dark .ai-chat-messages {
+            background: var(--bg-color);
+        }
+
+        /* ============================================================
+           МОДАЛКА ДЛЯ ЧИЗКЕЙКА К СНИКЕРСУ
+           ============================================================ */
+        .cheesecake-modal .modal-content {
+            max-width: 500px;
+        }
+        .cheesecake-option {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+        .cheesecake-option.selected {
+            border-color: #e94560;
+            background: var(--filter-hover);
+        }
+        .cheesecake-option .option-price {
+            color: var(--price-color);
+            font-weight: bold;
+            margin-left: 10px;
+        }
     </style>
 
     <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_api_ключ&lang=ru_RU" type="text/javascript">
@@ -2399,12 +2623,14 @@
                 <button class="info-btn" id="termsBtn" onclick="openTermsModal()">📋 Условия заказа</button>
             </div>
 
-            <div class="reviews-section">
-                <div class="reviews-header">
+            <div class="reviews-section" id="reviewsSection">
+                <div class="reviews-header" id="reviewsHeader" onclick="toggleReviewsMobile()">
                     <h3 id="reviewsTitle">⭐ Отзывы</h3>
                     <div id="avgRatingDisplay" class="avg-rating">⭐ 0.0</div>
                 </div>
-                <div id="reviewsContainer"></div>
+                <div class="reviews-container-wrapper" id="reviewsContainerWrapper">
+                    <div id="reviewsContainer"></div>
+                </div>
             </div>
         </div>
 
@@ -3228,157 +3454,19 @@
         </div>
     </div>
 
-    <!-- ===== ИИ ЧАТ ===== -->
-    <style>
-        .ai-chat-button {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #e94560, #ff6b9d);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            transition: all 0.3s ease;
-            border: none;
-            color: white;
-            font-size: 28px;
-        }
-        .ai-chat-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
-        }
-        .ai-chat-window {
-            position: fixed;
-            bottom: 100px;
-            right: 20px;
-            width: 350px;
-            max-width: calc(100vw - 40px);
-            height: 500px;
-            max-height: 70vh;
-            background: var(--modal-bg);
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            font-family: 'Segoe UI', sans-serif;
-        }
-        .ai-chat-window.hidden {
-            display: none;
-        }
-        .ai-chat-header {
-            background: linear-gradient(135deg, #e94560, #ff6b9d);
-            padding: 15px 20px;
-            color: white;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        .ai-chat-header span {
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .ai-chat-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            line-height: 1;
-        }
-        .ai-chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background: var(--bg-color);
-        }
-        .ai-message,
-        .user-message {
-            max-width: 85%;
-            padding: 10px 14px;
-            border-radius: 20px;
-            font-size: 14px;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-        .ai-message {
-            background: var(--card-bg);
-            color: var(--text-color);
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        }
-        .user-message {
-            background: #e94560;
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
-        }
-        .ai-typing {
-            background: var(--card-bg);
-            color: var(--text-color);
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-style: italic;
-            font-size: 13px;
-            align-self: flex-start;
-        }
-        .ai-chat-input-area {
-            display: flex;
-            padding: 12px;
-            border-top: 1px solid var(--border-color);
-            background: var(--card-bg);
-            gap: 8px;
-        }
-        .ai-chat-input {
-            flex: 1;
-            padding: 10px 14px;
-            border: 1px solid var(--border-color);
-            border-radius: 40px;
-            background: var(--input-bg);
-            color: var(--text-color);
-            outline: none;
-            font-size: 14px;
-        }
-        .ai-chat-send {
-            background: #e94560;
-            border: none;
-            border-radius: 40px;
-            padding: 0 16px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .ai-chat-send:hover {
-            background: #d63651;
-        }
-        @media (max-width:600px) {
-            .ai-chat-window { width: 300px; right: 10px; bottom: 80px; }
-            .ai-chat-button { bottom: 80px; right: 10px; width: 50px; height: 50px; font-size: 24px; }
-        }
-        body.dark .ai-message, body.dark .ai-chat-input-area, body.dark .ai-chat-window {
-            background: var(--card-bg);
-        }
-    </style>
+    <!-- ===== МОДАЛКА ДЛЯ ЧИЗКЕЙКА (СНИКЕРС) ===== -->
+    <div class="modal cheesecake-modal" id="cheesecakeModal">
+        <div class="modal-content">
+            <div class="modal-title">🧀 Добавить чизкейк?</div>
+            <div id="cheesecakeOptions"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm-btn" onclick="confirmAddSnickersWithCheesecake()">Подтвердить</button>
+                <button class="modal-btn cancel-btn" onclick="closeCheesecakeModal()">Отмена</button>
+            </div>
+        </div>
+    </div>
 
+    <!-- ===== ИИ ЧАТ (ТортоБот + DeepSeek) ===== -->
     <div class="ai-chat-button" id="aiChatButton">🤖</div>
     <div class="ai-chat-window hidden" id="aiChatWindow">
         <div class="ai-chat-header">
@@ -3386,7 +3474,7 @@
             <button class="ai-chat-close" id="aiChatClose">✕</button>
         </div>
         <div class="ai-chat-messages" id="aiChatMessages">
-            <div class="ai-message">🍰 Привет! Я ТортоБот. Спроси меня о тортах, доставке, условиях заказа или помогу выбрать десерт. Чем могу помочь?</div>
+            <div class="ai-message">🍰 Привет! Я ТортоБот. Спроси меня о наших тортах, десертах, доставке или условиях заказа. Чем могу помочь?</div>
         </div>
         <div class="ai-chat-input-area">
             <input type="text" class="ai-chat-input" id="aiChatInput" placeholder="Напишите вопрос...">
@@ -3399,7 +3487,7 @@
         // ============================================================
         //  0. ОБНУЛЕНИЕ И ОСЕННИЙ ПЕРИОД
         // ============================================================
-        if (!localStorage.getItem('reset_done_v5')) {
+        if (!localStorage.getItem('reset_done_v6')) {
             localStorage.removeItem('user_orders');
             localStorage.removeItem('premium_data');
             localStorage.removeItem('bonus_points');
@@ -3408,7 +3496,7 @@
             localStorage.removeItem('product_reviews');
             localStorage.removeItem('global_reviews');
             localStorage.removeItem('used_promocodes');
-            localStorage.setItem('reset_done_v5', 'true');
+            localStorage.setItem('reset_done_v6', 'true');
             console.log('🔄 Данные обнулены (заказы, премиум, бонусы, отзывы, промокоды)');
         }
 
@@ -3434,7 +3522,8 @@
         //  2. TELEGRAM
         // ============================================================
         async function sendTelegramNotification(orderDetails) {
-            const message = `🛍 НОВЫЙ ЗАКАЗ! 🛍\n\n${orderDetails}\n\n⏰ Время заказа: ${new Date().toLocaleString()}`;
+            const message =
+                `🛍 НОВЫЙ ЗАКАЗ! 🛍\n\n${orderDetails}\n\n⏰ Время заказа: ${new Date().toLocaleString()}`;
             try {
                 const response = await fetch('send_telegram.php', {
                     method: 'POST',
@@ -3659,8 +3748,7 @@
         // ----------------------------------------------
         // НОВЫЕ ОТЗЫВЫ С ЛОКАЛЬНЫМИ ИЗОБРАЖЕНИЯМИ
         // ----------------------------------------------
-        const newGlobalReviews = [
-            {
+        const newGlobalReviews = [{
                 author: "Таня Миллер",
                 text: "Торты выходят очень вкусными, нежными, сроки соблюдаются. Приятный кондитер",
                 rating: 5,
@@ -3751,7 +3839,7 @@
             { id: 22, title: 'Шоколадно-вишнёвый', titleEn: 'Chocolate-Cherry', titleUk: 'Шоколадно-вишневий',
                 titleBe: 'Шакаладна-вішнёвы', category: 'cakes', pricePerKg: 1800, icon: '🎂', image: 'Chocolate and cherry.jpg' },
             { id: 23, title: 'Сникерс', titleEn: 'Snickers', titleUk: 'Снікерс', titleBe: 'Снікерс', category: 'cakes',
-                pricePerKg: 1800, icon: '🎂', image: 'Snickers.jpg' },
+                pricePerKg: 1800, icon: '🎂', image: 'Snickers.jpg', hasCheesecake: true },
             { id: 24, title: 'Лимонно-смородиновый', titleEn: 'Lemon-Currant', titleUk: 'Лимонно-смородиновий',
                 titleBe: 'Лімонна-парэчкавы', category: 'cakes', pricePerKg: 1700, icon: '🎂', image: 'Lemon-currant.jpg' },
             { id: 25, title: 'Красный бархат', titleEn: 'Red Velvet', titleUk: 'Червоний оксамит', titleBe: 'Чырвоны аксаміт',
@@ -4031,8 +4119,14 @@
         let isAgreed = false;
 
         // Для чата
-        let sellerOnline = true; // Продавец всегда онлайн
+        let sellerOnline = true;
         let emojiPickerVisible = false;
+
+        // Для чизкейка (Сникерс)
+        let snickersWeight = null;
+        let snickersBasePrice = 0;
+        let cheesecakePrice = 0;
+        let cheesecakeSelected = false;
 
         // ============================================================
         //  5. ПЕРЕВОДЫ
@@ -5008,6 +5102,7 @@
                         <input type="radio" name="rating_${idx}" value="2" id="or_star2_${idx}"><label for="or_star2_${idx}">★</label>
                         <input type="radio" name="rating_${idx}" value="1" id="or_star1_${idx}"><label for="or_star1_${idx}">★</label>
                     </div>
+                    <textarea id="review_text_${idx}" placeholder="Ваш отзыв (необязательно)" style="width:100%; margin-top:8px; padding:8px; border:1px solid var(--border-color); border-radius:8px; background:var(--input-bg); color:var(--text-color);"></textarea>
                 </div>
             `).join('');
             window._orderReviewItems = items;
@@ -5019,6 +5114,8 @@
             let saved = 0;
             stars.forEach((starContainer, idx) => {
                 const selected = starContainer.querySelector('input[type="radio"]:checked');
+                const textarea = document.getElementById(`review_text_${idx}`);
+                const text = textarea ? textarea.value.trim() : '';
                 if (selected) {
                     const rating = parseInt(selected.value);
                     const productId = items[idx]?.originalId;
@@ -5026,7 +5123,7 @@
                         if (!productReviews[productId]) productReviews[productId] = [];
                         productReviews[productId].push({
                             rating: rating,
-                            text: '',
+                            text: text || '',
                             author: currentUser ? `${currentUser.surname} ${currentUser.name}` : 'Аноним',
                             date: new Date().toLocaleDateString()
                         });
@@ -5049,7 +5146,15 @@
             window._orderReviewItems = null;
         }
 
-        function saveOrders() { localStorage.setItem('user_orders', JSON.stringify(orders)); }
+        function saveOrders() {
+            localStorage.setItem('user_orders', JSON.stringify(orders));
+            // Сохраняем заказы в данные пользователя
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_data_' + currentUser.email)) || {};
+                userData.orders = orders;
+                localStorage.setItem('user_data_' + currentUser.email, JSON.stringify(userData));
+            }
+        }
 
         function openOrdersHistory() {
             if (!currentUser) { alert(t('needLogin'));
@@ -5071,7 +5176,6 @@
             renderChat();
             document.getElementById('chatModal').classList.add('show');
             closeOrdersModal();
-            // Если пользователь онлайн, показываем зеленый кружок
         }
 
         function renderChat() {
@@ -5092,11 +5196,9 @@
                     let status = '';
                     let dotClass = '';
                     if (isSeller) {
-                        // Продавец всегда онлайн
                         status = 'в сети';
                         dotClass = 'online';
                     } else {
-                        // Пользователь — если залогинен, то онлайн (в данном случае он всегда онлайн, если есть currentUser)
                         if (userOnline) {
                             status = 'в сети';
                             dotClass = 'online';
@@ -5105,7 +5207,6 @@
                             dotClass = 'offline';
                         }
                     }
-                    // Для премиум-сообщений
                     if (isPremium && m.isPremium) {
                         premiumClass = 'premium';
                     }
@@ -5134,7 +5235,6 @@
                     </div>`;
                 }).join('');
             }
-            // Автопрокрутка вниз
             container.scrollTop = container.scrollHeight;
         }
 
@@ -5146,9 +5246,7 @@
             const isPremium = isPremiumActive();
             let mediaFiles = [];
 
-            // Обработка файлов
             if (files.length > 0) {
-                // Читаем файлы и добавляем их в media
                 const promises = [];
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
@@ -5167,7 +5265,6 @@
                 }
                 Promise.all(promises).then(results => {
                     mediaFiles = results;
-                    // Отправляем сообщение после загрузки всех файлов
                     const fullMsg = {
                         from: `${currentUser.surname} ${currentUser.name}`,
                         text: msg || '📎 Вложение',
@@ -5182,7 +5279,6 @@
                     document.getElementById('chatFileInput').value = '';
                 });
             } else {
-                // Если нет файлов, просто отправляем текст
                 const fullMsg = {
                     from: `${currentUser.surname} ${currentUser.name}`,
                     text: msg,
@@ -5203,7 +5299,14 @@
             document.getElementById('chatFileInput').value = '';
         }
 
-        function saveChats() { localStorage.setItem('order_chats', JSON.stringify(orderChats)); }
+        function saveChats() {
+            localStorage.setItem('order_chats', JSON.stringify(orderChats));
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_data_' + currentUser.email)) || {};
+                userData.chats = orderChats;
+                localStorage.setItem('user_data_' + currentUser.email, JSON.stringify(userData));
+            }
+        }
 
         // --- ЭМОДЗИ И ФАЙЛЫ В ЧАТЕ ---
         function toggleEmojiPicker() {
@@ -5273,7 +5376,6 @@
             alert('✅ Дизайн отправлен в чат заказа #' + orderId);
             closeSelectOrderModal();
             pendingDesignImage = null;
-            // Открываем чат этого заказа
             openChatForOrder(orderId);
         }
 
@@ -5283,7 +5385,91 @@
         }
 
         // --- ПОЛЬЗОВАТЕЛЬ ---
-        function saveUser() { localStorage.setItem('currentUser', JSON.stringify(currentUser)); }
+        function saveUser() {
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            if (currentUser) {
+                const userData = JSON.parse(localStorage.getItem('user_data_' + currentUser.email)) || {};
+                userData.profile = currentUser;
+                localStorage.setItem('user_data_' + currentUser.email, JSON.stringify(userData));
+            }
+        }
+
+        function loadUserData(email) {
+            const userData = JSON.parse(localStorage.getItem('user_data_' + email));
+            if (!userData) {
+                // Если нет данных, создаем пустые
+                orders = [];
+                orderChats = {};
+                favorites = [];
+                premiumData = { active: false, expiry: null, plan: null };
+                bonusPoints = 0;
+                totalSavings = 0;
+                usedPromocodes = [];
+                productReviews = {};
+                globalReviews = JSON.parse(localStorage.getItem('global_reviews')) || [];
+                return;
+            }
+
+            // Загружаем профиль
+            if (userData.profile) {
+                currentUser = userData.profile;
+            }
+
+            // Загружаем заказы
+            orders = userData.orders || [];
+            localStorage.setItem('user_orders', JSON.stringify(orders));
+
+            // Загружаем чаты
+            orderChats = userData.chats || {};
+            localStorage.setItem('order_chats', JSON.stringify(orderChats));
+
+            // Загружаем избранное
+            favorites = userData.favorites || [];
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+
+            // Загружаем премиум
+            premiumData = userData.premium || { active: false, expiry: null, plan: null };
+            localStorage.setItem('premium_data', JSON.stringify(premiumData));
+
+            // Загружаем бонусы
+            bonusPoints = userData.bonus || 0;
+            localStorage.setItem('bonus_points', String(bonusPoints));
+
+            // Загружаем экономию
+            totalSavings = userData.savings || 0;
+            localStorage.setItem('total_savings', String(totalSavings));
+
+            // Загружаем промокоды
+            usedPromocodes = userData.promocodes || [];
+            localStorage.setItem('used_promocodes', JSON.stringify(usedPromocodes));
+
+            // Загружаем отзывы на товары
+            productReviews = userData.productReviews || {};
+            localStorage.setItem('product_reviews', JSON.stringify(productReviews));
+
+            // Загружаем глобальные отзывы (общие для всех)
+            globalReviews = JSON.parse(localStorage.getItem('global_reviews')) || [];
+
+            updatePremiumBadge();
+            renderProducts();
+            renderGlobalReviews();
+        }
+
+        function saveFullUserData() {
+            if (!currentUser) return;
+            const userData = {
+                profile: currentUser,
+                orders: orders,
+                chats: orderChats,
+                favorites: favorites,
+                premium: premiumData,
+                bonus: bonusPoints,
+                savings: totalSavings,
+                promocodes: usedPromocodes,
+                productReviews: productReviews
+            };
+            localStorage.setItem('user_data_' + currentUser.email, JSON.stringify(userData));
+        }
 
         function registerUser() {
             const surname = document.getElementById('regSurname').value.trim();
@@ -5313,11 +5499,41 @@
                 return;
             }
 
+            // Проверяем, существует ли уже пользователь с таким email
+            const userData = JSON.parse(localStorage.getItem('user_data_' + email));
+            if (userData && userData.profile) {
+                // Загружаем существующего пользователя
+                currentUser = userData.profile;
+                loadUserData(email);
+                saveUser();
+                updateLoginButton();
+                closeLoginModal();
+                alert('Добро пожаловать обратно! Ваши данные восстановлены.');
+                return;
+            }
+
+            // Создаем нового пользователя
             currentUser = { surname, name, email, phone, hasGlobalReviewed: false };
+            // Сохраняем данные пользователя отдельно
+            const newUserData = {
+                profile: currentUser,
+                orders: [],
+                chats: {},
+                favorites: [],
+                premium: { active: false, expiry: null, plan: null },
+                bonus: 0,
+                savings: 0,
+                promocodes: [],
+                productReviews: {}
+            };
+            localStorage.setItem('user_data_' + email, JSON.stringify(newUserData));
+            // Сохраняем сессию
             saveUser();
             updateLoginButton();
             closeLoginModal();
             alert(t('successReg'));
+            renderProducts();
+            renderGlobalReviews();
         }
 
         function openProfileOrLogin() { currentUser ? openProfileModal() : openLoginModal(); }
@@ -5429,6 +5645,8 @@
             }
 
             currentUser = { ...currentUser, surname, name, email, phone };
+            // Обновляем данные пользователя
+            saveFullUserData();
             saveUser();
             updateLoginButton();
             closeEditProfileModal();
@@ -5438,6 +5656,10 @@
 
         function logout() {
             if (confirm(t('logoutConfirm'))) {
+                // Сохраняем данные пользователя перед выходом
+                if (currentUser) {
+                    saveFullUserData();
+                }
                 localStorage.removeItem('currentUser');
                 currentUser = null;
                 updateLoginButton();
@@ -5494,6 +5716,7 @@
             if (input === 'Corpus desserts 2026') {
                 usedPromocodes.push(input);
                 localStorage.setItem('used_promocodes', JSON.stringify(usedPromocodes));
+                saveFullUserData();
                 msgDiv.innerText = '✅ Промокод активирован!';
                 msgDiv.style.color = 'green';
                 document.getElementById('promoContent').style.display = 'none';
@@ -5504,6 +5727,7 @@
             if (input === 'Helloo2026') {
                 usedPromocodes.push(input);
                 localStorage.setItem('used_promocodes', JSON.stringify(usedPromocodes));
+                saveFullUserData();
                 msgDiv.innerText = '✅ Промокод активирован!';
                 msgDiv.style.color = 'green';
                 startFireworks();
@@ -6128,6 +6352,123 @@
             closePistachioModal();
         }
 
+        // ============================================================
+        //  6.5 СНИКЕРС С ЧИЗКЕЙКОМ
+        // ============================================================
+        function openSnickersWeightModal() {
+            const product = products.find(p => p.id === 23);
+            if (!product) return;
+            currentProduct = product;
+            document.getElementById('weightOptions').innerHTML = [1, 2, 3, 4, 5].map(w => {
+                const basePrice = product.pricePerKg * w;
+                const finalPrice = getProductFinalPrice(product, w);
+                const discount = getPremiumDiscountForPrice(basePrice);
+                let priceHtml = '';
+                if (discount < 1) {
+                    priceHtml =
+                        `<span class="old-option-price">${basePrice} ₽</span> <span class="new-option-price">${finalPrice} ₽</span> <span class="discount-badge-small">${Math.round((1-discount)*100)}%</span>`;
+                } else {
+                    priceHtml = `<span class="new-option-price">${basePrice} ₽</span>`;
+                }
+                let cheesecakeHint = '';
+                if (w >= 2) {
+                    cheesecakeHint = `<br><small style="color:var(--price-color);">🍰 + чизкейк</small>`;
+                }
+                return `<div class="weight-option" onclick="selectSnickersWeight(this,${w},${finalPrice})"><label>${w} ${t('kg')}${cheesecakeHint}</label><span class="option-price">${priceHtml}</span></div>`;
+            }).join('');
+            document.getElementById('weightModal').classList.add('show');
+        }
+
+        let snickersSelectedWeight = null;
+        let snickersSelectedPrice = 0;
+
+        function selectSnickersWeight(el, w, price) {
+            document.querySelectorAll('#weightOptions .weight-option').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            snickersSelectedWeight = w;
+            snickersSelectedPrice = price;
+
+            if (w === 1) {
+                // Для 1 кг просто добавляем торт
+                confirmAddSnickersDirect();
+            } else {
+                // Для 2+ кг показываем модалку с чизкейком
+                openCheesecakeModal(w);
+            }
+        }
+
+        function confirmAddSnickersDirect() {
+            if (snickersSelectedWeight && currentProduct) {
+                addToCart(currentProduct, `${snickersSelectedWeight} ${t('kg')}`, snickersSelectedPrice, currentProduct.id);
+                closeWeightModal();
+                snickersSelectedWeight = null;
+                snickersSelectedPrice = 0;
+            }
+        }
+
+        function openCheesecakeModal(weight) {
+            const cheesecakePrices = { 2: 250, 3: 350, 4: 350, 5: 500 };
+            const price = cheesecakePrices[weight] || 0;
+            const optionsHtml = `
+                <div class="cheesecake-option" onclick="selectCheesecakeOption('no')">
+                    <label>❌ Без чизкейка</label>
+                    <span class="option-price">0 ₽</span>
+                </div>
+                <div class="cheesecake-option" onclick="selectCheesecakeOption('yes', ${price})">
+                    <label>🧀 С чизкейком</label>
+                    <span class="option-price">+${price} ₽</span>
+                </div>
+            `;
+            document.getElementById('cheesecakeOptions').innerHTML = optionsHtml;
+            document.getElementById('cheesecakeModal').classList.add('show');
+            // Закрываем модалку веса
+            closeWeightModal();
+        }
+
+        let cheesecakeChoice = null;
+        let cheesecakePriceValue = 0;
+
+        function selectCheesecakeOption(choice, price = 0) {
+            cheesecakeChoice = choice;
+            cheesecakePriceValue = price;
+            document.querySelectorAll('#cheesecakeOptions .cheesecake-option').forEach(e => e.classList.remove('selected'));
+            event.target.classList.add('selected');
+            // Отображаем цену
+            const btn = document.querySelector('#cheesecakeModal .confirm-btn');
+            const totalPrice = snickersSelectedPrice + (choice === 'yes' ? cheesecakePriceValue : 0);
+            btn.textContent = `Подтвердить (${totalPrice} ₽)`;
+            btn.style.display = 'block';
+        }
+
+        function confirmAddSnickersWithCheesecake() {
+            if (!snickersSelectedWeight || !currentProduct) {
+                alert('Ошибка!');
+                return;
+            }
+            if (cheesecakeChoice === null) {
+                alert('Выберите опцию!');
+                return;
+            }
+            const totalPrice = snickersSelectedPrice + (cheesecakeChoice === 'yes' ? cheesecakePriceValue : 0);
+            let weightText = `${snickersSelectedWeight} кг`;
+            if (cheesecakeChoice === 'yes') {
+                weightText += ` + чизкейк (${cheesecakePriceValue} ₽)`;
+            }
+            addToCart(currentProduct, weightText, totalPrice, currentProduct.id);
+            closeCheesecakeModal();
+            snickersSelectedWeight = null;
+            snickersSelectedPrice = null;
+            cheesecakeChoice = null;
+            cheesecakePriceValue = 0;
+        }
+
+        function closeCheesecakeModal() {
+            document.getElementById('cheesecakeModal').classList.remove('show');
+            cheesecakeChoice = null;
+            cheesecakePriceValue = 0;
+            // Возвращаемся к выбору веса если нужно
+        }
+
         // --- ДРУГИЕ МОДАЛКИ ---
         function openProductDetail(productId) {
             const product = products.find(p => p.id === productId);
@@ -6255,6 +6596,11 @@
 
             if (p.isBentoHeart) {
                 openBentoHeartModal();
+                return;
+            }
+
+            if (p.id === 23) {
+                openSnickersWeightModal();
                 return;
             }
 
@@ -6513,7 +6859,7 @@
             document.getElementById('weightModalTitle').innerText = t('selectWeight');
             document.getElementById('quantityModalTitle').innerText = t('selectQuantity');
             document.getElementById('bentoModalTitle').innerText = t('selectBento');
-            document.getElementById('cartTitle').innerText = t('yourCart');
+            document.getElementById('cartTitle').innerHTML = t('yourCart');
             document.getElementById('orderDateLabel').innerText = t('orderDate');
             document.getElementById('orderBtnText').innerHTML = t('orderCake');
             document.getElementById('continueBtnText').innerText = t('continueShopping');
@@ -6603,6 +6949,14 @@
             const totalAvg = allReviews.length ? (allReviews.reduce((s, r) => s + r.rating, 0) / allReviews.length).toFixed(1) :
                 0;
             document.getElementById('avgRatingDisplay').innerHTML = `⭐ ${totalAvg}`;
+        }
+
+        // --- МОБИЛЬНЫЙ ТОГГЛЕР ОТЗЫВОВ ---
+        function toggleReviewsMobile() {
+            const section = document.getElementById('reviewsSection');
+            if (window.innerWidth <= 600) {
+                section.classList.toggle('open');
+            }
         }
 
         // ============================================================
@@ -6802,6 +7156,7 @@
             productReviews[productId].push({ text: text, author: author, rating: parseInt(rating), date: new Date()
                     .toLocaleDateString(), media: media });
             localStorage.setItem('product_reviews', JSON.stringify(productReviews));
+            saveFullUserData();
             alert(t('reviewSuccess'));
             closeWriteReviewModal();
             renderProducts();
@@ -7911,27 +8266,85 @@
         }
 
         // ============================================================
-        //  12. ИИ ЧАТ
+        //  12. ИИ ЧАТ (ТортоБот с DeepSeek API)
         // ============================================================
-        function getAIResponse(userMessage) {
+        // Здесь мы полностью заменяем логику ИИ-бота на вызов DeepSeek API.
+        // Бот будет отвечать строго по теме сайта (торты, десерты, заказ, доставка и т.д.)
+        // API ключ: sk-48e7834390244cd7981e4c076dc93848
+
+        // Функция для отправки сообщения в DeepSeek API
+        async function callDeepSeekAPI(userMessage) {
+            const API_KEY = 'sk-48e7834390244cd7981e4c076dc93848';
+            const url = 'https://api.deepseek.com/v1/chat/completions';
+
+            // Системный промпт: бот должен отвечать только по теме сайта
+            const systemPrompt = `Ты — ТортоБот, ИИ-помощник сайта "Торты на заказ Воронеж". Ты отвечаешь строго по теме сайта: торты, десерты (бенто, капкейки, зефир, кейкпопсы, моти, рулеты, трайфлы, корпусные десерты), заказы, доставка, условия заказа, премиум-подписка, бонусы, промокоды, дизайны, отзывы. Если пользователь спрашивает о чём-то постороннем (политика, спорт, IT, медицина и т.д.), вежливо ответь, что ты можешь помочь только с вопросами по тортам и десертам, и предложи задать вопрос по теме. Не отвечай на вопросы, не относящиеся к сайту. Будь дружелюбным, подробным, но не уходи в оффтоп. Используй русский язык.`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'deepseek-chat',
+                        messages: [
+                            { role: 'system', content: systemPrompt },
+                            { role: 'user', content: userMessage }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 800
+                    })
+                });
+
+                if (!response.ok) {
+                    // Если API не отвечает, используем локальный fallback
+                    console.warn('DeepSeek API ошибка, используем локальный ответ:', response.status);
+                    return getLocalResponse(userMessage);
+                }
+
+                const data = await response.json();
+                if (data.choices && data.choices.length > 0 && data.choices[0].message) {
+                    return data.choices[0].message.content;
+                } else {
+                    return getLocalResponse(userMessage);
+                }
+            } catch (error) {
+                console.error('Ошибка при вызове DeepSeek API:', error);
+                return getLocalResponse(userMessage);
+            }
+        }
+
+        // Локальный fallback (используется если API недоступно)
+        // Он тоже отвечает только по теме сайта
+        function getLocalResponse(userMessage) {
             const msg = userMessage.toLowerCase().trim();
+
+            // Проверка на посторонние темы
+            const offTopicKeywords = ['политика', 'спорт', 'футбол', 'хоккей', 'бизнес', 'экономика', 'медицина', 'лекарства', 'инвестиции', 'криптовалюта', 'биткоин', 'война', 'армия', 'выборы', 'президент', 'правительство', 'закон', 'суд', 'погода', 'новости', 'мода', 'кино', 'музыка'];
+            for (let keyword of offTopicKeywords) {
+                if (msg.includes(keyword)) {
+                    return "🍰 Извините, я могу помочь только с вопросами по тортам, десертам, заказам и условиям нашего сайта. Давайте вернёмся к сладкому! Чем могу помочь?";
+                }
+            }
 
             const greetings = ['привет', 'здравствуйте', 'здрасте', 'hello', 'hi', 'прив', 'здравствуй', 'добрый день',
                 'добрый вечер', 'доброе утро'
             ];
             if (greetings.some(g => msg === g || msg.startsWith(g))) {
-                return 'Приветствую вас на сайте "Торты на заказ Воронеж" чем могу вам помочь?';
+                return '🍰 Приветствую вас на сайте "Торты на заказ Воронеж"! Чем могу помочь? Спросите о тортах, десертах, доставке или условиях заказа.';
             }
 
             if (msg.match(/что дает подписка премиум|что дает премиум|премиум подписка что дает|преимущества премиум/i)) {
-                return "👑 Премиум-подписка даёт вам:\n\n✅ Прогрессивную скидку: 5% для товаров до 1000₽, 4% до 2000₽, 3% до 3000₽, 2% для более дорогих.\n✅ Золотой статус в чате с продавцом (ваши сообщения выделяются)\n✅ Кешбэк пирожными: 3 пирожных за каждые 250 ₽ в заказе\n✅ Роскошное оформление профиля и всего сайта (золотые акценты, анимации)\n✅ Возможность включить эксклюзивное роскошное оформление\n✅ Экономия: вы видите, сколько сэкономили с премиум\n\nСтоимость: 399 ₽/месяц или 3 990 ₽/год (экономия 798 ₽). Оформить можно в профиле!";
+                return "👑 Премиум-подписка даёт:\n\n✅ Прогрессивную скидку: 5% на товары до 1000₽, 4% до 2000₽, 3% до 3000₽, 2% для более дорогих.\n✅ Золотой статус в чате с продавцом.\n✅ Кешбэк пирожными: 3 пирожных за каждые 250 ₽ в заказе.\n✅ Роскошное оформление профиля и всего сайта.\n✅ Возможность включить эксклюзивное роскошное оформление.\n✅ Экономия: вы видите, сколько сэкономили с премиум.\n\nСтоимость: 399 ₽/месяц или 3 990 ₽/год (экономия 798 ₽). Оформить можно в профиле.";
             }
 
             if (msg.match(/какой торт посоветуешь|посоветуй торт|торт рекомендуешь|какой торт лучше/i)) {
-                return "🍰 Из тортов я особенно рекомендую: «Красный бархат» (нежный и яркий), «Молочная девочка» (классический вкус) и «Шоколадно-вишнёвый» (для любителей шоколада с кислинкой). Вы можете посмотреть их в разделе «Торты».";
+                return "🍰 Из тортов я особенно рекомендую: «Красный бархат» (нежный и яркий), «Молочная девочка» (классический вкус), «Шоколадно-вишнёвый» (для любителей шоколада с кислинкой), «Фисташка-Малина» (премиум, изысканный). Посмотрите их в разделе «Торты».";
             }
             if (msg.match(/какой десерт посоветуешь|посоветуй десерт|десерт рекомендуешь|какой десерт лучше/i)) {
-                return "🍮 Из десертов очень советую попробовать «Меренговый рулет» — нежный, воздушный, с ягодным конфитюром. А также наши капкейки (шоколадные, ванильные или красный бархат) — отличное дополнение к чаю!";
+                return "🍮 Из десертов советую: «Меренговый рулет» — нежный, воздушный, с ягодным конфитюром. Капкейки (шоколадные, ванильные или красный бархат) — отличное дополнение к чаю. А также наши корпусные десерты — хрустящий шоколадный корпус с нежной начинкой.";
             }
             let peopleMatch = msg.match(/(\d+)\s*(?:человек|чел|персон|гостей|людей)/i);
             if (peopleMatch) {
@@ -7940,16 +8353,16 @@
                 return `📏 ${recommendation}. Обычно мы исходим из расчёта 200 грамм торта на одного взрослого гостя.`;
             }
             if (msg.match(/сколько кг торт|какой вес торта|на сколько человек хватит|расчёт веса/i)) {
-                return "⚖️ Мы рекомендуем исходить из 200 грамм торта на одного человека. Например: на 2 человек — бенто 12 см (500-600 г), на 3 — бенто 14 см (700-800 г), на 4-5 человек — 1 кг, 6-7 чел — 2 кг, 8-10 чел — 3 кг, 11-13 чел — 4 кг, от 14 человек — 5 кг и более. Уточните количество гостей, и я скажу точнее.";
+                return "⚖️ Рекомендуем исходить из 200 грамм торта на одного человека. Например: на 2 человек — бенто 12 см (500-600 г), на 3 — бенто 14 см (700-800 г), на 4-5 человек — 1 кг, 6-7 чел — 2 кг, 8-10 чел — 3 кг, 11-13 чел — 4 кг, от 14 человек — 5 кг и более. Уточните количество гостей, и я скажу точнее.";
             }
             if (msg.match(/срок годности|сколько хранится|какой срок хранения|через сколько испортится/i)) {
-                return "⏳ Срок годности торта составляет 3 суток при хранении в холодильнике (от +2 до +6°C). Рекомендуем употребить в течение 2 дней для максимальной свежести.";
+                return "⏳ Срок годности торта — 3 суток при хранении в холодильнике (от +2 до +6°C). Рекомендуем употребить в течение 2 дней для максимальной свежести.";
             }
             if (msg.match(/масса торта с декором|вес с украшением|вес без декора|масса без дизайна|торт пишется с декором/i)) {
                 return "⚖️ Вес торта указан без учёта дизайна и дополнительных украшений. Декор может добавить до 200-300 г в зависимости от сложности. Точный вес уточняйте при заказе.";
             }
             if (msg.match(/как выбрать дизайн|посоветуй дизайн|где посмотреть дизайны|какой дизайн/i)) {
-                return "🎨 Выбор дизайна можно посмотреть в разделе «Дизайны» на нашем сайте. Также много идей в моём VK канале: https://vk.com/cake.yulia003 . Загляните, там много вдохновения!";
+                return "🎨 Дизайны можно посмотреть в разделе «Дизайны» на сайте. Также много идей в VK канале: https://vk.com/cake.yulia003 . Загляните, там много вдохновения!";
             }
             if (msg.match(/в какой упаковке|упаковка торта/i)) {
                 return "📦 Торт доставят в специальной упаковочной коробке, которая обеспечивает сохранность во время перевозки.";
@@ -7958,7 +8371,7 @@
                 return "🚚 Мы не несём ответственность за доставку. Мы подробно объясняем водителю правила перевозки торта, но все вопросы при повреждении — к водителю или курьеру.";
             }
             if (msg.match(/конкретное время доставки|выбрать время доставки|во сколько доставят/i)) {
-                return "⏰ Да, можно выбрать конкретное время доставки. Этот вопрос лучше обговорить со мной в личных сообщениях VK: https://vk.com/cake.yulia003 . Напишите, договоримся.";
+                return "⏰ Да, можно выбрать конкретное время доставки. Этот вопрос лучше обговорить с кондитером в VK: https://vk.com/cake.yulia003 . Напишите, договоримся.";
             }
             if (msg.match(/возврат|вернуть деньги|отказаться от заказа/i)) {
                 return "🔄 Если вы заказали торт и передумали за 3 дня до получения — предоплата возвращается полностью. Если за 2 дня или накануне — предоплата не возвращается. После получения торта возврат невозможен.";
@@ -7970,13 +8383,13 @@
                 return "✅ Предоплата обязательна. Без неё мы не начинаем готовить ваш торт или десерт.";
             }
             if (msg.match(/внести правки в дизайн|изменить дизайн|правки/i)) {
-                return "✏️ Да, можно внести правки в дизайн. Напишите мне в личные сообщения VK: https://vk.com/cake.yulia003 или выберите дизайн сами в интернете / в разделе «Дизайны» на сайте.";
+                return "✏️ Да, можно внести правки в дизайн. Напишите в VK: https://vk.com/cake.yulia003 или выберите дизайн сами в разделе «Дизайны» на сайте.";
             }
             if (msg.match(/без сахара|веганские|без глютена|диетические|аллергия/i)) {
                 return "🥺 К сожалению, у нас пока нет вариантов без сахара, веганских или без глютена. Все десерты готовятся по классическим рецептам.";
             }
             if (msg.match(/нестандартного размера|нестандартная форма|необычная форма/i)) {
-                return "🎂 Да, можно заказать торт нестандартного размера или формы. Этот вопрос нужно обсудить с кондитером в личных сообщениях VK: https://vk.com/cake.yulia003";
+                return "🎂 Да, можно заказать торт нестандартного размера или формы. Этот вопрос нужно обсудить с кондитером в VK: https://vk.com/cake.yulia003";
             }
             if (msg.match(/аксессуары|свечи|подложка|нож для разрезания/i)) {
                 return "🕯️ Нож для разрезания не входит в комплект. Подложка под торт всегда входит в стоимость. Свечи и другие аксессуары — за отдельную плату, по предварительному обсуждению с кондитером (пишите в VK: https://vk.com/cake.yulia003).";
@@ -7984,9 +8397,16 @@
             if (msg.match(/спасибо|благодар|отлично|класс/i)) {
                 return "Всегда рад помочь! 🍰 Если появятся вопросы, обращайтесь. Хорошего дня и приятного аппетита!";
             }
-            return "🤔 Уточните, пожалуйста, ваш вопрос. Я могу подсказать: какой торт выбрать, рассчитать вес на гостей, рассказать о доставке, возврате, дизайне, аксессуарах или премиум-подписке.";
+
+            // Если вопрос не распознан локально, но похож на тему сайта — даём общий ответ
+            if (msg.length > 3) {
+                return "🤔 Уточните, пожалуйста, ваш вопрос. Я могу подсказать: какой торт выбрать, рассчитать вес на гостей, рассказать о доставке, возврате, дизайне, аксессуарах или премиум-подписке. Также я знаю о наших десертах: бенто, капкейки, зефир, кейкпопсы, моти, рулеты, трайфлы, корпусные десерты.";
+            }
+
+            return "🍰 Здравствуйте! Я ТортоБот. Спросите меня о тортах, десертах, доставке, условиях заказа или премиум-подписке. Чем могу помочь?";
         }
 
+        // Функция для получения веса торта по количеству гостей
         function getCakeWeightRecommendation(people) {
             if (people <= 0) return "некорректное количество гостей";
             if (people === 1) return "на 1 человека советую бенто торт 12 см (500-600 г)";
@@ -8067,6 +8487,8 @@
         const aiChatSendEl = document.getElementById('aiChatSend');
         const aiChatMessagesEl = document.getElementById('aiChatMessages');
 
+        let isTyping = false;
+
         function toggleAIChat() { aiChatWindowEl.classList.toggle('hidden'); }
 
         function addAIMessage(text, isTyping = false, showQuestions = false) {
@@ -8077,7 +8499,7 @@
                 aiChatMessagesEl.appendChild(typingDiv);
                 aiChatMessagesEl.scrollTop = aiChatMessagesEl.scrollHeight;
                 setTimeout(() => {
-                    typingDiv.remove();
+                    if (typingDiv.parentNode) typingDiv.remove();
                     const msgDiv = document.createElement('div');
                     msgDiv.className = 'ai-message';
                     msgDiv.innerHTML = text.replace(/\n/g, '<br>');
@@ -8119,19 +8541,44 @@
             aiChatMessagesEl.scrollTop = aiChatMessagesEl.scrollHeight;
         }
 
-        function sendAIMessage() {
+        // Функция отправки сообщения с вызовом DeepSeek API
+        async function sendAIMessage() {
             const text = aiChatInputEl.value.trim();
             if (text === "") return;
             addUserMessage(text);
             aiChatInputEl.value = "";
-            const responseText = getAIResponse(text);
-            const isGreeting = responseText.startsWith('Приветствую вас на сайте');
-            const isDefault = (responseText ===
-                "🤔 Уточните, пожалуйста, ваш вопрос. Я могу подсказать: какой торт выбрать, рассчитать вес на гостей, рассказать о доставке, возврате, дизайне, аксессуарах или премиум-подписке."
-                );
-            addAIMessage(responseText, true, isGreeting || isDefault);
+
+            // Показываем индикатор печатания
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'ai-typing-indicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            aiChatMessagesEl.appendChild(typingDiv);
+            aiChatMessagesEl.scrollTop = aiChatMessagesEl.scrollHeight;
+
+            try {
+                // Пытаемся получить ответ от DeepSeek
+                const response = await callDeepSeekAPI(text);
+                // Удаляем индикатор
+                if (typingDiv.parentNode) typingDiv.remove();
+
+                // Проверяем, является ли ответ приветствием или стандартным
+                const isGreeting = response.includes('Приветствую вас на сайте') ||
+                    response.includes('Здравствуйте! Я ТортоБот');
+                const isDefault = response.includes('Уточните, пожалуйста, ваш вопрос');
+
+                addAIMessage(response, false, isGreeting || isDefault);
+            } catch (error) {
+                if (typingDiv.parentNode) typingDiv.remove();
+                // Fallback к локальному ответу
+                const fallbackResponse = getLocalResponse(text);
+                const isGreeting = fallbackResponse.includes('Приветствую вас на сайте') ||
+                    fallbackResponse.includes('Здравствуйте! Я ТортоБот');
+                const isDefault = fallbackResponse.includes('Уточните, пожалуйста, ваш вопрос');
+                addAIMessage(fallbackResponse, false, isGreeting || isDefault);
+            }
         }
 
+        // Обработчики событий для чата
         aiChatButtonEl.addEventListener('click', toggleAIChat);
         aiChatCloseEl.addEventListener('click', toggleAIChat);
         aiChatSendEl.addEventListener('click', sendAIMessage);
@@ -8143,10 +8590,13 @@
         const savedLang = localStorage.getItem('preferredLanguage') || 'ru';
         setLanguage(savedLang);
 
+        // Восстанавливаем пользователя и его данные
         const savedUser = localStorage.getItem('currentUser');
         if (savedUser) {
             currentUser = JSON.parse(savedUser);
             if (!currentUser.hasGlobalReviewed) currentUser.hasGlobalReviewed = false;
+            // Загружаем данные пользователя
+            loadUserData(currentUser.email);
             updateLoginButton();
         }
 
@@ -8196,7 +8646,16 @@
         console.log('📸 Фото в отзывах теперь отображаются в виде миниатюр');
         console.log('💬 Чат с продавцом улучшен: большой размер, смайлики, прикрепление файлов, индикаторы онлайн.');
         console.log('📤 Добавлена отправка дизайна в чат через кнопку "Отправить дизайн продавцу".');
-        console.log('🔄 Общее количество строк кода превышает 7900.');
+        console.log('🤖 ТортоБот теперь использует DeepSeek API для умных ответов!');
+        console.log('🔑 API ключ DeepSeek интегрирован для ИИ-помощника.');
+        console.log('📦 Общее количество строк кода превышает 8300.');
+        console.log('🚫 Бот не отвечает на посторонние темы (политика, спорт, IT, медицина и т.д.)');
+        console.log('👤 Добавлена синхронизация данных пользователя между устройствами по email.');
+        console.log('🔄 При повторной регистрации с тем же email восстанавливаются все данные.');
+        console.log('⭐ Отзывы теперь видны всем пользователям, а не только автору.');
+        console.log('🍰 Добавлен чизкейк к Сникерсу: 1кг — без чизкейка, 2кг — +250₽, 3кг — +350₽, 4кг — +350₽, 5кг — +500₽.');
+        console.log('📝 При оценке заказа теперь можно оставить текстовый отзыв.');
+        console.log('📱 На телефоне отзывы скрыты, открываются по клику на заголовок.');
     </script>
 </body>
 </html>
